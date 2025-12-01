@@ -50,6 +50,8 @@ export const GLOBAL = {
     MODAL_BACKDROP: SEMANTIC_COLORS.BACKGROUND_BLACK_BEHIND_MODAL,
     PAGE_HEADER_TEXT: SEMANTIC_COLORS.PAGE_HEADER_GREEN,
     ADDITEM_HEADER_TEXT: SEMANTIC_COLORS.ADDITEM_TEXT_GREEN,
+    MODAL_BG: 'hsl(215, 21%, 10.5%)',
+    MODULE_BG: 'hsl(215, 21%, 10.5%)',
 
     // Sidebar
     SIDEBAR_BG: SEMANTIC_COLORS.SIDEBAR_BLACK,
@@ -96,6 +98,9 @@ export const GLOBAL = {
 
 // Dashboard page
 export const DASHBOARD = {
+    // General
+    MODULE_BG: 'hsl(215, 21%, 9.5%)',
+
     // General Text Colors
     TEXT_GRAY_400: '#9ca3af',
     TEXT_GRAY_500: '#6b7280',
@@ -112,6 +117,7 @@ export const DASHBOARD = {
     ICON_IN_PROGRESS_HOVER: '#22c55e',
     ICON_COMPLETE: '#22c55e',
     ICON_COMPLETE_HOVER: '#6b7280',
+
     // Today's Assignments Box
     CLASS_ITEM_BG: '#161b22',
     CLASS_ITEM_HOVER_BG: '#1c2128'
@@ -120,7 +126,7 @@ export const DASHBOARD = {
 // Calendar page
 export const CALENDAR = {
     // General
-    BG_COLOR: '#161b22',
+    BG_COLOR: GLOBAL.MODULE_BG,
     BORDER_COLOR: '#30363d',
 
     // Header
@@ -189,7 +195,9 @@ export const CALENDAR = {
 }
 
 // My Assignments page
-export const MY_ASSIGNMENTS = {}
+export const MY_ASSIGNMENTS = {
+    BOARD_BG: GLOBAL.MODULE_BG
+}
 
 // My Classes page
 export const MY_CLASSES = {
@@ -197,6 +205,7 @@ export const MY_CLASSES = {
     CLASS_TEXT_THEME_HOVER: SEMANTIC_COLORS.CLASS_BLUE_DARK,
     CLASS_MODAL_BUTTON_BG: SEMANTIC_COLORS.CLASS_BLUE,
     CLASS_MODAL_BUTTON_BG_HOVER: SEMANTIC_COLORS.CLASS_BLUE_DARK,
+    CARD_BG: GLOBAL.MODULE_BG
 }
 
 // My Schedule page
@@ -204,9 +213,11 @@ export const MY_SCHEDULE = {
     REMOVE_BUTTON_BG: SEMANTIC_COLORS.DELETE_RED,
     REMOVE_BUTTON_BG_HOVER: SEMANTIC_COLORS.DELETE_RED_DARK,
     REMOVE_BUTTON_TEXT: SEMANTIC_COLORS.DELETE_TEXT_WHITE,
+    MODULE_BG: GLOBAL.MODULE_BG
 }
 
 // Settings page
 export const SETTINGS = {
     SCHEDULE_SETTINGS_HEADER: SEMANTIC_COLORS.CLASS_TEXT_BLUE,
+    MODULE_BG: GLOBAL.MODULE_BG
 }

@@ -1,10 +1,18 @@
 import React from 'react';
 import { Trash2 } from 'lucide-react';
 import { DangerZoneProps } from '@/pages/Settings/types';
+import { SETTINGS } from '@/app/styles/colors';
 
 const DangerZone: React.FC<DangerZoneProps> = ({ onClearData }) => {
     return (
-        <div className="high-contrast-card p-6 rounded-xl border border-red-900/50">
+        <div
+            className="p-6 rounded-xl"
+            style={{
+                backgroundColor: SETTINGS.MODULE_BG,
+                border: '1px solid #30363d',
+                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)',
+            }}
+        >
             <h2 className="text-xl font-bold text-red-400 mb-4">Danger Zone</h2>
             <p className="text-gray-400 mb-6">
                 This action will permanently delete all your assignments, classes, events, and schedule data.

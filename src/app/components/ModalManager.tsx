@@ -17,7 +17,7 @@ interface TypeSelectorModalProps {
 }
 
 const TypeSelectorModal: React.FC<TypeSelectorModalProps> = ({ onClose, openModal }) => (
-    <div className="high-contrast-card w-full max-w-sm p-6 rounded-xl">
+    <div className="w-full max-w-sm p-6 rounded-xl" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
         <h2 className="text-xl font-bold mb-4" style={{ color: GLOBAL.ADDITEM_HEADER_TEXT }}>What would you like to add?</h2>
         <div className="space-y-3">
             <button

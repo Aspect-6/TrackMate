@@ -5,7 +5,14 @@ import { GLOBAL, SETTINGS } from '@/app/styles/colors';
 
 const ScheduleSettings: React.FC<ScheduleSettingsProps> = ({ currentDayType, onSetDayType }) => {
     return (
-        <div className="high-contrast-card p-6 rounded-xl mb-6">
+        <div
+            className="p-6 rounded-xl mb-6"
+            style={{
+                backgroundColor: SETTINGS.MODULE_BG,
+                border: '1px solid #30363d',
+                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)',
+            }}
+        >
             <h2 className="text-xl font-bold mb-4 flex items-center" style={{ color: SETTINGS.SCHEDULE_SETTINGS_HEADER }}>
                 <Calendar className="w-6 h-6 mr-2" />
                 Schedule Settings

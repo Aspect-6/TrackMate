@@ -1,6 +1,7 @@
 import React from 'react';
 import { useApp } from '@/app/context/AppContext';
 import { DayType } from '@/app/types';
+import { MY_SCHEDULE } from '@/app/styles/colors';
 import DaySchedule from '@/pages/My Schedule/components/DaySchedule';
 import './index.css';
 
@@ -16,7 +17,14 @@ const Schedule: React.FC = () => {
     };
 
     return (
-        <div className="high-contrast-card p-6 rounded-xl min-h-[60vh]">
+        <div
+            className="p-6 rounded-xl min-h-[60vh]"
+            style={{
+                backgroundColor: MY_SCHEDULE.MODULE_BG,
+                border: '1px solid #30363d',
+                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)',
+            }}
+        >
             <div className="space-y-6">
                 <DaySchedule
                     title="A-Day Classes"

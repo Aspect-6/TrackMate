@@ -44,7 +44,7 @@ export const AddAssignmentModal: React.FC<ModalProps> = ({ onClose }) => {
     };
 
     return (
-        <div className="high-contrast-card w-full max-w-md p-6 rounded-xl">
+        <div className="w-full max-w-md p-6 rounded-xl" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
             <h2 className="text-xl font-bold mb-4" style={{ color: GLOBAL.ASSIGNMENT_HEADING_TEXT }}>Add New Assignment</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
@@ -153,7 +153,7 @@ export const EditAssignmentModal: React.FC<EditModalProps> = ({ onClose, assignm
     };
 
     return (
-        <div className="high-contrast-card w-full max-w-md p-6 rounded-xl">
+        <div className="w-full max-w-md p-6 rounded-xl" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
             <h2 className="text-xl font-bold mb-4" style={{ color: GLOBAL.ASSIGNMENT_HEADING_TEXT }}>Edit Assignment</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
@@ -268,7 +268,7 @@ export const DeleteAssignmentModal: React.FC<EditModalProps> = ({ onClose, assig
     };
 
     return (
-        <div className="high-contrast-card w-full max-w-md p-6 rounded-xl">
+        <div className="w-full max-w-md p-6 rounded-xl" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
             <h2 className="text-xl font-bold mb-4 text-red-400">Delete Assignment?</h2>
             <p className="text-gray-300 mb-4">
                 Are you sure you want to delete <strong>{assignmentToDelete.title}</strong>?

@@ -49,8 +49,12 @@ const Dashboard: React.FC = () => {
 
             {/* Assignment List */}
             <div 
-                className="high-contrast-card p-6 rounded-xl"
-                style={{ backgroundColor: '#161b22', borderColor: '#30363d' }}
+                className="border p-6 rounded-xl"
+                style={{ 
+                    backgroundColor: GLOBAL.MODULE_BG, 
+                    borderColor: '#30363d',
+                    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)'
+                }}
             >
                 <h2 className="text-xl font-bold mb-4" style={{ color: GLOBAL.ASSIGNMENT_HEADING_TEXT }}>Upcoming Assignments</h2>
                 <div className="space-y-3">

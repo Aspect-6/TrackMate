@@ -1,6 +1,7 @@
 import React from 'react';
 import { AssignmentColumnProps } from '@/pages/My Assignments/types';
 import AssignmentItem from '@/pages/My Assignments/components/AssignmentItem';
+import { MY_ASSIGNMENTS } from '@/app/styles/colors';
 
 const AssignmentColumn: React.FC<AssignmentColumnProps> = ({
     status,
@@ -30,7 +31,12 @@ const AssignmentColumn: React.FC<AssignmentColumnProps> = ({
 
     return (
         <div
-            className="assignments-col flex-1 rounded-xl p-4 flex flex-col"
+            className="assignments-col flex-1 rounded-xl p-4 flex flex-col border"
+            style={{ 
+                backgroundColor: MY_ASSIGNMENTS.BOARD_BG,
+                borderColor: '#30363d',
+                boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)'
+            }}
             onDragOver={onDragOver}
             onDrop={(e) => onDrop(e, status)}
         >

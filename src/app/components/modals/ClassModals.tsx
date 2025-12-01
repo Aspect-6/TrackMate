@@ -35,7 +35,7 @@ export const AddClassModal: React.FC<ModalProps> = ({ onClose }) => {
     };
 
     return (
-        <div className="high-contrast-card w-full max-w-md p-6 rounded-xl">
+        <div className="w-full max-w-md p-6 rounded-xl" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
             <h2 className="text-xl font-bold mb-4" style={{ color: MY_CLASSES.CLASS_TEXT_THEME }}>Add New Class</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
                 {/* Row 1: Class Name */}
@@ -135,7 +135,7 @@ export const EditClassModal: React.FC<ClassModalProps> = ({ onClose, classId }) 
     };
 
     return (
-        <div className="high-contrast-card w-full max-w-md p-6 rounded-xl">
+        <div className="w-full max-w-md p-6 rounded-xl" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
             <h2 className="text-xl font-bold mb-4" style={{ color: MY_CLASSES.CLASS_TEXT_THEME }}>Edit Class Details</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
                 {/* Row 1: Class Name */}
@@ -232,7 +232,7 @@ export const DeleteClassModal: React.FC<ClassModalProps> = ({ onClose, classId }
     };
 
     return (
-        <div className="high-contrast-card w-full max-w-md p-6 rounded-xl">
+        <div className="w-full max-w-md p-6 rounded-xl" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
             <h2 className="text-xl font-bold mb-4 text-red-400">Delete Class?</h2>
             <p className="text-gray-300 mb-4">
                 Are you sure you want to delete <strong>{classToDelete.name}</strong>? This will delete all assignments from this class.

@@ -26,7 +26,7 @@ export const ScheduleClassSelectorModal: React.FC<ScheduleModalProps> = ({ onClo
     const dayLabel = dayType === 'A' ? 'A-Day' : 'B-Day';
 
     return (
-        <div className="high-contrast-card w-full max-w-md p-6 rounded-xl">
+        <div className="w-full max-w-md p-6 rounded-xl" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
             <h2 className="text-xl font-bold mb-4" style={{ color: GLOBAL.ASSIGNMENT_HEADING_TEXT }}>
                 Select Class for {dayLabel} Period {index + 1}
             </h2>

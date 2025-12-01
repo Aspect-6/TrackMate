@@ -42,7 +42,7 @@ export const AddNoSchoolModal: React.FC<ModalProps> = ({ onClose }) => {
     };
 
     return (
-        <div className="high-contrast-card w-full max-w-md p-6 rounded-xl">
+        <div className="w-full max-w-md p-6 rounded-xl" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
             <h2 className="text-xl font-bold mb-4" style={{ color: GLOBAL.NOSCHOOL_HEADING_TEXT }}>Add No School Period</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
@@ -122,7 +122,7 @@ export const EditNoSchoolModal: React.FC<NoSchoolModalProps> = ({ onClose, noSch
     };
 
     return (
-        <div className="high-contrast-card w-full max-w-md p-6 rounded-xl">
+        <div className="w-full max-w-md p-6 rounded-xl" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
             <h2 className="text-xl font-bold mb-4" style={{ color: GLOBAL.NOSCHOOL_HEADING_TEXT }}>Edit No School Period</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
@@ -201,7 +201,7 @@ export const DeleteNoSchoolModal: React.FC<NoSchoolModalProps> = ({ onClose, noS
     };
 
     return (
-        <div className="high-contrast-card w-full max-w-md p-6 rounded-xl">
+        <div className="w-full max-w-md p-6 rounded-xl" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
             <h2 className="text-xl font-bold mb-4 text-red-400">Delete No School Period?</h2>
             <p className="text-gray-300 mb-4">
                 Are you sure you want to delete <strong>{periodToDelete.name}</strong>?
