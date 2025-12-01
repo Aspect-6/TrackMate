@@ -43,9 +43,8 @@ const AssignmentCard: React.FC<AssignmentCardProps> = ({ assignment }) => {
     return (
         <div
             onClick={() => openModal('edit-assignment', assignment.id)}
-            className="flex items-center p-4 rounded-lg border cursor-pointer hover:bg-[var(--card-hover-bg)] transition-colors group"
+            className="flex items-center p-4 rounded-lg border cursor-pointer hover:bg-[var(--card-hover-bg)] transition-colors group bg-[#161b22]"
             style={{
-                backgroundColor: '#161b22',
                 borderColor: '#30363d',
                 borderLeft: `4px solid ${classInfo?.color || '#30363d'}`,
                 '--card-hover-bg': '#1c2128'

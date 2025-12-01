@@ -70,6 +70,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
             ...c,
             teacherName: c.teacherName || '',
             roomNumber: c.roomNumber || '',
+            color: c.color || '#64748b', // Default color if not set
         }));
         setClasses(loadedClasses);
 
