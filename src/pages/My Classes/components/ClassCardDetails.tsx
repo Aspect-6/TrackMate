@@ -1,22 +1,79 @@
-import React from 'react';
-import { ClassCardDetailsProps } from '@/pages/Classes/types';
+import React, { useEffect, useMemo, useState } from 'react';
+import { ClassCardDetailsProps } from '@/pages/My Classes/types';
+
+const cssColorToHex = (value: string): string => {
+    if (typeof window === 'undefined') return value;
+    const canvas = document.createElement('canvas');
+    canvas.width = canvas.height = 1;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return value;
+    ctx.fillStyle = value;
+    const normalized = ctx.fillStyle;
+
+    if (normalized.startsWith('#')) {
+        if (normalized.length === 4) {
+            return `#${normalized[1]}${normalized[1]}${normalized[2]}${normalized[2]}${normalized[3]}${normalized[3]}`.toUpperCase();
+        }
+        if (normalized.length === 9) {
+            return normalized.slice(0, 7).toUpperCase();
+        }
+        return normalized.toUpperCase();
+    }
+
+    const rgbMatch = normalized.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/i);
+    if (!rgbMatch) return normalized.toUpperCase();
+
+    const toHex = (num: string) => {
+        const hex = Number(num).toString(16).padStart(2, '0');
+        return hex;
+    };
+
+    return `#${toHex(rgbMatch[1])}${toHex(rgbMatch[2])}${toHex(rgbMatch[3])}`.toUpperCase();
+};
 
 const ClassCardDetails: React.FC<ClassCardDetailsProps> = ({ teacherName, roomNumber, color }) => {
+    const [resolvedColor, setResolvedColor] = useState<string>('transparent');
+    const [colorLabel, setColorLabel] = useState<string>('N/A');
+
+    const resolveColorValue = useMemo(() => {
+        if (!color) return null;
+        const variableMatch = color.match(/var\((--[^)]+)\)/);
+        if (variableMatch && typeof window !== 'undefined') {
+            return getComputedStyle(document.documentElement)
+                .getPropertyValue(variableMatch[1])
+                .trim() || null;
+        }
+        return color;
+    }, [color]);
+
+    useEffect(() => {
+        if (!color) {
+            setResolvedColor('transparent');
+            setColorLabel('N/A');
+            return;
+        }
+
+        const usableColor = resolveColorValue || color;
+        const hex = cssColorToHex(usableColor);
+        setResolvedColor(usableColor);
+        setColorLabel(hex.startsWith('#') ? hex : usableColor.toUpperCase());
+    }, [color, resolveColorValue]);
+
     return (
         <div className="space-y-3">
             <div className="flex items-center text-sm">
-                <span className="w-24 text-gray-500">Instructor:</span>
-                <span className="text-gray-300 font-medium">{teacherName || 'N/A'}</span>
+                <span className="w-24 class-detail-label">Instructor:</span>
+                <span className="class-detail-value font-medium">{teacherName || 'N/A'}</span>
             </div>
             <div className="flex items-center text-sm">
-                <span className="w-24 text-gray-500">Room:</span>
-                <span className="text-gray-300 font-medium">{roomNumber || 'N/A'}</span>
+                <span className="w-24 class-detail-label">Room:</span>
+                <span className="class-detail-value font-medium">{roomNumber || 'N/A'}</span>
             </div>
             <div className="flex items-center text-sm">
-                <span className="w-24 text-gray-500">Color:</span>
+                <span className="w-24 class-detail-label">Color:</span>
                 <div className="flex items-center space-x-2">
-                    <div className="w-4 h-4 rounded-full border border-gray-600" style={{ backgroundColor: color }}></div>
-                    <span className="text-gray-400 text-xs uppercase">{color}</span>
+                    <div className="w-4 h-4 rounded-full class-color-swatch" style={{ backgroundColor: resolvedColor }}></div>
+                    <span className="class-detail-value text-xs uppercase">{colorLabel}</span>
                 </div>
             </div>
         </div>

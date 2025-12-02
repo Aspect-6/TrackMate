@@ -7,9 +7,13 @@ const ClassItem: React.FC<ClassItemProps> = ({ classInfo, period, openModal }) =
 
     return (
         <div
-            className="flex items-center justify-between p-3 class-card rounded-lg transition-colors cursor-pointer"
+            className="flex items-center justify-between p-3 class-card rounded-lg transition-colors cursor-pointer border"
             style={{
-                borderLeft: `4px solid ${classInfo.color}`,
+                borderColor: DASHBOARD.MODULE_BORDER,
+                boxShadow: DASHBOARD.CARD_SHADOW,
+                borderLeftWidth: '4px',
+                borderLeftStyle: 'solid',
+                borderLeftColor: classInfo.color,
                 backgroundColor: isHovered ? DASHBOARD.CLASS_ITEM_HOVER_BG : DASHBOARD.CLASS_ITEM_BG
             }}
             onMouseEnter={() => setIsHovered(true)}

@@ -1,0 +1,68 @@
+:root {
+    /* Primary webpage accent color */
+    --global-accent-hue: 158;
+
+    --modal-underlay-dark: hsla(0, 0%, 0%, 0.75);
+    --page-header-green: hsl(var(--global-accent-hue), 50%, 48%);
+    --focus-color: hsl(var(--global-accent-hue), 70%, 42%);
+}
+
+:root.dark {
+    /* General Colors */
+    --webpage-background-color: hsl(215, 28%, 7%);
+    --block-module-bg: hsl(215, 21%, 10.5%);
+
+    /* Header Menu Icon */
+    --header-menu-icon: hsl(215, 18%, 70%);
+    --header-menu-icon-hover: hsl(215, 28%, 90%);
+
+    /* Border Colors */
+    --border-primary: #30363d;
+    --border-secondary: #4b5563;
+    --border-light: #374151;
+    --page-header-divider: hsl(215, 24%, 20%);
+
+    /* Text Colors */
+    --text-primary: hsl(218, 0%, 90%);
+    --text-secondary: hsl(218, 11%, 65%);
+    --text-tertiary: hsl(218, 9%, 46%);
+    --text-muted: hsl(217, 19%, 27%);
+
+    /* Common Buttons */
+    --cancel-text: hsl(217, 20%, 60%);
+
+    /* Add Item Button Colors */
+    --additem-green: hsl(var(--global-accent-hue), 70%, 28%);
+    --additem-green-dark: hsl(var(--global-accent-hue), 70%, 23.5%);
+    --additem-text-green: hsl(var(--global-accent-hue), 70%, 37%);
+}
+
+:root.light {
+    /* General Colors */
+    --webpage-background-color: hsl(215, 36%, 93%);
+    --block-module-bg: hsl(215, 20%, 93.5%);
+
+    /* Header Menu Icon */
+    --header-menu-icon: hsl(215, 15%, 45%);
+    --header-menu-icon-hover: hsl(215, 25%, 28%);
+
+    /* Border Colors */
+    --border-primary: hsl(215, 20%, 85%);
+    --border-secondary: hsl(215, 20%, 80%);
+    --border-light: hsl(215, 20%, 88%);
+    --page-header-divider: hsl(215, 20%, 80%);
+
+    /* Text Colors */
+    --text-primary: hsl(215, 25%, 15%);
+    --text-secondary: hsl(215, 15%, 40%);
+    --text-tertiary: hsl(215, 15%, 60%);
+    --text-muted: hsl(215, 15%, 60%);
+
+    /* Common Buttons */
+    --cancel-text: hsl(217, 20%, 40%);
+
+    /* Add Item Button Colors */
+    --additem-green: hsl(var(--global-accent-hue), 50%, 55%);
+    --additem-green-dark: hsl(var(--global-accent-hue), 70%, 40%);
+    --additem-text-green: hsl(var(--global-accent-hue), 40%, 52%);
+}

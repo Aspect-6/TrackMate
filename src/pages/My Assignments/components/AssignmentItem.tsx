@@ -1,55 +1,101 @@
 import React from 'react';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import { GripVertical } from 'lucide-react';
 import { formatDate, cn } from '@/app/lib/utils';
 import { AssignmentItemProps } from '@/pages/My Assignments/types';
+import { MY_ASSIGNMENTS } from '@/app/styles/colors';
 
 const AssignmentItem: React.FC<AssignmentItemProps> = ({
     assignment,
-    isDragged,
-    onDragStart,
-    onDragEnd,
     onClick,
-    getClassById
+    getClassById,
+    dragEnabled
 }) => {
     const { id, title, dueDate, priority, classId } = assignment;
     const linkedClass = getClassById(classId);
-    const classColor = linkedClass ? linkedClass.color : '#4a5568';
+    const classColor = linkedClass ? linkedClass.color : MY_ASSIGNMENTS.TEXT_MUTED; // Fallback
     const className = linkedClass ? linkedClass.name : 'Unassigned';
+
+    const {
+        attributes,
+        listeners,
+        setNodeRef,
+        transform,
+        transition,
+        isDragging
+    } = useSortable({ id, disabled: !dragEnabled });
+
+    const dragStyle = {
+        transform: CSS.Transform.toString(transform),
+        transition: isDragging ? 'none' : transition,
+        willChange: 'transform',
+    };
 
     const getPriorityStyles = (p: string) => {
         switch (p) {
-            case 'High': return { className: 'bg-red-900 border-red-500 text-red-300' };
-            case 'Medium': return {
-                className: 'border text-yellow-400',
-                style: { backgroundColor: '#21262d', borderColor: '#30363d' }
+            case 'High': return {
+                backgroundColor: MY_ASSIGNMENTS.PRIORITY_HIGH_BG,
+                borderColor: MY_ASSIGNMENTS.PRIORITY_HIGH_BORDER,
+                color: MY_ASSIGNMENTS.PRIORITY_HIGH_TEXT
             };
-            case 'Low': return { className: 'bg-gray-800 border-gray-500 text-gray-300' };
-            default: return { className: 'bg-gray-700 border-gray-600 text-gray-400' };
+            case 'Medium': return {
+                backgroundColor: MY_ASSIGNMENTS.PRIORITY_MEDIUM_BG,
+                borderColor: MY_ASSIGNMENTS.PRIORITY_MEDIUM_BORDER,
+                color: MY_ASSIGNMENTS.PRIORITY_MEDIUM_TEXT
+            };
+            case 'Low': return {
+                backgroundColor: MY_ASSIGNMENTS.PRIORITY_LOW_BG,
+                borderColor: MY_ASSIGNMENTS.PRIORITY_LOW_BORDER,
+                color: MY_ASSIGNMENTS.PRIORITY_LOW_TEXT
+            };
+            default: return {
+                backgroundColor: MY_ASSIGNMENTS.ITEM_BG,
+                borderColor: MY_ASSIGNMENTS.BORDER_SECONDARY,
+                color: MY_ASSIGNMENTS.TEXT_MUTED
+            };
         }
     };
 
     const priorityStyle = getPriorityStyles(priority);
 
+    const cardStyle: React.CSSProperties = {
+        ...dragStyle,
+        borderColor: MY_ASSIGNMENTS.BORDER_PRIMARY,
+        borderLeftWidth: '4px',
+        borderLeftColor: classColor,
+        color: MY_ASSIGNMENTS.ITEM_TEXT,
+        boxShadow: MY_ASSIGNMENTS.ITEM_SHADOW,
+        '--card-bg': MY_ASSIGNMENTS.ITEM_BG,
+        '--card-hover-bg': MY_ASSIGNMENTS.ITEM_HOVER_BG,
+        touchAction: dragEnabled ? 'none' : 'auto',
+    } as React.CSSProperties;
+
+    const dragHandleProps = dragEnabled ? { ...attributes, ...listeners } : {};
+    const cursorClass = dragEnabled ? 'cursor-grab active:cursor-grabbing' : 'cursor-default';
+    const contentSpacingClass = dragEnabled ? 'flex gap-3' : 'flex';
+
     return (
         <div
-            draggable
-            onDragStart={(e) => onDragStart(e, id)}
-            onDragEnd={onDragEnd}
+            ref={setNodeRef}
+            style={cardStyle}
+            {...dragHandleProps}
             onClick={() => onClick(id)}
-            className={`assignments-item p-3 rounded-lg text-white shadow-md border-l-4 cursor-grab active:cursor-grabbing hover:bg-gray-700 transition-colors flex gap-3 ${isDragged ? 'opacity-40' : ''}`}
-            style={{ borderLeftColor: classColor }}
+            className={`assignments-item p-4 rounded-lg border border-l-4 ${cursorClass} bg-[var(--card-bg)] hover:bg-[var(--card-hover-bg)] transition-colors ${contentSpacingClass} ${isDragging ? 'opacity-40' : ''}`}
         >
-            <div className="flex items-center justify-center text-gray-600">
-                <GripVertical size={16} />
-            </div>
+            {dragEnabled && (
+                <div className="flex items-center justify-center text-gray-600" style={{ color: MY_ASSIGNMENTS.ITEM_SUBTEXT }}>
+                    <GripVertical size={16} />
+                </div>
+            )}
             <div className="flex-grow">
                 <p className="font-semibold text-sm mb-1">{title}</p>
                 <p className="text-xs mb-2" style={{ color: classColor, fontWeight: 600 }}>{className}</p>
                 <div className="flex justify-between items-center">
-                    <span className="text-xs font-medium text-gray-400">Due: {formatDate(dueDate)}</span>
+                    <span className="text-xs font-medium" style={{ color: MY_ASSIGNMENTS.ITEM_SUBTEXT }}>Due: {formatDate(dueDate)}</span>
                     <span
-                        className={cn("inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium", priorityStyle.className)}
-                        style={priorityStyle.style}
+                        className={cn("inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border")}
+                        style={priorityStyle}
                     >
                         {priority}
                     </span>

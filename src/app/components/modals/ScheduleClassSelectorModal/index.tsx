@@ -27,7 +27,7 @@ export const ScheduleClassSelectorModal: React.FC<ScheduleModalProps> = ({ onClo
 
     return (
         <div className="w-full max-w-md p-6 rounded-xl" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
-            <h2 className="text-xl font-bold mb-4" style={{ color: GLOBAL.ASSIGNMENT_HEADING_TEXT }}>
+            <h2 className="text-xl font-bold mb-4" style={{ color: GLOBAL.CLASS_BUTTON_TEXT }}>
                 Select Class for {dayLabel} Period {index + 1}
             </h2>
             <div className="space-y-2 max-h-60 overflow-y-auto">
@@ -43,7 +43,7 @@ export const ScheduleClassSelectorModal: React.FC<ScheduleModalProps> = ({ onClo
                     ))
                 )}
             </div>
-            <div className="flex justify-end space-x-3 pt-4 mt-4 border-t border-gray-700">
+            <div className="flex justify-end space-x-3 pt-4 mt-4" style={{ borderTop: `1px solid ${GLOBAL.BORDER_SECONDARY}` }}>
                 <button
                     onClick={onClose}
                     className="py-2 px-4 rounded-lg text-sm font-medium transition-colors"

@@ -12,6 +12,12 @@ if (!rootElement) {
   throw new Error('Root element not found');
 }
 
+// Apply the saved theme before React hydrates
+const savedTheme = localStorage.getItem('trackmateTheme');
+const initialTheme = savedTheme === 'dark' ? 'dark' : 'light';
+document.documentElement.classList.remove('light', 'dark');
+document.documentElement.classList.add(initialTheme);
+
 createRoot(rootElement).render(
   <StrictMode>
     <BrowserRouter>

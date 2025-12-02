@@ -19,7 +19,10 @@ const Sidebar: React.FC = () => {
             className="sidebar w-64 flex-shrink-0 border-r sticky top-0 h-screen py-8 hidden lg:block"
             style={{ backgroundColor: GLOBAL.SIDEBAR_BG, borderColor: GLOBAL.SIDEBAR_BORDER }}
         >
-            <h1 className="text-2xl font-black px-6 mb-8" style={{ color: GLOBAL.PAGE_HEADER_TEXT }}>{APP_NAME}</h1>
+            <h1 className="text-2xl font-black px-6 mb-6" style={{ color: GLOBAL.PAGE_HEADER_TEXT }}>{APP_NAME}</h1>
+            <div className="px-4">
+                <div className="border-t mb-3" style={{ borderColor: GLOBAL.SIDEBAR_BORDER }}></div>
+            </div>
             <div className="space-y-2 px-4">
                 {navItems.map((item) => (
                     <NavLink

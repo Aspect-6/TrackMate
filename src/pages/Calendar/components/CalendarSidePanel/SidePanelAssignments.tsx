@@ -9,20 +9,34 @@ const AssignmentItem = ({ assignment, getClassById, onAssignmentClick }: { assig
     const className = linkedClass ? linkedClass.name : 'Unassigned';
     const isDone = assignment.status === 'Done';
 
-    let priorityStyle = {};
-    if (isDone) {
-        priorityStyle = { 
-            backgroundColor: CALENDAR.STATUS_DONE_TAG_BG, 
-            color: CALENDAR.STATUS_DONE_TAG_TEXT, 
-            border: `1px solid ${CALENDAR.STATUS_DONE_TAG_BORDER}` 
+    const priorityStyle = (() => {
+        if (isDone) {
+            return {
+                backgroundColor: CALENDAR.STATUS_DONE_TAG_BG,
+                color: CALENDAR.STATUS_DONE_TAG_TEXT,
+                border: `1px solid ${CALENDAR.STATUS_DONE_TAG_BORDER}`
+            };
+        }
+        if (assignment.priority === 'High') {
+            return {
+                backgroundColor: CALENDAR.PRIORITY_HIGH_BG,
+                color: CALENDAR.PRIORITY_HIGH_TEXT,
+                border: `1px solid ${CALENDAR.PRIORITY_HIGH_BORDER}`
+            };
+        }
+        if (assignment.priority === 'Medium') {
+            return {
+                backgroundColor: CALENDAR.PRIORITY_MEDIUM_BG,
+                color: CALENDAR.PRIORITY_MEDIUM_TEXT,
+                border: `1px solid ${CALENDAR.PRIORITY_MEDIUM_BORDER}`
+            };
+        }
+        return {
+            backgroundColor: CALENDAR.PRIORITY_LOW_BG,
+            color: CALENDAR.PRIORITY_LOW_TEXT,
+            border: `1px solid ${CALENDAR.PRIORITY_LOW_BORDER}`
         };
-    } else if (assignment.priority === 'High') {
-        priorityStyle = { backgroundColor: CALENDAR.PRIORITY_HIGH_BG, color: CALENDAR.PRIORITY_HIGH_TEXT };
-    } else if (assignment.priority === 'Medium') {
-        priorityStyle = { backgroundColor: CALENDAR.PRIORITY_MEDIUM_BG, color: CALENDAR.PRIORITY_MEDIUM_TEXT };
-    } else {
-        priorityStyle = { backgroundColor: CALENDAR.PRIORITY_LOW_BG, color: CALENDAR.PRIORITY_LOW_TEXT };
-    }
+    })();
 
     return (
         <div

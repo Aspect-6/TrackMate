@@ -1,0 +1,62 @@
+/* My Schedule Page Variables */
+:root.dark {
+    --my-schedule-module-bg: var(--block-module-bg);
+    --my-schedule-module-border: var(--border-primary);
+    --my-schedule-module-shadow: 0 1px 3px rgba(0, 0, 0, 0.24), 0 1px 2px rgba(0, 0, 0, 0.48);
+    --my-schedule-text-header: #ffffff;
+    --my-schedule-card-bg: hsl(215, 21%, 15%);
+    --my-schedule-text-primary: #ffffff;
+    --my-schedule-text-secondary: #9ca3af;
+
+    --my-schedule-remove-button-bg: var(--delete-button-bg);
+    --my-schedule-remove-button-bg-hover: var(--delete-button-bg-hover);
+    --my-schedule-remove-button-text: var(--delete-text-white);
+
+    /* Empty Slot */
+    --my-schedule-empty-bg: hsl(215, 21%, 11%);
+    --my-schedule-empty-border: hsl(215, 14%, 34%);
+    --my-schedule-empty-border-hover: hsl(215, 11%, 65%);
+    --my-schedule-empty-text: hsl(215, 9%, 46%);
+    --my-schedule-empty-subtext: hsl(215, 14%, 34%);
+}
+
+:root.light {
+    --my-schedule-module-bg: var(--block-module-bg);
+    --my-schedule-module-border: var(--border-primary);
+    --my-schedule-module-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    --my-schedule-text-header: hsl(215, 25%, 15%);
+    --my-schedule-card-bg: #ffffff;
+    --my-schedule-text-primary: hsl(215, 25%, 15%);
+    --my-schedule-text-secondary: hsl(215, 15%, 40%);
+
+    --my-schedule-remove-button-bg: var(--delete-button-bg);
+    --my-schedule-remove-button-bg-hover: var(--delete-button-bg-hover);
+    --my-schedule-remove-button-text: var(--delete-text-white);
+
+    /* Empty Slot */
+    --my-schedule-empty-bg: hsl(215, 20%, 95%);
+    --my-schedule-empty-border: hsl(215, 20%, 84%);
+    --my-schedule-empty-border-hover: hsl(215, 20%, 70%);
+    --my-schedule-empty-text: hsl(215, 15%, 60%);
+    --my-schedule-empty-subtext: hsl(215, 15%, 80%);
+}
+
+.class-card {
+    background-color: var(--my-schedule-card-bg);
+    color: var(--my-schedule-text-primary);
+}
+
+.empty-slot {
+    background-color: var(--my-schedule-empty-bg);
+    border: 2px dashed var(--my-schedule-empty-border);
+    color: var(--my-schedule-empty-text);
+    transition: all 0.2s ease;
+}
+
+.empty-slot:hover {
+    border-color: var(--my-schedule-empty-border-hover);
+}
+
+.empty-slot-subtext {
+    color: var(--my-schedule-empty-subtext);
+}

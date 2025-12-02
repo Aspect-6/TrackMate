@@ -3,16 +3,22 @@ import { useApp } from '@/app/context/AppContext';
 import { todayString } from '@/app/lib/utils';
 import ScheduleSettings from '@/pages/Settings/components/ScheduleSettings';
 import DangerZone from '@/pages/Settings/components/DangerZone';
+import ThemeSettings from '@/pages/Settings/components/ThemeSettings';
 import './index.css';
 import { APP_NAME, CURRENT_APP_VERSION, DEVELOPER_NAME } from '@/app/config/brand';
 
 const Settings: React.FC = () => {
-    const { clearAllData, setReferenceDayType, getDayTypeForDate } = useApp();
+    const { clearAllData, setReferenceDayType, getDayTypeForDate, theme, setTheme: setThemeMode } = useApp();
     const today = todayString();
     const currentDayType = getDayTypeForDate(today);
 
     return (
         <div className="max-w-2xl mx-auto">
+            <ThemeSettings
+                currentTheme={theme}
+                onChangeTheme={setThemeMode}
+            />
+
             <ScheduleSettings 
                 currentDayType={currentDayType}
                 onSetDayType={setReferenceDayType}

@@ -6,42 +6,42 @@ import { GLOBAL, SETTINGS } from '@/app/styles/colors';
 const ScheduleSettings: React.FC<ScheduleSettingsProps> = ({ currentDayType, onSetDayType }) => {
     return (
         <div
-            className="p-6 rounded-xl mb-6"
+            className="settings-card p-5 sm:p-6 rounded-xl mb-6 space-y-4"
             style={{
                 backgroundColor: SETTINGS.MODULE_BG,
-                border: '1px solid #30363d',
-                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)',
+                border: `1px solid ${SETTINGS.MODULE_BORDER}`,
+                boxShadow: SETTINGS.MODULE_SHADOW,
             }}
         >
-            <h2 className="text-xl font-bold mb-4 flex items-center" style={{ color: SETTINGS.SCHEDULE_SETTINGS_HEADER }}>
+            <h2 className="text-lg sm:text-xl font-bold flex items-center gap-2" style={{ color: SETTINGS.SCHEDULE_SETTINGS_HEADER }}>
                 <Calendar className="w-6 h-6 mr-2" />
                 Schedule Settings
             </h2>
-            <p className="text-gray-400 mb-4">
+            <p className="text-sm sm:text-base" style={{ color: SETTINGS.BODY_TEXT }}>
                 Manually set the current day type to correct the A/B day rotation.
                 Future days will alternate based on this setting.
             </p>
 
             <div
-                className="flex items-center justify-between p-4 rounded-lg border mb-4"
-                style={{ backgroundColor: '#161b22', borderColor: '#30363d' }}
+                className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 rounded-lg border gap-2 sm:gap-0"
+                style={{ backgroundColor: SETTINGS.CARD_BG, borderColor: SETTINGS.CARD_BORDER }}
             >
-                <span className="text-gray-300">Current Calculation for Today:</span>
-                <span className={`font-bold ${currentDayType === 'A' ? 'text-violet-400' : currentDayType === 'B' ? 'text-blue-400' : 'text-gray-500'}`}>
+                <span style={{ color: GLOBAL.TEXT_SECONDARY }}>Current Calculation for Today:</span>
+                <span className={`font-bold ${currentDayType === 'A' ? 'text-day-a' : currentDayType === 'B' ? 'text-day-b' : 'text-gray-500'}`}>
                     {currentDayType ? `${currentDayType}-Day` : 'No School / Weekend'}
                 </span>
             </div>
 
-            <div className="flex gap-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full">
                 <button
                     onClick={() => onSetDayType('A')}
-                    className="flex-1 py-2 px-4 bg-violet-600 hover:bg-violet-700 text-white rounded-lg font-medium transition duration-150"
+                    className="w-full sm:flex-1 py-2 px-4 settings-button-a text-white rounded-lg font-medium"
                 >
                     Set Today as A-Day
                 </button>
                 <button
                     onClick={() => onSetDayType('B')}
-                    className="flex-1 py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition duration-150"
+                    className="w-full sm:flex-1 py-2 px-4 settings-button-b text-white rounded-lg font-medium"
                 >
                     Set Today as B-Day
                 </button>

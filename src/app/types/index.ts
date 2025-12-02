@@ -18,6 +18,11 @@ export type Status = 'To Do' | 'In Progress' | 'Done';
 export type DayType = 'A' | 'B' | null;
 
 /**
+ * UI theme preference applied to the root element.
+ */
+export type ThemeMode = 'light' | 'dark';
+
+/**
  * Represents a single school assignment.
  */
 export interface Assignment {
@@ -126,6 +131,10 @@ export interface AppContextType {
     noSchool: NoSchoolPeriod[];
     /** Current schedule configuration */
     schedule: Schedule;
+    /** Currently selected UI theme */
+    theme: ThemeMode;
+    /** Updates the active theme */
+    setTheme: (mode: ThemeMode) => void;
 
     // Assignment actions
     /** Adds a new assignment to the state */

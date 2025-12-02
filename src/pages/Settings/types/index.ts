@@ -1,4 +1,4 @@
-import { DayType } from '@/app/types';
+import { DayType, ThemeMode } from '@/app/types';
 
 export interface ScheduleSettingsProps {
     currentDayType: DayType;
@@ -7,4 +7,9 @@ export interface ScheduleSettingsProps {
 
 export interface DangerZoneProps {
     onClearData: () => void;
+}
+
+export interface ThemeSettingsProps {
+    currentTheme: ThemeMode;
+    onChangeTheme: (mode: ThemeMode) => void;
 }

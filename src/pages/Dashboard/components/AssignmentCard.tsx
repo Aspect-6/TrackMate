@@ -3,7 +3,7 @@ import { Assignment } from '@/app/types';
 import { useApp } from '@/app/context/AppContext';
 import { formatDate, cn } from '@/app/lib/utils';
 import { CheckCircle, Circle, Clock, PlayCircle } from 'lucide-react';
-import { 
+import {
     DASHBOARD
 } from '@/app/styles/colors';
 
@@ -31,29 +31,49 @@ const AssignmentCard: React.FC<AssignmentCardProps> = ({ assignment }) => {
             updateAssignment(assignment.id, { status: 'To Do' });
         }
     };
-    const getPriorityColor = (priority: string) => {
+
+    const getPriorityStyles = (priority: string) => {
         switch (priority) {
-            case 'High': return DASHBOARD.PRIORITY_HIGH;
-            case 'Medium': return DASHBOARD.PRIORITY_MEDIUM;
-            case 'Low': return DASHBOARD.PRIORITY_LOW;
-            default: return DASHBOARD.TEXT_GRAY_400;
+            case 'High': return {
+                backgroundColor: DASHBOARD.PRIORITY_HIGH_BG,
+                borderColor: DASHBOARD.PRIORITY_HIGH_BORDER,
+                color: DASHBOARD.PRIORITY_HIGH_TEXT
+            };
+            case 'Medium': return {
+                backgroundColor: DASHBOARD.PRIORITY_MEDIUM_BG,
+                borderColor: DASHBOARD.PRIORITY_MEDIUM_BORDER,
+                color: DASHBOARD.PRIORITY_MEDIUM_TEXT
+            };
+            case 'Low': return {
+                backgroundColor: DASHBOARD.PRIORITY_LOW_BG,
+                borderColor: DASHBOARD.PRIORITY_LOW_BORDER,
+                color: DASHBOARD.PRIORITY_LOW_TEXT
+            };
+            default: return {
+                backgroundColor: DASHBOARD.CARD_BG,
+                borderColor: DASHBOARD.MODULE_BORDER,
+                color: DASHBOARD.TEXT_GRAY_400
+            };
         }
     };
 
     return (
         <div
             onClick={() => openModal('edit-assignment', assignment.id)}
-            className="flex items-center p-4 rounded-lg border cursor-pointer hover:bg-[var(--card-hover-bg)] transition-colors group bg-[#161b22]"
+            className="assignment-card flex flex-col gap-3 p-3 sm:p-4 rounded-xl border cursor-pointer bg-[var(--card-bg)] hover:bg-[var(--card-hover-bg)] transition-colors group"
             style={{
-                borderColor: '#30363d',
-                borderLeft: `4px solid ${classInfo?.color || '#30363d'}`,
-                '--card-hover-bg': '#1c2128'
+                '--card-bg': DASHBOARD.CARD_BG,
+                borderColor: DASHBOARD.MODULE_BORDER,
+                borderLeftWidth: '4px',
+                borderLeftStyle: 'solid',
+                borderLeftColor: classInfo?.color || DASHBOARD.MODULE_BORDER,
+                '--card-hover-bg': DASHBOARD.CARD_HOVER_BG
             } as React.CSSProperties}
         >
-            <div className="mr-4">
+            <div className="flex items-start sm:items-center gap-3 sm:gap-4">
                 <button
                     onClick={handleAction}
-                    className="focus:outline-none transition-colors"
+                    className="focus:outline-none transition-colors flex-shrink-0 rounded-full border border-transparent p-1"
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
                     title={
@@ -75,22 +95,20 @@ const AssignmentCard: React.FC<AssignmentCardProps> = ({ assignment }) => {
                         <CheckCircle className="w-6 h-6" style={{ color: isHovered ? DASHBOARD.ICON_COMPLETE_HOVER : DASHBOARD.ICON_COMPLETE }} />
                     )}
                 </button>
-            </div>
 
-            <div className="flex-grow min-w-0 flex items-center justify-between">
-                <div className="min-w-0 flex-1 mr-4">
+                <div className="min-w-0 flex-1">
                     <h3 className={cn(
-                        "font-semibold truncate mb-1",
+                        "font-semibold truncate mb-1 text-base sm:text-lg",
                         assignment.status === 'Done' && "line-through"
                     )} style={{ color: assignment.status === 'Done' ? DASHBOARD.TEXT_GRAY_500 : DASHBOARD.TEXT_WHITE }}>
                         {assignment.title}
                     </h3>
 
-                    <div className="flex items-center text-sm" style={{ color: DASHBOARD.TEXT_GRAY_400 }}>
-                        <span className="font-medium mr-3" style={{ color: classInfo?.color }}>
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 text-sm" style={{ color: DASHBOARD.TEXT_GRAY_400 }}>
+                        <span className="font-medium" style={{ color: classInfo?.color }}>
                             {classInfo?.name || 'Unknown Class'}
                         </span>
-                        <div className="flex items-center">
+                        <div className="hidden sm:flex items-center text-sm">
                             <Clock className="w-3 h-3 mr-1" />
                             {formatDate(assignment.dueDate)}
                         </div>
@@ -98,8 +116,21 @@ const AssignmentCard: React.FC<AssignmentCardProps> = ({ assignment }) => {
                 </div>
 
                 <span
-                    className={cn("text-xs font-medium px-2 py-0.5 rounded-full border flex-shrink-0")}
-                    style={{ backgroundColor: '#0d1117', borderColor: '#30363d', color: getPriorityColor(assignment.priority) }}
+                    className={cn("hidden sm:inline-flex text-xs font-normal px-3 py-1 rounded-full border flex-shrink-0")}
+                    style={getPriorityStyles(assignment.priority)}
+                >
+                    {assignment.priority}
+                </span>
+            </div>
+
+            <div className="flex items-center justify-between sm:hidden gap-2">
+                <div className="flex items-center gap-1 text-xs" style={{ color: DASHBOARD.TEXT_GRAY_400 }}>
+                    <Clock className="w-3 h-3" />
+                    {formatDate(assignment.dueDate)}
+                </div>
+                <span
+                    className={cn("text-[11px] font-normal px-2 py-0.5 rounded-full border flex-shrink-0 self-end")}
+                    style={getPriorityStyles(assignment.priority)}
                 >
                     {assignment.priority}
                 </span>

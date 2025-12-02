@@ -1,232 +1,321 @@
-// Primary webpage accent color
-const GLOBAL_ACCENT = 158
 
-const SEMANTIC_COLORS = {
-    BACKGROUND_BLACK_BEHIND_MODAL:  'hsla(0, 0%, 0%, 0.75)',
-    PAGE_HEADER_GREEN:              `hsl(${GLOBAL_ACCENT}, 50%, 48%)`,
-
-    SIDEBAR_BLACK:                  'hsl(214, 20%, 8%)',
-    SIDEBAR_BORDER_BLACK:           'hsl(214, 20%, 21%)',
-    SIDEBAR_INACTIVE_TAB_LIGHT:     'hsl(214, 20%, 17%)',
-    SIDEBAR_ACTIVE_TAB_GREEN:       `hsl(${GLOBAL_ACCENT}, 70%, 28%)`,
-    SIDEBAR_TEXT_ACTIVE_WHITE:      'hsl(0, 0%, 100%)',
-    SIDEBAR_TEXT_INACTIVE_WHITE:    'hsl(216, 12%, 84%)',
-    SIDEBAR_INACTIVE_TAB_BLANK:     'transparent',
-    SIDEBAR_CLOSE_GRAY:             'hsl(218, 11%, 65%)',
-    SIDEBAR_CLOSE_GRAY_LIGHT:       'hsl(218, 11%, 80%)',
-
-    ADDITEM_GREEN:          `hsl(${GLOBAL_ACCENT}, 70%, 28%)`,
-    ADDITEM_GREEN_DARK:     `hsl(${GLOBAL_ACCENT}, 70%, 20%)`,
-    ADDITEM_TEXT_GREEN:     `hsl(${GLOBAL_ACCENT}, 40%, 42%)`,
-
-    ASSIGNMENT_ORANGE:      'hsl(30, 38%, 47%)',
-    ASSIGNMENT_ORANGE_DARK: 'hsl(30, 38%, 39%)',
-    ASSIGNMENT_TEXT_ORANGE: 'hsl(30, 38%, 47%)',
-
-    EVENT_GREEN:        'hsl(119, 20%, 42%)',
-    EVENT_GREEN_DARK:   'hsl(119, 20%, 34%)',
-    EVENT_TEXT_GREEN:   'hsl(119, 20%, 42%)',
-
-    NOSCHOOL_BLUE:      'hsl(203, 40%, 44%)',
-    NOSCHOOL_BLUE_DARK: 'hsl(203, 40%, 36%)',
-    NOSCHOOL_TEXT_BLUE: 'hsl(203, 40%, 44%)',
-
-    CLASS_BLUE:         'hsl(235, 50%, 54%)',
-    CLASS_BLUE_DARK:    'hsl(235, 50%, 46%)',
-    CLASS_TEXT_BLUE:    'hsl(235, 50%, 54%)',
-
-    CANCEL_GRAY:        'hsl(217, 20%, 27%)',
-    CANCEL_GRAY_DARK:   'hsl(217, 20%, 19%)',
-    CANCEL_TEXT_GRAY:   'hsl(217, 20%, 60%)',
-
-    DELETE_RED:         'hsl(0, 72%, 51%)',
-    DELETE_RED_DARK:    'hsl(0, 72%, 43%)',
-    DELETE_TEXT_WHITE:  'hsl(0, 0%, 100%)',
-}
 
 // Global Colors
 export const GLOBAL = {
     // General
-    MODAL_BACKDROP: SEMANTIC_COLORS.BACKGROUND_BLACK_BEHIND_MODAL,
-    PAGE_HEADER_TEXT: SEMANTIC_COLORS.PAGE_HEADER_GREEN,
-    ADDITEM_HEADER_TEXT: SEMANTIC_COLORS.ADDITEM_TEXT_GREEN,
-    MODAL_BG: 'hsl(215, 21%, 10.5%)',
-    MODULE_BG: 'hsl(215, 21%, 10.5%)',
+    BACKGROUND: 'var(--webpage-background-color)',
+    BLOCK_MODULE_BG: 'var(--block-module-bg)',
+    MODAL_BG: 'var(--block-module-bg)',
+    MODAL_BACKDROP: 'var(--modal-underlay-dark)',
+    PAGE_HEADER_TEXT: 'var(--page-header-green)',
+    ADDITEM_HEADER_TEXT: 'var(--additem-text-green)',
+
+    // Global Text Colors
+    TEXT_PRIMARY: 'var(--text-primary)',
+    TEXT_SECONDARY: 'var(--text-secondary)',
+    TEXT_TERTIARY: 'var(--text-tertiary)',
+    TEXT_MUTED: 'var(--text-muted)',
+    MODAL_DELETE_BODY: 'var(--modal-delete-body-text)',
+
+    // Global Border Colors
+    BORDER_PRIMARY: 'var(--border-primary)',
+    BORDER_SECONDARY: 'var(--border-secondary)',
+    BORDER_LIGHT: 'var(--border-light)',
+    HEADER_DIVIDER: 'var(--page-header-divider)',
+    HEADER_MENU_ICON: 'var(--header-menu-icon)',
+    HEADER_MENU_ICON_HOVER: 'var(--header-menu-icon-hover)',
 
     // Sidebar
-    SIDEBAR_BG: SEMANTIC_COLORS.SIDEBAR_BLACK,
-    SIDEBAR_BORDER: SEMANTIC_COLORS.SIDEBAR_BORDER_BLACK,
-    SIDEBAR_TEXT_INACTIVE: SEMANTIC_COLORS.SIDEBAR_TEXT_INACTIVE_WHITE,
-    SIDEBAR_TEXT_ACTIVE: SEMANTIC_COLORS.SIDEBAR_TEXT_ACTIVE_WHITE,
-    SIDEBAR_ACTIVE_TAB_GREEN_BG: SEMANTIC_COLORS.SIDEBAR_ACTIVE_TAB_GREEN,
-    SIDEBAR_INACTIVE_TAB_BLANK_BG: SEMANTIC_COLORS.SIDEBAR_INACTIVE_TAB_BLANK,
-    SIDEBAR_INACTIVE_TAB_BLANK_BG_HOVER: SEMANTIC_COLORS.SIDEBAR_INACTIVE_TAB_LIGHT,
-    SIDEBAR_CLOSE_ICON: SEMANTIC_COLORS.SIDEBAR_CLOSE_GRAY,
-    SIDEBAR_CLOSE_ICON_HOVER: SEMANTIC_COLORS.SIDEBAR_CLOSE_GRAY_LIGHT,
+    SIDEBAR_BG: 'var(--sidebar-background)',
+    SIDEBAR_BORDER: 'var(--sidebar-border)',
+    SIDEBAR_TEXT_INACTIVE: 'var(--sidebar-text-inactive)',
+    SIDEBAR_TEXT_ACTIVE: 'var(--sidebar-text-active)',
+    SIDEBAR_ACTIVE_TAB_GREEN_BG: 'var(--sidebar-active-tab-background)',
+    SIDEBAR_INACTIVE_TAB_BLANK_BG: 'var(--sidebar-inactive-tab-background)',
+    SIDEBAR_INACTIVE_TAB_BLANK_BG_HOVER: 'var(--sidebar-inactive-tab-contrast)',
+    SIDEBAR_CLOSE_ICON: 'var(--sidebar-close-icon)',
+    SIDEBAR_CLOSE_ICON_HOVER: 'var(--sidebar-close-icon-tap)',
 
     // Add Item button colors
-    ADDITEM_BUTTON_BG: SEMANTIC_COLORS.ADDITEM_GREEN,
-    ADDITEM_BUTTON_BG_HOVER: SEMANTIC_COLORS.ADDITEM_GREEN_DARK,
-    
+    ADDITEM_BUTTON_BG: 'var(--additem-green)',
+    ADDITEM_BUTTON_BG_HOVER: 'var(--additem-green-dark)',
+
     // Text colors
-    ASSIGNMENT_HEADING_TEXT: SEMANTIC_COLORS.ASSIGNMENT_TEXT_ORANGE,
-    EVENT_HEADING_TEXT: SEMANTIC_COLORS.EVENT_TEXT_GREEN,
-    NOSCHOOL_HEADING_TEXT: SEMANTIC_COLORS.NOSCHOOL_TEXT_BLUE,
-    CLASS_HEADING_TEXT: SEMANTIC_COLORS.CLASS_TEXT_BLUE,
+    ASSIGNMENT_HEADING_TEXT: 'var(--assignment-text-color)',
+    EVENT_HEADING_TEXT: 'var(--event-text-color)',
+    NOSCHOOL_HEADING_TEXT: 'var(--noschool-text-color)',
+    CLASS_HEADING_TEXT: 'var(--class-text-color)',
 
     // Assignment-related colors
-    ASSIGNMENT_BUTTON_BG: SEMANTIC_COLORS.ASSIGNMENT_ORANGE,
-    ASSIGNMENT_BUTTON_BG_HOVER: SEMANTIC_COLORS.ASSIGNMENT_ORANGE_DARK,
+    ASSIGNMENT_BUTTON_BG: 'var(--assignment-background)',
+    ASSIGNMENT_BUTTON_BG_HOVER: 'var(--assignment-background-hover)',
+    ASSIGNMENT_BUTTON_TEXT: 'var(--assignment-text-color)',
+
     // Event-related colors
-    EVENT_BUTTON_BG: SEMANTIC_COLORS.EVENT_GREEN,
-    EVENT_BUTTON_BG_HOVER: SEMANTIC_COLORS.EVENT_GREEN_DARK,
+    EVENT_BUTTON_BG: 'var(--event-background)',
+    EVENT_BUTTON_BG_HOVER: 'var(--event-background-hover)',
+    EVENT_BUTTON_TEXT: 'var(--event-text-color)',
+
     // No School-related colors
-    NOSCHOOL_BUTTON_BG: SEMANTIC_COLORS.NOSCHOOL_BLUE,
-    NOSCHOOL_BUTTON_BG_HOVER: SEMANTIC_COLORS.NOSCHOOL_BLUE_DARK,
+    NOSCHOOL_BUTTON_BG: 'var(--noschool-background)',
+    NOSCHOOL_BUTTON_BG_HOVER: 'var(--noschool-background-hover)',
+    NOSCHOOL_BUTTON_TEXT: 'var(--noschool-text-color)',
+
     // Class-related colors
-    CLASS_BUTTON_BG: SEMANTIC_COLORS.CLASS_BLUE,
-    CLASS_BUTTON_BG_HOVER: SEMANTIC_COLORS.CLASS_BLUE_DARK,
+    CLASS_BUTTON_BG: 'var(--class-background)',
+    CLASS_BUTTON_BG_HOVER: 'var(--class-background-hover)',
+    CLASS_BUTTON_TEXT: 'var(--class-text-color)',
+
     // Cancel button colors
-    CANCEL_BUTTON_BG: SEMANTIC_COLORS.CANCEL_GRAY,
-    CANCEL_BUTTON_BG_HOVER: SEMANTIC_COLORS.CANCEL_GRAY_DARK,
-    CANCEL_BUTTON_TEXT: SEMANTIC_COLORS.CANCEL_TEXT_GRAY,
+    CANCEL_BUTTON_BG: 'var(--cancel-button-background)',
+    CANCEL_BUTTON_BG_HOVER: 'var(--cancel-button-background-hover)',
+    CANCEL_BUTTON_TEXT: 'var(--cancel-text)',
+
     // Delete button colors
-    DELETE_BUTTON_BG: SEMANTIC_COLORS.DELETE_RED,
-    DELETE_BUTTON_BG_HOVER: SEMANTIC_COLORS.DELETE_RED_DARK,
-    DELETE_BUTTON_TEXT: SEMANTIC_COLORS.DELETE_TEXT_WHITE,
+    DELETE_BUTTON_BG: 'var(--delete-button-bg)',
+    DELETE_BUTTON_BG_HOVER: 'var(--delete-button-bg-hover)',
+    DELETE_BUTTON_TEXT: 'var(--delete-text-white)',
 }
 
 // Dashboard page
 export const DASHBOARD = {
+    ...GLOBAL,
     // General
-    MODULE_BG: 'hsl(215, 21%, 9.5%)',
+    MODULE_BG: 'var(--dashboard-module-bg)',
+    MODULE_BORDER: 'var(--dashboard-module-border)',
+    MODULE_SHADOW: 'var(--dashboard-module-shadow)',
+    CARD_BG: 'var(--dashboard-card-bg)',
+    CARD_HOVER_BG: 'var(--dashboard-card-hover-bg)',
+    CARD_SHADOW: 'var(--dashboard-card-shadow)',
+    BADGE_BG: 'var(--dashboard-badge-bg)',
 
     // General Text Colors
-    TEXT_GRAY_400: '#9ca3af',
-    TEXT_GRAY_500: '#6b7280',
-    TEXT_WHITE: '#ffffff',
-    NO_SCHOOL_TEXT: '#f87171',
+    TEXT_GRAY_400: 'var(--dashboard-text-gray-400)',
+    TEXT_GRAY_500: 'var(--dashboard-text-gray-500)',
+    TEXT_WHITE: 'var(--dashboard-text-white)',
+    NO_SCHOOL_TEXT: 'var(--dashboard-no-school-text)',
+
     // Priority Colors
-    PRIORITY_HIGH: '#f87171',
-    PRIORITY_MEDIUM: '#facc15',
-    PRIORITY_LOW: '#60a5fa',
+    PRIORITY_HIGH: 'var(--dashboard-priority-high)',
+    PRIORITY_MEDIUM: 'var(--dashboard-priority-medium)',
+    PRIORITY_LOW: 'var(--dashboard-priority-low)',
+
+    // Priority Badge Styles
+    PRIORITY_HIGH_BG: 'var(--dashboard-priority-high-bg)',
+    PRIORITY_HIGH_BORDER: 'var(--dashboard-priority-high-border)',
+    PRIORITY_HIGH_TEXT: 'var(--dashboard-priority-high-text)',
+
+    PRIORITY_MEDIUM_BG: 'var(--dashboard-priority-medium-bg)',
+    PRIORITY_MEDIUM_BORDER: 'var(--dashboard-priority-medium-border)',
+    PRIORITY_MEDIUM_TEXT: 'var(--dashboard-priority-medium-text)',
+
+    PRIORITY_LOW_BG: 'var(--dashboard-priority-low-bg)',
+    PRIORITY_LOW_BORDER: 'var(--dashboard-priority-low-border)',
+    PRIORITY_LOW_TEXT: 'var(--dashboard-priority-low-text)',
+
     // Icon Colors
-    ICON_PLAY_DEFAULT: '#6b7280',
-    ICON_PLAY_HOVER: '#a78bfa',
-    ICON_IN_PROGRESS: '#fb923c',
-    ICON_IN_PROGRESS_HOVER: '#22c55e',
-    ICON_COMPLETE: '#22c55e',
-    ICON_COMPLETE_HOVER: '#6b7280',
+    ICON_PLAY_DEFAULT: 'var(--dashboard-icon-play-default)',
+    ICON_PLAY_HOVER: 'var(--dashboard-icon-play-hover)',
+    ICON_IN_PROGRESS: 'var(--dashboard-icon-in-progress)',
+    ICON_IN_PROGRESS_HOVER: 'var(--dashboard-icon-in-progress-hover)',
+    ICON_COMPLETE: 'var(--dashboard-icon-complete)',
+    ICON_COMPLETE_HOVER: 'var(--dashboard-icon-complete-hover)',
 
     // Today's Assignments Box
-    CLASS_ITEM_BG: '#161b22',
-    CLASS_ITEM_HOVER_BG: '#1c2128',
+    CLASS_ITEM_BG: 'var(--dashboard-class-item-bg)',
+    CLASS_ITEM_HOVER_BG: 'var(--dashboard-class-item-hover-bg)',
     // Today's Events Box
-    EVENT_ITEM_BG: '#161b22',
-    EVENT_ITEM_HOVER_BG: '#1c2128'
+    EVENT_ITEM_BG: 'var(--dashboard-event-item-bg)',
+    EVENT_ITEM_HOVER_BG: 'var(--dashboard-event-item-hover-bg)'
 }
 
 // Calendar page
 export const CALENDAR = {
+    ...GLOBAL,
     // General
-    BG_COLOR: GLOBAL.MODULE_BG,
-    BORDER_COLOR: '#30363d',
+    BG_COLOR: 'var(--calendar-bg-color)',
+    BORDER_COLOR: 'var(--calendar-border-color)',
+    CONTAINER_SHADOW: 'var(--calendar-container-shadow)',
 
     // Header
-    HEADER_TEXT: '#ffffff',
-    HEADER_ICON: '#a78bfa',
-    HEADER_BUTTON_HOVER: '#374151',
+    HEADER_TEXT: 'var(--calendar-header-text)',
+    HEADER_ICON: 'var(--calendar-header-icon)',
+    HEADER_BUTTON_HOVER: 'var(--calendar-header-button-hover)',
 
-    // Headings
+    // Headings - Inherited/Aliased from Global in original, but we can override if needed. 
+    // They are already in GLOBAL, so no need to re-declare unless the value is different.
     ASSIGNMENT_HEADING: GLOBAL.ASSIGNMENT_HEADING_TEXT,
     EVENT_HEADING: GLOBAL.EVENT_HEADING_TEXT,
     CLASS_HEADING: GLOBAL.CLASS_HEADING_TEXT,
     NO_SCHOOL_HEADING: GLOBAL.NOSCHOOL_HEADING_TEXT,
 
     // Grid
-    GRID_BORDER: '#30363d',
-    DAY_HEADER_BG: '#111418',
-    DAY_HEADER_TEXT: '#9ca3af',
+    GRID_BORDER: 'var(--calendar-grid-border)',
+    DAY_HEADER_BG: 'var(--calendar-day-header-bg)',
+    DAY_HEADER_TEXT: 'var(--calendar-day-header-text)',
 
     // Day Cell
-    DAY_BG: 'transparent',
-    DAY_BG_HOVER: '#374151',
-    DAY_INACTIVE_BG: '#0d1117',
-    DAY_INACTIVE_TEXT: '#4b5563',
-    DAY_NUMBER_TEXT: '#d1d5db',
+    DAY_BG: 'var(--calendar-day-bg)',
+    DAY_BG_HOVER: 'var(--calendar-day-bg-hover)',
+    DAY_INACTIVE_BG: 'var(--calendar-day-inactive-bg)',
+    DAY_INACTIVE_TEXT: 'var(--calendar-day-inactive-text)',
+    DAY_NUMBER_TEXT: 'var(--calendar-day-number-text)',
 
     // Today
-    TODAY_BG: '#22252a',
-    TODAY_BORDER: SEMANTIC_COLORS.SIDEBAR_ACTIVE_TAB_GREEN,
+    TODAY_BG: 'var(--calendar-today-bg)',
+    TODAY_BORDER: 'var(--calendar-today-border)',
 
     // No School
-    NO_SCHOOL_BG: 'rgba(55, 65, 81, 0.3)',
-    NO_SCHOOL_BORDER: 'rgba(75, 85, 99, 0.4)',
-    NO_SCHOOL_TEXT: '#9ca3af',
+    NO_SCHOOL_BG: 'var(--calendar-no-school-bg)',
+    NO_SCHOOL_BORDER: 'var(--calendar-no-school-border)',
+    NO_SCHOOL_TEXT: 'var(--calendar-no-school-text)',
+    NO_SCHOOL_PATTERN: 'var(--calendar-no-school-pattern)',
 
     // Side Panel
-    SIDE_PANEL_BG: '#1f2937',
-    SIDE_PANEL_BORDER: '#374151',
-    SIDE_PANEL_TEXT: '#ffffff',
-    SIDE_PANEL_DIM_TEXT: '#9ca3af',
-    SIDE_PANEL_CLOSE_ICON: '#9ca3af',
-    SIDE_PANEL_CLOSE_ICON_HOVER: '#ffffff',
+    SIDE_PANEL_BG: 'var(--calendar-side-panel-bg)',
+    SIDE_PANEL_BORDER: 'var(--calendar-side-panel-border)',
+    SIDE_PANEL_TEXT: 'var(--calendar-side-panel-text)',
+    SIDE_PANEL_DIM_TEXT: 'var(--calendar-side-panel-dim-text)',
+    SIDE_PANEL_CLOSE_ICON: 'var(--calendar-side-panel-close-icon)',
+    SIDE_PANEL_CLOSE_ICON_HOVER: 'var(--calendar-side-panel-close-icon-hover)',
 
     // Side Panel - Items
-    ITEM_BG: '#374151',
-    ITEM_BG_HOVER: '#4b5563',
+    ITEM_BG: 'var(--calendar-item-bg)',
+    ITEM_BG_HOVER: 'var(--calendar-item-bg-hover)',
 
     // Day Types
-    A_DAY_TEXT: '#c4b5fd',
-    B_DAY_TEXT: '#93c5fd',
+    A_DAY_TEXT: 'var(--calendar-a-day-text)',
+    B_DAY_TEXT: 'var(--calendar-b-day-text)',
 
     // Priorities & Status
-    PRIORITY_HIGH_BG: '#7f1d1d',
-    PRIORITY_HIGH_TEXT: '#fca5a5',
-    PRIORITY_MEDIUM_BG: '#7c2d12',
-    PRIORITY_MEDIUM_TEXT: '#fdba74',
-    PRIORITY_LOW_BG: '#1f2937',
-    PRIORITY_LOW_TEXT: '#d1d5db',
+    PRIORITY_HIGH_BG: 'var(--calendar-priority-high-bg)',
+    PRIORITY_HIGH_BORDER: 'var(--calendar-priority-high-border)',
+    PRIORITY_HIGH_TEXT: 'var(--calendar-priority-high-text)',
+    PRIORITY_MEDIUM_BG: 'var(--calendar-priority-medium-bg)',
+    PRIORITY_MEDIUM_BORDER: 'var(--calendar-priority-medium-border)',
+    PRIORITY_MEDIUM_TEXT: 'var(--calendar-priority-medium-text)',
+    PRIORITY_LOW_BG: 'var(--calendar-priority-low-bg)',
+    PRIORITY_LOW_BORDER: 'var(--calendar-priority-low-border)',
+    PRIORITY_LOW_TEXT: 'var(--calendar-priority-low-text)',
 
-    STATUS_DONE_TEXT: '#9ca3af',
-    STATUS_DONE_TAG_BG: '#374151',
-    STATUS_DONE_TAG_TEXT: 'rgba(34, 197, 94, 0.6)',
-    STATUS_DONE_TAG_BORDER: 'rgba(34, 197, 94, 0.6)',
+    STATUS_DONE_TEXT: 'var(--calendar-status-done-text)',
+    STATUS_DONE_TAG_BG: 'var(--calendar-status-done-tag-bg)',
+    STATUS_DONE_TAG_TEXT: 'var(--calendar-status-done-tag-text)',
+    STATUS_DONE_TAG_BORDER: 'var(--calendar-status-done-tag-border)',
 
     // Default Class Color
-    DEFAULT_CLASS_COLOR: '#8957e5',
+    DEFAULT_CLASS_COLOR: 'var(--calendar-default-class-color)',
 }
 
 // My Assignments page
 export const MY_ASSIGNMENTS = {
-    BOARD_BG: GLOBAL.MODULE_BG
+    ...GLOBAL,
+    BOARD_BG: 'var(--my-assignments-board-bg)',
+    COLUMN_BORDER: 'var(--my-assignments-column-border)',
+    COLUMN_SHADOW: 'var(--my-assignments-column-shadow)',
+
+    HEADER_TEXT_TODO: 'var(--my-assignments-header-todo)',
+    HEADER_TEXT_INPROGRESS: 'var(--my-assignments-header-inprogress)',
+    HEADER_TEXT_DONE: 'var(--my-assignments-header-done)',
+    COUNT_BORDER_TODO: 'var(--my-assignments-count-border-todo)',
+    COUNT_BORDER_INPROGRESS: 'var(--my-assignments-count-border-inprogress)',
+    COUNT_BORDER_DONE: 'var(--my-assignments-count-border-done)',
+
+    ITEM_BG: 'var(--my-assignments-item-bg)',
+    ITEM_HOVER_BG: 'var(--my-assignments-item-hover-bg)',
+    ITEM_TEXT: 'var(--my-assignments-item-text)',
+    ITEM_SUBTEXT: 'var(--my-assignments-item-subtext)',
+    ITEM_SHADOW: 'var(--my-assignments-item-shadow)',
+
+    PRIORITY_HIGH_BG: 'var(--my-assignments-priority-high-bg)',
+    PRIORITY_HIGH_BORDER: 'var(--my-assignments-priority-high-border)',
+    PRIORITY_HIGH_TEXT: 'var(--my-assignments-priority-high-text)',
+
+    PRIORITY_MEDIUM_BG: 'var(--my-assignments-priority-medium-bg)',
+    PRIORITY_MEDIUM_BORDER: 'var(--my-assignments-priority-medium-border)',
+    PRIORITY_MEDIUM_TEXT: 'var(--my-assignments-priority-medium-text)',
+
+    PRIORITY_LOW_BG: 'var(--my-assignments-priority-low-bg)',
+    PRIORITY_LOW_BORDER: 'var(--my-assignments-priority-low-border)',
+    PRIORITY_LOW_TEXT: 'var(--my-assignments-priority-low-text)',
 }
 
 // My Classes page
 export const MY_CLASSES = {
-    CLASS_TEXT_THEME: SEMANTIC_COLORS.CLASS_TEXT_BLUE,
-    CLASS_TEXT_THEME_HOVER: SEMANTIC_COLORS.CLASS_BLUE_DARK,
-    CLASS_MODAL_BUTTON_BG: SEMANTIC_COLORS.CLASS_BLUE,
-    CLASS_MODAL_BUTTON_BG_HOVER: SEMANTIC_COLORS.CLASS_BLUE_DARK,
-    CLASS_CARD_BG: GLOBAL.MODULE_BG,
+    ...GLOBAL,
+    CLASS_TEXT_THEME: 'var(--my-classes-text-theme)',
+    CLASS_TEXT_THEME_HOVER: 'var(--my-classes-text-theme-hover)',
+    CLASS_MODAL_BUTTON_BG: 'var(--my-classes-modal-button-bg)',
+    CLASS_MODAL_BUTTON_BG_HOVER: 'var(--my-classes-modal-button-bg-hover)',
+    CLASS_CARD_BG: 'var(--my-classes-card-bg)',
+    CARD_HOVER_BG: 'var(--my-classes-card-hover-bg)',
+
+    BORDER: 'var(--my-classes-border)',
+    SHADOW: 'var(--my-classes-shadow)',
+    DRAGGING_BORDER: 'var(--my-classes-dragging-border)',
+    HOVER_BORDER: 'var(--my-classes-hover-border)',
+
+    TEXT_HEADER: 'var(--my-classes-text-header)',
+    TEXT_HEADER_HOVER: 'var(--my-classes-text-header-hover)',
+    TEXT_LABEL: 'var(--my-classes-text-label)',
+    TEXT_VALUE: 'var(--my-classes-text-value)',
+
+    ICON_COLOR: 'var(--my-classes-icon-color)',
+    ICON_HOVER: 'var(--my-classes-icon-hover)',
+    ICON_DELETE_HOVER: 'var(--my-classes-icon-delete-hover)',
+
     CLASS_COLORS: [
-        'hsl(0, 75%, 57%)', 'hsl(10, 75%, 57%)', 'hsl(25, 75%, 57%)', 'hsl(38, 75%, 57%)',
-        'hsl(47, 75%, 57%)', 'hsl(142, 75%, 57%)', 'hsl(173, 75%, 57%)', 'hsl(199, 75%, 57%)',
-        'hsl(217, 75%, 57%)', 'hsl(239, 75%, 57%)', 'hsl(258, 75%, 57%)', 'hsl(292, 75%, 57%)',
-        'hsl(330, 75%, 57%)',
+        'var(--class-color-1)', 'var(--class-color-2)', 'var(--class-color-3)', 'var(--class-color-4)',
+        'var(--class-color-5)', 'var(--class-color-6)', 'var(--class-color-7)', 'var(--class-color-8)',
+        'var(--class-color-9)', 'var(--class-color-10)', 'var(--class-color-11)', 'var(--class-color-12)',
+        'var(--class-color-13)',
     ]
 }
 
 // My Schedule page
 export const MY_SCHEDULE = {
-    REMOVE_BUTTON_BG: SEMANTIC_COLORS.DELETE_RED,
-    REMOVE_BUTTON_BG_HOVER: SEMANTIC_COLORS.DELETE_RED_DARK,
-    REMOVE_BUTTON_TEXT: SEMANTIC_COLORS.DELETE_TEXT_WHITE,
-    MODULE_BG: GLOBAL.MODULE_BG
+    ...GLOBAL,
+    MODULE_BG: 'var(--my-schedule-module-bg)',
+    MODULE_BORDER: 'var(--my-schedule-module-border)',
+    MODULE_SHADOW: 'var(--my-schedule-module-shadow)',
+    TEXT_HEADER: 'var(--my-schedule-text-header)',
+
+    REMOVE_BUTTON_BG: GLOBAL.DELETE_BUTTON_BG,
+    REMOVE_BUTTON_BG_HOVER: GLOBAL.DELETE_BUTTON_BG_HOVER,
+    REMOVE_BUTTON_TEXT: GLOBAL.DELETE_BUTTON_TEXT,
+
+    CARD_BG: 'var(--my-schedule-card-bg)',
+    TEXT_PRIMARY: 'var(--my-schedule-text-primary)',
+    TEXT_SECONDARY: 'var(--my-schedule-text-secondary)',
+
+    EMPTY_BG: 'var(--my-schedule-empty-bg)',
+    EMPTY_BORDER: 'var(--my-schedule-empty-border)',
+    EMPTY_BORDER_HOVER: 'var(--my-schedule-empty-border-hover)',
+    EMPTY_TEXT: 'var(--my-schedule-empty-text)',
+    EMPTY_SUBTEXT: 'var(--my-schedule-empty-subtext)',
 }
 
 // Settings page
 export const SETTINGS = {
-    SCHEDULE_SETTINGS_HEADER: SEMANTIC_COLORS.CLASS_TEXT_BLUE,
-    MODULE_BG: GLOBAL.MODULE_BG
+    ...GLOBAL,
+    MODULE_BG: 'var(--settings-module-bg)',
+    MODULE_BORDER: 'var(--settings-module-border)',
+    MODULE_SHADOW: 'var(--settings-module-shadow)',
+    SCHEDULE_SETTINGS_HEADER: 'var(--settings-schedule-header)',
+    BODY_TEXT: 'var(--settings-body-text)',
+
+    CARD_BG: 'var(--settings-card-bg)',
+    CARD_BORDER: 'var(--settings-card-border)',
+
+    TEXT_DANGER: 'var(--settings-text-danger)',
+    BUTTON_DANGER_BG: 'var(--settings-button-danger-bg)',
+    BUTTON_DANGER_HOVER: 'var(--settings-button-danger-hover)',
+    BUTTON_DANGER_TEXT: 'var(--settings-button-danger-text)',
+
+    BUTTON_A_BG: 'var(--settings-button-a-bg)',
+    BUTTON_A_HOVER: 'var(--settings-button-a-hover)',
+    BUTTON_B_BG: 'var(--settings-button-b-bg)',
+    BUTTON_B_HOVER: 'var(--settings-button-b-hover)',
+    TEXT_A: 'var(--settings-text-a)',
+    TEXT_B: 'var(--settings-text-b)',
 }

@@ -1,156 +1,201 @@
-/* Calendar Page Styles */
+/* Calendar Page Variables */
+:root.dark {
+    /* General */
+    --calendar-bg-color: var(--block-module-bg);
+    --calendar-border-color: var(--border-primary);
+    --calendar-container-shadow: 0 10px 24px rgba(0, 0, 0, 0.28), 0 3px 10px rgba(0, 0, 0, 0.32);
+
+    /* Header */
+    --calendar-header-text: #ffffff;
+    --calendar-header-icon: var(--focus-color);
+    --calendar-header-button-hover: #374151;
+
+    /* Grid */
+    --calendar-grid-border: var(--border-primary);
+    --calendar-day-header-bg: #111418;
+    --calendar-day-header-text: #9ca3af;
+
+    /* Day Cell */
+    --calendar-day-bg: transparent;
+    --calendar-day-bg-hover: #374151;
+    --calendar-day-inactive-bg: #0d1117;
+    --calendar-day-inactive-text: #4b5563;
+    --calendar-day-number-text: #d1d5db;
+
+    /* Today */
+    --calendar-today-bg: #22252a;
+    --calendar-today-border: var(--sidebar-active-tab-background);
+
+    /* No School */
+    --calendar-no-school-bg: #111418;
+    --calendar-no-school-border: #1f242c;
+    --calendar-no-school-text: #6b7280;
+    --calendar-no-school-pattern: repeating-linear-gradient(
+        140deg,
+        rgba(255, 255, 255, 0.04) 0px,
+        rgba(255, 255, 255, 0.04) 12px,
+        transparent 12px,
+        transparent 24px
+    );
+
+    /* Side Panel */
+    --calendar-side-panel-bg: #1f2937;
+    --calendar-side-panel-border: var(--border-secondary);
+    --calendar-side-panel-text: #ffffff;
+    --calendar-side-panel-dim-text: #9ca3af;
+    --calendar-side-panel-close-icon: #9ca3af;
+    --calendar-side-panel-close-icon-hover: #ffffff;
+
+    /* Side Panel - Items */
+    --calendar-item-bg: #374151;
+    --calendar-item-bg-hover: #4b5563;
+
+    /* Day Types */
+    --calendar-a-day-text: #c4b5fd;
+    --calendar-b-day-text: #93c5fd;
+
+    /* Priorities & Status */
+    --calendar-priority-high-bg: rgba(248, 113, 113, 0.15);
+    --calendar-priority-high-border: rgba(248, 113, 113, 0.4);
+    --calendar-priority-high-text: #fca5a5;
+    --calendar-priority-medium-bg: rgba(250, 204, 21, 0.15);
+    --calendar-priority-medium-border: rgba(250, 204, 21, 0.4);
+    --calendar-priority-medium-text: #fde047;
+    --calendar-priority-low-bg: rgba(96, 165, 250, 0.15);
+    --calendar-priority-low-border: rgba(96, 165, 250, 0.4);
+    --calendar-priority-low-text: #93c5fd;
+
+    --calendar-status-done-text: #9ca3af;
+    --calendar-status-done-tag-bg: #374151;
+    --calendar-status-done-tag-text: rgba(34, 197, 94, 0.6);
+    --calendar-status-done-tag-border: rgba(34, 197, 94, 0.6);
+
+    /* Default Class Color */
+    --calendar-default-class-color: #8957e5;
+}
+
+:root.light {
+    /* General */
+    --calendar-bg-color: var(--block-module-bg);
+    --calendar-border-color: var(--border-primary);
+    --calendar-container-shadow: 0 12px 28px rgba(15, 23, 42, 0.14), 0 4px 12px rgba(15, 23, 42, 0.1);
+
+    /* Header */
+    --calendar-header-text: hsl(215, 25%, 15%);
+    --calendar-header-icon: var(--focus-color);
+    --calendar-header-button-hover: hsl(215, 20%, 90%);
+
+    /* Grid */
+    --calendar-grid-border: var(--border-primary);
+    --calendar-day-header-bg: hsl(215, 25%, 96%);
+    --calendar-day-header-text: hsl(215, 15%, 40%);
+
+    /* Day Cell */
+    --calendar-day-bg: transparent;
+    --calendar-day-bg-hover: hsl(215, 20%, 92%);
+    --calendar-day-inactive-bg: hsl(215, 20%, 97%);
+    --calendar-day-inactive-text: hsl(215, 15%, 60%);
+    --calendar-day-number-text: hsl(215, 25%, 25%);
+
+    /* Today */
+    --calendar-today-bg: hsl(215, 25%, 94%);
+    --calendar-today-border: var(--sidebar-active-tab-background);
+
+    /* No School */
+    --calendar-no-school-bg: rgba(225, 235, 245, 0.55);
+    --calendar-no-school-border: rgba(185, 195, 205, 0.6);
+    --calendar-no-school-text: hsl(215, 15%, 40%);
+    --calendar-no-school-pattern: repeating-linear-gradient(
+        140deg,
+        rgba(140, 160, 180, 0.14) 0px,
+        rgba(140, 160, 180, 0.14) 12px,
+        transparent 12px,
+        transparent 24px
+    );
+
+    /* Side Panel */
+    --calendar-side-panel-bg: hsl(215, 25%, 96%);
+    --calendar-side-panel-border: var(--border-primary);
+    --calendar-side-panel-text: hsl(215, 25%, 15%);
+    --calendar-side-panel-dim-text: hsl(215, 15%, 40%);
+    --calendar-side-panel-close-icon: hsl(215, 15%, 40%);
+    --calendar-side-panel-close-icon-hover: hsl(215, 25%, 15%);
+
+    /* Side Panel - Items */
+    --calendar-item-bg: hsl(215, 20%, 92%);
+    --calendar-item-bg-hover: hsl(215, 20%, 88%);
+
+    /* Day Types */
+    --calendar-a-day-text: hsl(260, 60%, 50%);
+    --calendar-b-day-text: hsl(215, 60%, 50%);
+
+    /* Priorities & Status */
+    --calendar-priority-high-bg: hsl(0, 70%, 95%);
+    --calendar-priority-high-border: hsl(0, 70%, 60%);
+    --calendar-priority-high-text: hsl(0, 70%, 40%);
+    --calendar-priority-medium-bg: hsl(40, 80%, 95%);
+    --calendar-priority-medium-border: hsl(40, 80%, 60%);
+    --calendar-priority-medium-text: hsl(40, 80%, 40%);
+    --calendar-priority-low-bg: hsl(215, 80%, 95%);
+    --calendar-priority-low-border: hsl(215, 80%, 70%);
+    --calendar-priority-low-text: hsl(215, 80%, 45%);
+
+    --calendar-status-done-text: hsl(215, 15%, 40%);
+    --calendar-status-done-tag-bg: hsl(215, 20%, 90%);
+    --calendar-status-done-tag-text: hsl(142, 60%, 35%);
+    --calendar-status-done-tag-border: hsl(142, 60%, 35%);
+
+    /* Default Class Color */
+    --calendar-default-class-color: hsl(270, 70%, 55%);
+}
 
 /* Calendar Grid Layout */
-.calendar-page #calendar-grid {
+#calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: auto repeat(6, 1fr);
-    border-left: 1px solid #30363d;
-    border-top: 1px solid #30363d;
-    min-width: 100%;
+    height: 100%;
+    border-left: 1px solid var(--calendar-grid-border);
+    border-top: 1px solid var(--calendar-grid-border);
+}
+
+.calendar-container {
+    display: flex;
+    flex-direction: column;
     height: 100%;
 }
 
-@media (max-width: 768px) {
-    .calendar-page #calendar-grid {
-        font-size: 14px;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        grid-template-rows: auto;
-        height: 100%;
-        min-height: 100%;
-    }
-
-    .calendar-page .calendar-container {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        border-radius: 8px;
-    }
+/* Calendar day cells */
+#calendar-grid>div {
+    min-height: 0;
+    overflow-y: auto;
 }
 
-/* Calendar Items (Assignments, Events, No School) */
-.calendar-page .calendar-assignment,
-.calendar-page .calendar-event,
-.calendar-page .calendar-no-school {
-    padding: 2px 4px;
+/* Calendar day headers - only outer borders */
+#calendar-grid>div:nth-child(-n+7) {
+    border-bottom: 1px solid var(--calendar-grid-border) !important;
+    border-right: none !important;
+}
+
+#calendar-grid>div:nth-child(7) {
+    border-right: 1px solid var(--calendar-grid-border) !important;
+}
+
+/* Calendar assignment and event items */
+.calendar-assignment,
+.calendar-event {
+    font-size: 0.65rem;
+    padding: 2px 6px;
     border-radius: 4px;
-    font-size: 10px;
-    line-height: 1.3;
-    margin-top: 2px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
     cursor: pointer;
-    transition: opacity 0.2s ease;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 500;
+    transition: opacity 0.15s;
 }
 
-.calendar-page .calendar-assignment:hover,
-.calendar-page .calendar-event:hover,
-.calendar-page .calendar-no-school:hover {
-    opacity: 0.8;
-}
-
-/* Mobile: Transform calendar items to dots */
-@media (max-width: 768px) {
-    .calendar-page .calendar-assignment {
-        padding: 3px 4px;
-        font-size: 10px;
-        margin-top: 2px;
-        min-height: 20px;
-        display: flex;
-        align-items: center;
-    }
-
-    .calendar-page .calendar-assignment,
-    .calendar-page .calendar-event,
-    .calendar-page .calendar-no-school {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        padding: 0;
-        font-size: 0;
-        margin: 2px;
-        min-height: unset;
-        display: inline-block;
-        overflow: visible;
-        text-indent: -9999px;
-        touch-action: manipulation;
-    }
-}
-
-/* Calendar Day States */
-.calendar-page .calendar-day.inactive {
-    background-color: #0d1117;
-}
-
-.calendar-page .calendar-day.today {
-    background-color: #22252a;
-    box-shadow: inset 0 0 0 2px #8b5cf6;
-}
-
-.calendar-page .calendar-day.no-school-day {
-    background-color: #1a1d23;
-    opacity: 0.6;
-}
-
-/* Calendar Main Container & Side Panel Positioning */
-.calendar-page .calendar-main-container {
-    position: relative;
-}
-
-.calendar-page .calendar-main-container.side-panel-open #calendar-side-panel {
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: 320px;
-    z-index: 10;
-    margin: 0;
-}
-
-@media (max-width: 1024px) {
-    .calendar-page .calendar-main-container.side-panel-open #calendar-side-panel {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        width: 100%;
-        max-width: 100%;
-        z-index: 20;
-        margin: 0;
-        border-radius: 0;
-    }
-}
-
-/* Calendar Side Panel Scrollbar */
-.calendar-page #calendar-side-panel::-webkit-scrollbar {
-    width: 8px;
-}
-
-.calendar-page #calendar-side-panel::-webkit-scrollbar-track {
-    background: #1a202c;
-}
-
-.calendar-page #calendar-side-panel::-webkit-scrollbar-thumb {
-    background: #4a5568;
-    border-radius: 4px;
-}
-
-.calendar-page #calendar-side-panel::-webkit-scrollbar-thumb:hover {
-    background: #718096;
-}
-
-/* Calendar View Height */
-@media (min-width: 1024px) {
-    .calendar-page .calendar-view-height {
-        flex: 1;
-        overflow: hidden;
-    }
-}
-
-@media (max-width: 1023px) {
-    .calendar-page .calendar-view-height {
-        height: calc(100vh - 30vh);
-    }
+.calendar-assignment:hover,
+.calendar-event:hover {
+    opacity: 0.85;
 }

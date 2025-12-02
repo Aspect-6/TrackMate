@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { Plus, Menu } from 'lucide-react';
 import Sidebar from '@/app/components/Sidebar';
@@ -11,8 +11,34 @@ const Layout: React.FC = () => {
     const location = useLocation();
     const { openModal } = useApp();
     const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+    const [isDesktopViewport, setIsDesktopViewport] = useState<boolean>(() => {
+        if (typeof window === 'undefined') return true;
+        return window.matchMedia('(min-width: 1024px)').matches;
+    });
+
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+        const mediaQuery = window.matchMedia('(min-width: 1024px)');
+
+        const handleChange = (event: MediaQueryListEvent | MediaQueryList) => {
+            const matches = 'matches' in event ? event.matches : mediaQuery.matches;
+            setIsDesktopViewport(matches);
+        };
+
+        handleChange(mediaQuery);
+
+        if (typeof mediaQuery.addEventListener === 'function') {
+            mediaQuery.addEventListener('change', handleChange as EventListener);
+            return () => mediaQuery.removeEventListener('change', handleChange as EventListener);
+        }
+
+        mediaQuery.addListener(handleChange as (this: MediaQueryList, ev: MediaQueryListEvent) => void);
+        return () => mediaQuery.removeListener(handleChange as (this: MediaQueryList, ev: MediaQueryListEvent) => void);
+    }, []);
 
     const isCalendar = location.pathname === '/calendar';
+    const isAssignments = location.pathname === '/assignments';
+    const isFixedViewportPage = isCalendar || (isAssignments && isDesktopViewport);
 
     const getPageTitle = () => {
         const path = location.pathname;
@@ -28,22 +54,29 @@ const Layout: React.FC = () => {
     return (
         <div className={cn(
             "app-container flex bg-[#0d1117] text-[#c9d1d9]",
-            isCalendar ? "h-[100dvh] overflow-hidden" : "min-h-[100dvh]"
-        )}>
+            isFixedViewportPage ? "h-[100dvh] overflow-hidden" : "min-h-[100dvh]"
+        )}
+            style={{ backgroundColor: GLOBAL.BACKGROUND }}
+        >
             <Sidebar />
             <MobileSidebar isOpen={isMobileSidebarOpen} onClose={() => setIsMobileSidebarOpen(false)} />
 
             <main className={cn(
-                "content-area flex-grow p-6 lg:p-8 flex flex-col",
-                isCalendar && "h-full overflow-hidden"
+                "content-area flex-grow min-w-0 w-full p-6 lg:p-8 flex flex-col",
+                isFixedViewportPage && "h-full overflow-hidden"
             )}>
-                <header className="mb-8 border-b border-gray-700 pb-4 flex justify-between items-center gap-3 flex-shrink-0">
+                <header className="mb-8 pb-4 flex justify-between items-center gap-3 flex-shrink-0" style={{ borderBottom: `1px solid ${GLOBAL.HEADER_DIVIDER}` }}>
                     <div className="flex items-center min-w-0 gap-3">
                         <button
                             onClick={() => setIsMobileSidebarOpen(true)}
-                            className="lg:hidden text-gray-400 hover:text-white focus:outline-none"
+                            className="lg:hidden focus:outline-none transition-colors -ml-2"
+                            style={{ color: GLOBAL.HEADER_MENU_ICON }}
+                            onMouseEnter={(e) => e.currentTarget.style.color = GLOBAL.HEADER_MENU_ICON_HOVER}
+                            onMouseLeave={(e) => e.currentTarget.style.color = GLOBAL.HEADER_MENU_ICON}
+                            onTouchStart={(e) => e.currentTarget.style.color = GLOBAL.HEADER_MENU_ICON_HOVER}
+                            onTouchEnd={(e) => e.currentTarget.style.color = GLOBAL.HEADER_MENU_ICON}
                         >
-                            <Menu className="w-8 h-8" />
+                            <Menu className="w-7 h-7" />
                         </button>
                         <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold truncate" style={{ color: GLOBAL.PAGE_HEADER_TEXT }}>{getPageTitle()}</h1>
                     </div>

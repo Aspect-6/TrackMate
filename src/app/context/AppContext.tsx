@@ -8,7 +8,8 @@ import type {
     NoSchoolPeriod,
     Schedule,
     AppContextType,
-    DayType
+    DayType,
+    ThemeMode
 } from '../types';
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -18,6 +19,7 @@ const CLASSES_KEY = 'studentTrackerClasses';
 const SCHEDULE_KEY = 'studentTrackerSchedule';
 const EVENTS_KEY = 'studentTrackerEvents';
 const NO_SCHOOL_KEY = 'studentTrackerNoSchool';
+const THEME_KEY = 'trackmateTheme';
 
 const loadFromLocalStorage = <T,>(key: string, defaultValue: T): T => {
     const data = localStorage.getItem(key);
@@ -30,6 +32,12 @@ const loadFromLocalStorage = <T,>(key: string, defaultValue: T): T => {
 
 const saveToLocalStorage = <T,>(key: string, data: T): void => {
     localStorage.setItem(key, JSON.stringify(data));
+};
+
+const getStoredTheme = (): ThemeMode => {
+    if (typeof window === 'undefined') return 'light';
+    const stored = localStorage.getItem(THEME_KEY);
+    return stored === 'dark' ? 'dark' : 'light';
 };
 
 interface AppProviderProps {
@@ -48,6 +56,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         referenceDate: '2025-11-26',
         referenceType: 'A'
     });
+    const [theme, setThemeState] = useState<ThemeMode>(() => getStoredTheme());
 
     // Modal State
     const [activeModal, setActiveModal] = useState<string | null>(null);
@@ -129,6 +138,12 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     useEffect(() => { if (isInitialized) saveToLocalStorage(SCHEDULE_KEY, schedule); }, [schedule, isInitialized]);
     useEffect(() => { if (isInitialized) saveToLocalStorage(EVENTS_KEY, events); }, [events, isInitialized]);
     useEffect(() => { if (isInitialized) saveToLocalStorage(NO_SCHOOL_KEY, noSchool); }, [noSchool, isInitialized]);
+    useEffect(() => {
+        const root = document.documentElement;
+        root.classList.remove('light', 'dark');
+        root.classList.add(theme);
+        localStorage.setItem(THEME_KEY, theme);
+    }, [theme]);
 
     // Actions
     const addAssignment = (assignment: Omit<Assignment, 'id' | 'createdAt'>): void => {
@@ -222,6 +237,10 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         }
     };
 
+    const setTheme = (mode: ThemeMode): void => {
+        setThemeState(mode === 'dark' ? 'dark' : 'light');
+    };
+
     // Helpers
     const getDayTypeForDate = (dateString: string): DayType => {
         const date = parseDateLocal(dateString);
@@ -289,7 +308,8 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
             addEvent, updateEvent, deleteEvent,
             addNoSchool, updateNoSchool, deleteNoSchool, updateSchedule, setReferenceDayType, clearAllData,
             getDayTypeForDate, getClassesForDate, getClassById,
-            activeModal, modalData, openModal, closeModal
+            activeModal, modalData, openModal, closeModal,
+            theme, setTheme
         }}>
             {children}
         </AppContext.Provider>

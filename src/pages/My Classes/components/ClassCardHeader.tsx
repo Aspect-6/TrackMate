@@ -1,6 +1,6 @@
 import React from 'react';
 import { Trash2, Edit2, GripVertical } from 'lucide-react';
-import { ClassCardHeaderProps } from '@/pages/Classes/types';
+import { ClassCardHeaderProps } from '@/pages/My Classes/types';
 
 const ClassCardHeader: React.FC<ClassCardHeaderProps> = ({
     name,
@@ -12,25 +12,25 @@ const ClassCardHeader: React.FC<ClassCardHeaderProps> = ({
     return (
         <div className="flex justify-between items-start mb-4">
             <div className="flex items-center gap-2">
-                <div {...attributes} {...listeners} className="cursor-grab touch-none p-1 hover:bg-gray-700 rounded">
-                    <GripVertical className="w-5 h-5 text-gray-600 group-hover:text-gray-400" />
+                <div {...attributes} {...listeners} className="cursor-grab touch-none p-1 rounded grip-container">
+                    <GripVertical className="w-5 h-5 class-card-icon" />
                 </div>
-                <h2 className="text-xl font-bold text-white group-hover:text-violet-300 transition-colors">{name}</h2>
+                <h2 className="text-xl font-bold class-header-title">{name}</h2>
             </div>
-            <div className="flex space-x-2 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity">
+            <div className="flex space-x-2 ml-4 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity">
                 <button
                     onClick={onEdit}
-                    className="p-1 text-gray-400 hover:text-white transition-colors"
+                    className="p-1 transition-colors"
                     title="Edit Class"
                 >
-                    <Edit2 className="w-4 h-4" />
+                    <Edit2 className="w-4 h-4 class-card-icon" />
                 </button>
                 <button
                     onClick={onDelete}
-                    className="p-1 text-gray-400 hover:text-red-400 transition-colors"
+                    className="p-1 transition-colors"
                     title="Delete Class"
                 >
-                    <Trash2 className="w-4 h-4" />
+                    <Trash2 className="w-4 h-4 class-card-icon delete" />
                 </button>
             </div>
         </div>

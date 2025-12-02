@@ -18,11 +18,11 @@ const Schedule: React.FC = () => {
 
     return (
         <div
-            className="p-6 rounded-xl min-h-[60vh]"
+            className="p-6 rounded-xl min-h-[60vh] transition-colors"
             style={{
                 backgroundColor: MY_SCHEDULE.MODULE_BG,
-                border: '1px solid #30363d',
-                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)',
+                border: `1px solid ${MY_SCHEDULE.MODULE_BORDER}`,
+                boxShadow: MY_SCHEDULE.MODULE_SHADOW,
             }}
         >
             <div className="space-y-6">

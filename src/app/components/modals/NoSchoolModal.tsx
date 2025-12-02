@@ -203,7 +203,7 @@ export const DeleteNoSchoolModal: React.FC<NoSchoolModalProps> = ({ onClose, noS
     return (
         <div className="modal-container" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
             <h2 className="text-xl font-bold mb-4 text-red-400">Delete No School Period?</h2>
-            <p className="text-gray-300 mb-4">
+            <p className="text-gray-300 mb-4" style={{ color: GLOBAL.MODAL_DELETE_BODY }}>
                 Are you sure you want to delete <strong>{periodToDelete.name}</strong>?
             </p>
             <div className="flex justify-end space-x-3">

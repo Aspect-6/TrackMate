@@ -5,7 +5,7 @@ import CalendarSidePanel from '@/pages/Calendar/components/CalendarSidePanel';
 import CalendarHeader from '@/pages/Calendar/components/CalendarHeader';
 import CalendarGrid from '@/pages/Calendar/components/CalendarGrid';
 import { Assignment, Event, NoSchoolPeriod } from '@/app/types';
-import { CALENDAR, GLOBAL } from '@/app/styles/colors';
+import { CALENDAR } from '@/app/styles/colors';
 
 import './index.css';
 
@@ -63,9 +63,9 @@ const Calendar: React.FC = () => {
             <div
                 className="p-4 md:p-6 rounded-xl overflow-hidden flex flex-col h-full"
                 style={{
-                    backgroundColor: GLOBAL.MODULE_BG,
-                    border: '1px solid #30363d',
-                    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)',
+                    backgroundColor: CALENDAR.BG_COLOR,
+                    border: `1px solid ${CALENDAR.BORDER_COLOR}`,
+                    boxShadow: CALENDAR.CONTAINER_SHADOW,
                 }}
             >
                 <CalendarHeader

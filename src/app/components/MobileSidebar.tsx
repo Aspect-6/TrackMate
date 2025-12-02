@@ -26,8 +26,8 @@ const MobileSidebar: React.FC<MobileSidebarProps> = ({ isOpen, onClose }) => {
             <div className="flex items-center justify-between p-6" style={{ borderBottomColor: GLOBAL.SIDEBAR_BORDER, borderBottomWidth: '1px', borderBottomStyle: 'solid' }}>
                 <h1 className="text-2xl font-black" style={{ color: GLOBAL.PAGE_HEADER_TEXT }}>{APP_NAME}</h1>
                 <button onClick={onClose} className="text-gray-400 hover:text-white" style={{ color: GLOBAL.SIDEBAR_CLOSE_ICON }}
-                    onMouseEnter={(e) => e.currentTarget.style.color = GLOBAL.SIDEBAR_CLOSE_ICON_HOVER}
-                    onMouseLeave={(e) => e.currentTarget.style.color = GLOBAL.SIDEBAR_CLOSE_ICON}
+                    onTouchStart={(e) => e.currentTarget.style.color = GLOBAL.SIDEBAR_CLOSE_ICON_HOVER}
+                    onTouchEnd={(e) => e.currentTarget.style.color = GLOBAL.SIDEBAR_CLOSE_ICON}
                 >
                     <X className="w-8 h-8" />
                 </button>

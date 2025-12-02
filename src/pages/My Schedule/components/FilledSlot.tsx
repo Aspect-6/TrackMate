@@ -1,5 +1,5 @@
 import React from 'react';
-import { FilledSlotProps } from '@/pages/Schedule/types';
+import { FilledSlotProps } from '@/pages/My Schedule/types';
 import { MY_SCHEDULE } from '@/app/styles/colors';
 
 const FilledSlot: React.FC<FilledSlotProps> = ({ classInfo, onRemove }) => {
@@ -9,11 +9,11 @@ const FilledSlot: React.FC<FilledSlotProps> = ({ classInfo, onRemove }) => {
             style={{ borderLeft: `4px solid ${classInfo.color}` }}
         >
             <div className="flex-grow">
-                <h4 className="font-semibold text-white">{classInfo.name}</h4>
-                <p className="text-sm text-gray-400 pt-1">{classInfo.teacherName || 'N/A'}</p>
+                <h4 className="font-semibold" style={{ color: MY_SCHEDULE.TEXT_PRIMARY }}>{classInfo.name}</h4>
+                <p className="text-sm pt-1" style={{ color: MY_SCHEDULE.TEXT_SECONDARY }}>{classInfo.teacherName || 'N/A'}</p>
             </div>
             <div className="flex justify-between items-end mt-2">
-                <p className="text-sm text-gray-400">Room: {classInfo.roomNumber || 'N/A'}</p>
+                <p className="text-sm" style={{ color: MY_SCHEDULE.TEXT_SECONDARY }}>Room: {classInfo.roomNumber || 'N/A'}</p>
                 <button
                     onClick={onRemove}
                     className="py-1 px-2 rounded text-xs transition-colors"

@@ -23,7 +23,7 @@ const CalendarGrid: React.FC<CalendarGridProps> = ({
 
         // Leading empty days
         for (let i = 0; i < firstDayOfMonth; i++) {
-            days.push(<div key={`empty-${i}`} className="border-r border-b border-[#30363d] p-2" style={{ color: CALENDAR.DAY_INACTIVE_TEXT, backgroundColor: CALENDAR.DAY_INACTIVE_BG }}></div>);
+            days.push(<div key={`empty-${i}`} className="border-r border-b p-2" style={{ borderColor: CALENDAR.GRID_BORDER, color: CALENDAR.DAY_INACTIVE_TEXT, backgroundColor: CALENDAR.DAY_INACTIVE_BG }}></div>);
         }
 
         // Days of month
@@ -62,7 +62,7 @@ const CalendarGrid: React.FC<CalendarGridProps> = ({
         const totalCells = firstDayOfMonth + daysInMonth;
         const remainingCells = 42 - totalCells; // 6 rows * 7 cols
         for (let i = 0; i < remainingCells; i++) {
-            days.push(<div key={`empty-end-${i}`} className="border-r border-b border-[#30363d] p-2" style={{ color: CALENDAR.DAY_INACTIVE_TEXT, backgroundColor: CALENDAR.DAY_INACTIVE_BG }}></div>);
+            days.push(<div key={`empty-end-${i}`} className="border-r border-b p-2" style={{ borderColor: CALENDAR.GRID_BORDER, color: CALENDAR.DAY_INACTIVE_TEXT, backgroundColor: CALENDAR.DAY_INACTIVE_BG }}></div>);
         }
 
         return days;

@@ -21,7 +21,8 @@ const EventItem: React.FC<EventItemProps> = ({ event, onClick }) => {
             onClick={onClick}
             className="flex items-center p-3 rounded-lg border mb-2 cursor-pointer bg-[var(--card-bg)] hover:bg-[var(--card-hover-bg)] transition-colors"
             style={{
-                borderColor: '#30363d',
+                borderColor: DASHBOARD.MODULE_BORDER,
+                boxShadow: DASHBOARD.CARD_SHADOW,
                 borderLeft: `4px solid ${event.color}`,
                 '--card-bg': DASHBOARD.EVENT_ITEM_BG,
                 '--card-hover-bg': DASHBOARD.EVENT_ITEM_HOVER_BG
