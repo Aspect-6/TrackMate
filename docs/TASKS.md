@@ -7,4 +7,5 @@
 6. Make the padding of each module on the Dashboard equal. Currently, the Today's Events and Today's assignments are both the same, but the Upcoming Assignments is less.
 7. On mobile calendar, make the day header a fixed, small height just like on desktop.
 8. Fix that browser alert still remaining in code despite alert message modal code being implemented alert showing.
-9. Refactor main index.css into page-specific css files that don't interfere with each other.
+9. Refactor main index.css into page-specific css files that don't interfere with each other.w
+10. Fix ui bug where outline of selected input field has the old purple color instead of the per-modal themed color.
