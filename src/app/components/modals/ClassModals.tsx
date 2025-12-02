@@ -33,17 +33,17 @@ export const AddClassModal: React.FC<ModalProps> = ({ onClose }) => {
     };
 
     return (
-        <div className="w-full max-w-md p-6 rounded-xl" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
+        <div className="modal-container" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
             <h2 className="text-xl font-bold mb-4" style={{ color: MY_CLASSES.CLASS_TEXT_THEME }}>Add New Class</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
                 {/* Row 1: Class Name */}
                 <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-1">Class Name</label>
+                    <label className="modal-label">Class Name</label>
                     <input
                         type="text"
                         name="name"
                         required
-                        className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[var(--focus-color)]"
+                        className="modal-input"
                         style={{ '--focus-color': MY_CLASSES.CLASS_MODAL_BUTTON_BG } as React.CSSProperties}
                         placeholder="e.g., AP History"
                     />
@@ -52,21 +52,21 @@ export const AddClassModal: React.FC<ModalProps> = ({ onClose }) => {
                 {/* Row 2: Instructor & Room Number */}
                 <div className="flex space-x-4">
                     <div className="flex-1">
-                        <label className="block text-sm font-medium text-gray-400 mb-1">Instructor Name (Optional)</label>
+                        <label className="modal-label">Instructor Name (Optional)</label>
                         <input
                             type="text"
                             name="teacherName"
-                            className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[var(--focus-color)]"
+                            className="modal-input"
                             style={{ '--focus-color': MY_CLASSES.CLASS_MODAL_BUTTON_BG } as React.CSSProperties}
                             placeholder="e.g., Ms. Johnson"
                         />
                     </div>
                     <div className="flex-1">
-                        <label className="block text-sm font-medium text-gray-400 mb-1">Room Number (Optional)</label>
+                        <label className="modal-label">Room Number (Optional)</label>
                         <input
                             type="text"
                             name="roomNumber"
-                            className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[var(--focus-color)]"
+                            className="modal-input"
                             style={{ '--focus-color': MY_CLASSES.CLASS_MODAL_BUTTON_BG } as React.CSSProperties}
                             placeholder="e.g., B105"
                         />
@@ -133,18 +133,18 @@ export const EditClassModal: React.FC<ClassModalProps> = ({ onClose, classId }) 
     };
 
     return (
-        <div className="w-full max-w-md p-6 rounded-xl" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
+        <div className="modal-container" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
             <h2 className="text-xl font-bold mb-4" style={{ color: MY_CLASSES.CLASS_TEXT_THEME }}>Edit Class Details</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
                 {/* Row 1: Class Name */}
                 <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-1">Class Name</label>
+                    <label className="modal-label">Class Name</label>
                     <input
                         type="text"
                         value={formData.name}
                         onChange={e => setFormData({ ...formData, name: e.target.value })}
                         required
-                        className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[var(--focus-color)]"
+                        className="modal-input"
                         style={{ '--focus-color': MY_CLASSES.CLASS_MODAL_BUTTON_BG } as React.CSSProperties}
                     />
                 </div>
@@ -152,23 +152,23 @@ export const EditClassModal: React.FC<ClassModalProps> = ({ onClose, classId }) 
                 {/* Row 2: Instructor & Room Number */}
                 <div className="flex space-x-4">
                     <div className="flex-1">
-                        <label className="block text-sm font-medium text-gray-400 mb-1">Instructor Name (Optional)</label>
+                        <label className="modal-label">Instructor Name (Optional)</label>
                         <input
                             type="text"
                             value={formData.teacherName}
                             onChange={e => setFormData({ ...formData, teacherName: e.target.value })}
-                            className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[var(--focus-color)]"
+                            className="modal-input"
                             style={{ '--focus-color': MY_CLASSES.CLASS_MODAL_BUTTON_BG } as React.CSSProperties}
                             placeholder="e.g., Ms. Johnson"
                         />
                     </div>
                     <div className="flex-1">
-                        <label className="block text-sm font-medium text-gray-400 mb-1">Room Number (Optional)</label>
+                        <label className="modal-label">Room Number (Optional)</label>
                         <input
                             type="text"
                             value={formData.roomNumber}
                             onChange={e => setFormData({ ...formData, roomNumber: e.target.value })}
-                            className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[var(--focus-color)]"
+                            className="modal-input"
                             style={{ '--focus-color': MY_CLASSES.CLASS_MODAL_BUTTON_BG } as React.CSSProperties}
                             placeholder="e.g., B105"
                         />
@@ -230,7 +230,7 @@ export const DeleteClassModal: React.FC<ClassModalProps> = ({ onClose, classId }
     };
 
     return (
-        <div className="w-full max-w-md p-6 rounded-xl" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
+        <div className="modal-container" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
             <h2 className="text-xl font-bold mb-4 text-red-400">Delete Class?</h2>
             <p className="text-gray-300 mb-4">
                 Are you sure you want to delete <strong>{classToDelete.name}</strong>? This will delete all assignments from this class.

@@ -1,0 +1,135 @@
+/* Modal Container */
+.modal-container {
+    width: 100%;
+    max-width: 28rem;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+}
+
+/* Labels */
+.modal-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #9ca3af;
+    margin-bottom: 0.25rem;
+}
+
+/* Text Inputs */
+.modal-input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    background-color: #374151;
+    border: 1px solid #4b5563;
+    color: white;
+}
+
+.modal-input:focus {
+    outline: none;
+    border-color: var(--focus-color);
+}
+
+/* Date/Time Inputs */
+.modal-date-input {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: #374151;
+    border: 1px solid #4b5563;
+    color: white;
+    cursor: pointer;
+}
+
+.modal-date-input:focus {
+    outline: none;
+    border-color: var(--focus-color);
+}
+
+/* Textarea Inputs */
+.modal-textarea {
+    width: 100%;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.5rem;
+    background-color: #374151;
+    border: 1px solid #4b5563;
+    color: white;
+}
+
+.modal-textarea:focus {
+    outline: none;
+    border-color: var(--focus-color);
+}
+
+/* Select Dropdowns */
+.modal-select {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    background-color: #374151;
+    border: 1px solid #4b5563;
+    color: white;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%239ca3af'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 1.5em 1.5em;
+    cursor: pointer;
+}
+
+.modal-select:focus {
+    outline: none;
+    border-color: var(--focus-color);
+}
+
+
+/* Color Picker - Color Tile Grid */
+.color-tile-grid {
+    display: flex;
+    overflow-x: auto;
+    gap: 8px;
+    padding: 8px;
+    border: 1px solid #4b5563;
+    border-radius: 8px;
+    background: #1f2937;
+    scrollbar-width: thin;
+    scrollbar-color: #9ca3af #374151;
+}
+
+.color-tile-grid::-webkit-scrollbar {
+    height: 10px;
+}
+
+.color-tile-grid::-webkit-scrollbar-track {
+    background: #374151;
+    border-radius: 5px;
+}
+
+.color-tile-grid::-webkit-scrollbar-thumb {
+    background: #9ca3af;
+    border-radius: 5px;
+}
+
+.color-tile-grid::-webkit-scrollbar-thumb:hover {
+    background: #d1d5db;
+}
+
+/* Color Picker - Individual Color Tiles */
+.color-tile {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.color-tile:hover {
+    transform: scale(1.1);
+    border-color: #ffffff;
+}
+
+.color-tile.selected {
+    border-color: #ffffff;
+}

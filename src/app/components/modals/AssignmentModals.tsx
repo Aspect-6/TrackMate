@@ -44,44 +44,44 @@ export const AddAssignmentModal: React.FC<ModalProps> = ({ onClose }) => {
     };
 
     return (
-        <div className="w-full max-w-md p-6 rounded-xl" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
+        <div className="modal-container" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
             <h2 className="text-xl font-bold mb-4" style={{ color: GLOBAL.ASSIGNMENT_HEADING_TEXT }}>Add New Assignment</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-1">Title</label>
+                    <label className="modal-label">Title</label>
                     <input type="text" name="title" required
-                        className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[var(--focus-color)]"
+                        className="modal-input"
                         placeholder="e.g. Read Chapter 4"
                         style={{ '--focus-color': GLOBAL.ASSIGNMENT_BUTTON_BG } as React.CSSProperties}
                     />
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-1">Class</label>
+                    <label className="modal-label">Class</label>
                     <select name="classId" required
-                        className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[var(--focus-color)]"
+                        className="modal-select"
                         style={{ '--focus-color': GLOBAL.ASSIGNMENT_BUTTON_BG } as React.CSSProperties}
                     >
                         {classes.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
                     </select>
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-1">Due Date</label>
+                    <label className="modal-label">Due Date</label>
                     <input type="date" name="dueDate" required defaultValue={todayString()}
-                        className="w-full max-w-full min-w-0 box-border mt-1 p-2 rounded bg-gray-700 border border-gray-600 focus:ring-[var(--focus-color)] focus:border-[var(--focus-color)] text-white appearance-none"
+                        className="modal-date-input"
                         style={{ '--focus-color': GLOBAL.ASSIGNMENT_BUTTON_BG } as React.CSSProperties}
                     />
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-1">Description (Optional)</label>
+                    <label className="modal-label">Description (Optional)</label>
                     <textarea name="description" rows={2}
-                        className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-1 text-white focus:outline-none focus:border-[var(--focus-color)]"
+                        className="modal-textarea"
                         style={{ '--focus-color': GLOBAL.ASSIGNMENT_BUTTON_BG } as React.CSSProperties}
                     ></textarea>
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-1">Priority</label>
+                    <label className="modal-label">Priority</label>
                     <select name="priority"
-                        className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[var(--focus-color)]"
+                        className="modal-select"
                         style={{ '--focus-color': GLOBAL.ASSIGNMENT_BUTTON_BG } as React.CSSProperties}
                     >
                         <option value="Low">Low</option>
@@ -152,60 +152,60 @@ export const EditAssignmentModal: React.FC<EditModalProps> = ({ onClose, assignm
     };
 
     return (
-        <div className="w-full max-w-md p-6 rounded-xl" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
+        <div className="modal-container" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
             <h2 className="text-xl font-bold mb-4" style={{ color: GLOBAL.ASSIGNMENT_HEADING_TEXT }}>Edit Assignment</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-1">Title</label>
+                    <label className="modal-label">Title</label>
                     <input
                         type="text"
                         value={formData.title}
                         onChange={e => setFormData({ ...formData, title: e.target.value })}
                         required
-                        className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[var(--focus-color)]"
+                        className="modal-input"
                         style={{ '--focus-color': GLOBAL.ASSIGNMENT_BUTTON_BG } as React.CSSProperties}
                     />
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-1">Class</label>
+                    <label className="modal-label">Class</label>
                     <select
                         value={formData.classId}
                         onChange={e => setFormData({ ...formData, classId: e.target.value })}
                         required
-                        className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[var(--focus-color)]"
+                        className="modal-select"
                         style={{ '--focus-color': GLOBAL.ASSIGNMENT_BUTTON_BG } as React.CSSProperties}
                     >
                         {classes.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
                     </select>
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-1">Due Date</label>
+                    <label className="modal-label">Due Date</label>
                     <input
                         type="date"
                         value={formData.dueDate}
                         onChange={e => setFormData({ ...formData, dueDate: e.target.value })}
                         required
-                        className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[var(--focus-color)]"
+                        className="modal-input"
                         style={{ '--focus-color': GLOBAL.ASSIGNMENT_BUTTON_BG } as React.CSSProperties}
                     />
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-1">Description</label>
+                    <label className="modal-label">Description</label>
                     <textarea
                         value={formData.description || ''}
                         onChange={e => setFormData({ ...formData, description: e.target.value })}
                         rows={2}
-                        className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-1 text-white focus:outline-none focus:border-[var(--focus-color)]"
+                        className="modal-textarea"
                         style={{ '--focus-color': GLOBAL.ASSIGNMENT_BUTTON_BG } as React.CSSProperties}
                     />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                     <div>
-                        <label className="block text-sm font-medium text-gray-400 mb-1">Priority</label>
+                        <label className="modal-label">Priority</label>
                         <select
                             value={formData.priority}
                             onChange={e => setFormData({ ...formData, priority: e.target.value as Priority })}
-                            className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[var(--focus-color)]"
+                            className="modal-select"
                             style={{ '--focus-color': GLOBAL.ASSIGNMENT_BUTTON_BG } as React.CSSProperties}
                         >
                             <option value="Low">Low</option>
@@ -214,11 +214,11 @@ export const EditAssignmentModal: React.FC<EditModalProps> = ({ onClose, assignm
                         </select>
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-400 mb-1">Status</label>
+                        <label className="modal-label">Status</label>
                         <select
                             value={formData.status}
                             onChange={e => setFormData({ ...formData, status: e.target.value as Status })}
-                            className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[var(--focus-color)]"
+                            className="modal-select"
                             style={{ '--focus-color': GLOBAL.ASSIGNMENT_BUTTON_BG } as React.CSSProperties}
                         >
                             <option value="To Do">To Do</option>
@@ -267,7 +267,7 @@ export const DeleteAssignmentModal: React.FC<EditModalProps> = ({ onClose, assig
     };
 
     return (
-        <div className="w-full max-w-md p-6 rounded-xl" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
+        <div className="modal-container" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
             <h2 className="text-xl font-bold mb-4 text-red-400">Delete Assignment?</h2>
             <p className="text-gray-300 mb-4">
                 Are you sure you want to delete <strong>{assignmentToDelete.title}</strong>?

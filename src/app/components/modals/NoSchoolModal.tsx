@@ -42,29 +42,29 @@ export const AddNoSchoolModal: React.FC<ModalProps> = ({ onClose }) => {
     };
 
     return (
-        <div className="w-full max-w-md p-6 rounded-xl" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
+        <div className="modal-container" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
             <h2 className="text-xl font-bold mb-4" style={{ color: GLOBAL.NOSCHOOL_HEADING_TEXT }}>Add No School Period</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-1">Reason / Name</label>
+                    <label className="modal-label">Reason / Name</label>
                     <input type="text" name="name" required
-                        className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[var(--focus-color)]"
+                        className="modal-input"
                         placeholder="e.g. Winter Break"
                         style={{ '--focus-color': GLOBAL.NOSCHOOL_BUTTON_BG } as React.CSSProperties}
                     />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                     <div>
-                        <label className="block text-sm font-medium text-gray-400 mb-1">Start Date</label>
+                        <label className="modal-label">Start Date</label>
                         <input type="date" name="startDate" required defaultValue={todayString()}
-                            className="w-full max-w-full min-w-0 box-border mt-1 p-2 rounded bg-gray-700 border border-gray-600 focus:ring-[var(--focus-color)] focus:border-[var(--focus-color)] text-white appearance-none"
+                            className="modal-date-input"
                             style={{ '--focus-color': GLOBAL.NOSCHOOL_BUTTON_BG } as React.CSSProperties}
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-400 mb-1">End Date</label>
+                        <label className="modal-label">End Date</label>
                         <input type="date" name="endDate" required defaultValue={todayString()}
-                            className="w-full max-w-full min-w-0 box-border mt-1 p-2 rounded bg-gray-700 border border-gray-600 focus:ring-[var(--focus-color)] focus:border-[var(--focus-color)] text-white appearance-none"
+                            className="modal-date-input"
                             style={{ '--focus-color': GLOBAL.NOSCHOOL_BUTTON_BG } as React.CSSProperties}
                         />
                     </div>
@@ -122,40 +122,40 @@ export const EditNoSchoolModal: React.FC<NoSchoolModalProps> = ({ onClose, noSch
     };
 
     return (
-        <div className="w-full max-w-md p-6 rounded-xl" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
+        <div className="modal-container" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
             <h2 className="text-xl font-bold mb-4" style={{ color: GLOBAL.NOSCHOOL_HEADING_TEXT }}>Edit No School Period</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-1">Reason / Name</label>
+                    <label className="modal-label">Reason / Name</label>
                     <input
                         type="text"
                         value={formData.name}
                         onChange={e => setFormData({ ...formData, name: e.target.value })}
                         required
-                        className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[var(--focus-color)]"
+                        className="modal-input"
                         style={{ '--focus-color': GLOBAL.NOSCHOOL_BUTTON_BG } as React.CSSProperties}
                     />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                     <div>
-                        <label className="block text-sm font-medium text-gray-400 mb-1">Start Date</label>
+                        <label className="modal-label">Start Date</label>
                         <input
                             type="date"
                             value={formData.startDate}
                             onChange={e => setFormData({ ...formData, startDate: e.target.value })}
                             required
-                            className="w-full max-w-full min-w-0 box-border mt-1 p-2 rounded bg-gray-700 border border-gray-600 focus:ring-[var(--focus-color)] focus:border-[var(--focus-color)] text-white appearance-none"
+                            className="modal-date-input"
                             style={{ '--focus-color': GLOBAL.NOSCHOOL_BUTTON_BG } as React.CSSProperties}
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-400 mb-1">End Date</label>
+                        <label className="modal-label">End Date</label>
                         <input
                             type="date"
                             value={formData.endDate}
                             onChange={e => setFormData({ ...formData, endDate: e.target.value })}
                             required
-                            className="w-full max-w-full min-w-0 box-border mt-1 p-2 rounded bg-gray-700 border border-gray-600 focus:ring-[var(--focus-color)] focus:border-[var(--focus-color)] text-white appearance-none"
+                            className="modal-date-input"
                             style={{ '--focus-color': GLOBAL.NOSCHOOL_BUTTON_BG } as React.CSSProperties}
                         />
                     </div>
@@ -201,7 +201,7 @@ export const DeleteNoSchoolModal: React.FC<NoSchoolModalProps> = ({ onClose, noS
     };
 
     return (
-        <div className="w-full max-w-md p-6 rounded-xl" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
+        <div className="modal-container" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
             <h2 className="text-xl font-bold mb-4 text-red-400">Delete No School Period?</h2>
             <p className="text-gray-300 mb-4">
                 Are you sure you want to delete <strong>{periodToDelete.name}</strong>?

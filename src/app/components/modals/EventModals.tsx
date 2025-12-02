@@ -43,52 +43,52 @@ export const AddEventModal: React.FC<ModalProps> = ({ onClose }) => {
     };
 
     return (
-        <div className="w-full max-w-md p-6 rounded-xl" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
+        <div className="modal-container" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
             <h2 className="text-xl font-bold mb-4" style={{ color: GLOBAL.EVENT_HEADING_TEXT }}>Add New Event</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-1">Event Title</label>
+                    <label className="modal-label">Event Title</label>
                     <input type="text" name="title" required
-                        className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[var(--focus-color)]"
+                        className="modal-input"
                         placeholder="Club Meeting"
                         style={{ '--focus-color': GLOBAL.EVENT_BUTTON_BG } as React.CSSProperties}
                     />
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-1">Date</label>
+                    <label className="modal-label">Date</label>
                     <input
                         type="date"
                         name="date"
                         required
                         defaultValue={todayString()}
-                        className="w-full max-w-full min-w-0 box-border mt-1 p-2 rounded bg-gray-700 border border-gray-600 focus:ring-[var(--focus-color)] focus:border-[var(--focus-color)] text-white appearance-none"
+                        className="modal-date-input"
                         style={{ '--focus-color': GLOBAL.EVENT_BUTTON_BG } as React.CSSProperties}
                     />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                     <div>
-                        <label className="block text-sm font-medium text-gray-400 mb-1">Start Time (Optional)</label>
+                        <label className="modal-label">Start Time (Optional)</label>
                         <input
                             type="time"
                             name="startTime"
-                            className="w-full max-w-full min-w-0 box-border mt-1 p-2 rounded bg-gray-700 border border-gray-600 focus:ring-[var(--focus-color)] focus:border-[var(--focus-color)] text-white appearance-none"
+                            className="modal-date-input"
                             style={{ '--focus-color': GLOBAL.EVENT_BUTTON_BG } as React.CSSProperties}
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-400 mb-1">End Time (Optional)</label>
+                        <label className="modal-label">End Time (Optional)</label>
                         <input
                             type="time"
                             name="endTime"
-                            className="w-full max-w-full min-w-0 box-border mt-1 p-2 rounded bg-gray-700 border border-gray-600 focus:ring-[var(--focus-color)] focus:border-[var(--focus-color)] text-white appearance-none"
+                            className="modal-date-input"
                             style={{ '--focus-color': GLOBAL.EVENT_BUTTON_BG } as React.CSSProperties}
                         />
                     </div>
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-1">Description (Optional)</label>
+                    <label className="modal-label">Description (Optional)</label>
                     <textarea name="description" rows={2}
-                        className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-1 text-white focus:outline-none focus:border-[var(--focus-color)]"
+                        className="modal-textarea"
                         style={{ '--focus-color': GLOBAL.EVENT_BUTTON_BG } as React.CSSProperties}
                     ></textarea>
                 </div>
@@ -155,60 +155,60 @@ export const EditEventModal: React.FC<EventModalProps> = ({ onClose, eventId }) 
     };
 
     return (
-        <div className="w-full max-w-md p-6 rounded-xl" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
+        <div className="modal-container" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
             <h2 className="text-xl font-bold mb-4" style={{ color: GLOBAL.EVENT_HEADING_TEXT }}>Edit Event</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-1">Event Title</label>
+                    <label className="modal-label">Event Title</label>
                     <input
                         type="text"
                         value={formData.title}
                         onChange={e => setFormData({ ...formData, title: e.target.value })}
                         required
-                        className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[var(--focus-color)]"
+                        className="modal-input"
                         style={{ '--focus-color': GLOBAL.EVENT_BUTTON_BG } as React.CSSProperties}
                     />
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-1">Date</label>
+                    <label className="modal-label">Date</label>
                     <input
                         type="date"
                         value={formData.date}
                         onChange={e => setFormData({ ...formData, date: e.target.value })}
                         required
-                        className="w-full max-w-full min-w-0 box-border mt-1 p-2 rounded bg-gray-700 border border-gray-600 focus:ring-[var(--focus-color)] focus:border-[var(--focus-color)] text-white appearance-none"
+                        className="modal-date-input"
                         style={{ '--focus-color': GLOBAL.EVENT_BUTTON_BG } as React.CSSProperties}
                     />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                     <div>
-                        <label className="block text-sm font-medium text-gray-400 mb-1">Start Time (Optional)</label>
+                        <label className="modal-label">Start Time (Optional)</label>
                         <input
                             type="time"
                             value={formData.startTime || ''}
                             onChange={e => setFormData({ ...formData, startTime: e.target.value || null })}
-                            className="w-full max-w-full min-w-0 box-border mt-1 p-2 rounded bg-gray-700 border border-gray-600 focus:ring-[var(--focus-color)] focus:border-[var(--focus-color)] text-white appearance-none"
+                            className="modal-date-input"
                             style={{ '--focus-color': GLOBAL.EVENT_BUTTON_BG } as React.CSSProperties}
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-400 mb-1">End Time (Optional)</label>
+                        <label className="modal-label">End Time (Optional)</label>
                         <input
                             type="time"
                             value={formData.endTime || ''}
                             onChange={e => setFormData({ ...formData, endTime: e.target.value || null })}
-                            className="w-full max-w-full min-w-0 box-border mt-1 p-2 rounded bg-gray-700 border border-gray-600 focus:ring-[var(--focus-color)] focus:border-[var(--focus-color)] text-white appearance-none"
+                            className="modal-date-input"
                             style={{ '--focus-color': GLOBAL.EVENT_BUTTON_BG } as React.CSSProperties}
                         />
                     </div>
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-1">Description</label>
+                    <label className="modal-label">Description</label>
                     <textarea
                         value={formData.description || ''}
                         onChange={e => setFormData({ ...formData, description: e.target.value })}
                         rows={2}
-                        className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[var(--focus-color)]"
+                        className="modal-textarea"
                         style={{ '--focus-color': GLOBAL.EVENT_BUTTON_BG } as React.CSSProperties}
                     ></textarea>
                 </div>
@@ -266,7 +266,7 @@ export const DeleteEventModal: React.FC<EventModalProps> = ({ onClose, eventId }
     };
 
     return (
-        <div className="w-full max-w-md p-6 rounded-xl" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
+        <div className="modal-container" style={{ backgroundColor: GLOBAL.MODAL_BG }}>
             <h2 className="text-xl font-bold mb-4 text-red-400">Delete Event?</h2>
             <p className="text-gray-300 mb-4">
                 Are you sure you want to delete <strong>{eventToDelete.title}</strong>?
