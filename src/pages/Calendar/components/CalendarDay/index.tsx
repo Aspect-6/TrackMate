@@ -43,6 +43,8 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
                     />
                 ))}
 
+                {events.length > 0 && assignments.length > 0 && <div className="h-0.5"></div>}
+
                 {events.map(e => (
                     <CalendarDayEvent
                         key={e.id}
