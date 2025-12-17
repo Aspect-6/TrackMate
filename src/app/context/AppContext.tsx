@@ -173,14 +173,6 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
             }
             return e;
         });
-        const colorMap: Record<string, string> = {
-            'blue': '#58a6ff', 'green': '#238636', 'yellow': '#d29922',
-            'red': '#da3633', 'purple': '#8957e5', 'pink': '#db61a2'
-        };
-        loadedEvents = loadedEvents.map(e => ({
-            ...e,
-            color: colorMap[e.color] || e.color
-        }));
         setEvents(loadedEvents as Event[]);
 
         setNoSchool(loadFromLocalStorage<NoSchoolPeriod[]>(NO_SCHOOL_KEY, []));
