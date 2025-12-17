@@ -26,9 +26,9 @@ const ASSIGNMENT_TYPES_KEY = 'trackmateAssignmentTypes';
 export const DEFAULT_ASSIGNMENT_TYPES: AssignmentType[] = [
     'Homework',
     'Classwork',
-    'Study',
     'Workbook',
     'Project',
+    'Presentation',
     'Paper',
     'Lab',
     'Quiz',
@@ -95,10 +95,12 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     const sanitizeTypes = (types: AssignmentType[]): AssignmentType[] => {
         const seen = new Set<string>();
         const cleaned: AssignmentType[] = [];
+        const banned = new Set(['study', 'stody']);
         types.forEach(t => {
             const trimmed = (t || '').toString().trim();
             if (!trimmed) return;
             const key = trimmed.toLowerCase();
+            if (banned.has(key)) return;
             if (seen.has(key)) return;
             seen.add(key);
             cleaned.push(trimmed);
