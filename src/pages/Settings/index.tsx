@@ -11,6 +11,7 @@ import { APP_NAME, CURRENT_APP_VERSION, DEVELOPER_NAME } from '@/app/config/bran
 const Settings: React.FC = () => {
     const {
         clearAllData,
+        openModal,
         setReferenceDayType,
         getDayTypeForDate,
         theme,
@@ -43,7 +44,7 @@ const Settings: React.FC = () => {
             />
 
             <DangerZone 
-                onClearData={clearAllData}
+                onOpenClearDataModal={() => openModal('clear-all-data')}
             />
 
             <div className="mt-8 text-center text-gray-500 text-sm">

@@ -7,7 +7,7 @@ export interface ScheduleSettingsProps {
 }
 
 export interface DangerZoneProps {
-    onClearData: () => void;
+    onOpenClearDataModal: () => void;
 }
 
 export interface ThemeSettingsProps {

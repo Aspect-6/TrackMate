@@ -313,11 +313,13 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     };
 
     const clearAllData = (): void => {
-        if (window.confirm('Are you sure you want to clear ALL assignment and class data? This cannot be undone.')) {
-            localStorage.removeItem(ASSIGNMENTS_KEY);
-            localStorage.removeItem(CLASSES_KEY);
-            window.location.reload();
-        }
+        localStorage.removeItem(ASSIGNMENTS_KEY);
+        localStorage.removeItem(CLASSES_KEY);
+        localStorage.removeItem(SCHEDULE_KEY);
+        localStorage.removeItem(EVENTS_KEY);
+        localStorage.removeItem(NO_SCHOOL_KEY);
+        localStorage.removeItem(ASSIGNMENT_TYPES_KEY);
+        window.location.reload();
     };
 
     const setTheme = (mode: ThemeMode): void => {

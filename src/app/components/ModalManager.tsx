@@ -4,6 +4,7 @@ import { AddAssignmentModal, EditAssignmentModal, DeleteAssignmentModal } from '
 import { AddClassModal, EditClassModal, DeleteClassModal } from '@/app/components/modals/ClassModals';
 import { AddEventModal, EditEventModal, DeleteEventModal } from '@/app/components/modals/EventModals';
 import { AddNoSchoolModal, EditNoSchoolModal, DeleteNoSchoolModal } from '@/app/components/modals/NoSchoolModal';
+import { ClearAllDataModal } from '@/app/components/modals/ClearAllDataModal';
 import { ScheduleClassSelectorModal } from '@/app/components/modals/ScheduleClassSelectorModal/index';
 import { FileText, BookOpen, X } from 'lucide-react';
 
@@ -130,6 +131,8 @@ const ModalManager: React.FC = () => {
                 return <DeleteNoSchoolModal onClose={closeModal} noSchoolId={modalData} />;
             case 'schedule-class-selector':
                 return <ScheduleClassSelectorModal onClose={closeModal} data={modalData} />;
+            case 'clear-all-data':
+                return <ClearAllDataModal onClose={closeModal} />;
             default:
                 return null;
         }

@@ -3,7 +3,7 @@ import { Trash2 } from 'lucide-react';
 import { DangerZoneProps } from '@/pages/Settings/types';
 import { SETTINGS } from '@/app/styles/colors';
 
-const DangerZone: React.FC<DangerZoneProps> = ({ onClearData }) => {
+const DangerZone: React.FC<DangerZoneProps> = ({ onOpenClearDataModal }) => {
     return (
         <div
             className="p-6 rounded-xl"
@@ -19,7 +19,7 @@ const DangerZone: React.FC<DangerZoneProps> = ({ onClearData }) => {
                 This cannot be undone.
             </p>
             <button
-                onClick={onClearData}
+                onClick={onOpenClearDataModal}
                 className="flex items-center py-2 px-4 settings-button-danger rounded-lg font-medium"
             >
                 <Trash2 className="w-5 h-5 mr-2" />
