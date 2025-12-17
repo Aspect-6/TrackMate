@@ -3,7 +3,7 @@ import { CalendarGridProps } from '@/pages/Calendar/types';
 import CalendarDay from './CalendarDay';
 import { CALENDAR } from '@/app/styles/colors';
 import CalendarGridDayHeader from './CalendarGridDayHeader';
-import EmptyDay from './EmptyDay';
+import CalendarGridEmptyDay from './CalendarGridEmptyDay';
 
 const CalendarGrid: React.FC<CalendarGridProps> = ({
     year,
@@ -54,7 +54,7 @@ const CalendarGrid: React.FC<CalendarGridProps> = ({
                 ))}
                 {/* Calendar Days */}
                 {Array.from({ length: firstDayOfMonth }).map((_, i) => (
-                    <EmptyDay key={`empty-${i}`} />
+                    <CalendarGridEmptyDay key={`empty-${i}`} />
                 ))}
 
                 {Array.from({ length: daysInMonth }).map((_, i) => {
@@ -80,7 +80,7 @@ const CalendarGrid: React.FC<CalendarGridProps> = ({
                 })}
 
                 {Array.from({ length: remainingCells }).map((_, i) => (
-                    <EmptyDay key={`empty-end-${i}`} />
+                    <CalendarGridEmptyDay key={`empty-end-${i}`} />
                 ))}
             </div>
         </div>

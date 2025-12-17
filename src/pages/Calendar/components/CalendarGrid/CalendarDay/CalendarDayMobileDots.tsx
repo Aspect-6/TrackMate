@@ -1,7 +1,7 @@
 import React from 'react';
-import { MobileDotsProps } from '@/pages/Calendar/types';
+import { CalendarDayMobileDotsProps } from '@/pages/Calendar/types';
 
-const MobileDots: React.FC<MobileDotsProps> = ({ dots }) => {
+const CalendarDayMobileDots: React.FC<CalendarDayMobileDotsProps> = ({ dots }) => {
     if (!dots || dots.length === 0) return null;
     return (
         <div className="flex flex-wrap gap-1 mb-1 md:hidden">
@@ -12,4 +12,4 @@ const MobileDots: React.FC<MobileDotsProps> = ({ dots }) => {
     );
 };
 
-export default React.memo(MobileDots);
+export default React.memo(CalendarDayMobileDots);

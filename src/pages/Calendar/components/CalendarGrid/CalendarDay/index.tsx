@@ -2,7 +2,7 @@ import React from 'react';
 import { CalendarDayProps } from '@/pages/Calendar/types';
 import CalendarDayContainer from './CalendarDayContainer';
 import CalendarDayNumber from './CalendarDayNumber';
-import MobileDots from './MobileDots';
+import CalendarDayMobileDots from './CalendarDayMobileDots';
 import AssignmentList from './AssignmentList';
 import EventList from './EventList';
 
@@ -28,7 +28,7 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
         <CalendarDayContainer year={year} month={month} day={day} isToday={isToday} noSchool={noSchool} onSelectDate={onSelectDate}>
             <CalendarDayNumber day={day} noSchool={noSchool} />
 
-            <MobileDots dots={mobileDots} />
+            <CalendarDayMobileDots dots={mobileDots} />
 
             <div className="space-y-1 overflow-hidden hidden md:block">
                 <AssignmentList assignments={assignments} getClassColor={getClassColor} onAssignmentClick={onAssignmentClick} />

@@ -69,7 +69,7 @@ export interface CalendarDayNumberProps {
 
 export type CalendarDot = { id: string; color: string };
 
-export interface MobileDotsProps {
+export interface CalendarDayMobileDotsProps {
     dots: CalendarDot[];
 }
 
