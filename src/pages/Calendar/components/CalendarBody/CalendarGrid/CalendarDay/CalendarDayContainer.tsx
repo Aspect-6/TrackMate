@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import type { CalendarBody } from '@/pages/Calendar/types';
 import { CALENDAR } from '@/app/styles/colors';
-import { CalendarDayContainerProps } from '@/pages/Calendar/types';
 
-const CalendarDayContainer: React.FC<CalendarDayContainerProps> = ({ year, month, day, isToday, noSchool, onSelectDate, children }) => {
+const CalendarDayContainer: React.FC<CalendarBody.Grid.Day.ContainerProps> = ({ year, month, day, isToday, noSchool, onSelectDate, children }) => {
     const [isHovered, setIsHovered] = useState(false);
 
     return (

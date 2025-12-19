@@ -1,9 +1,9 @@
 import React from 'react';
-import { ClassListProps } from '@/pages/Calendar/types';
+import type { CalendarBody } from '@/pages/Calendar/types';
 import ClassItem from './ClassItem';
 import { CALENDAR } from '@/app/styles/colors';
 
-const ClassList: React.FC<ClassListProps> = ({ classes, noSchoolDay, getClassById }) => {
+const ClassList: React.FC<CalendarBody.SidePanel.Body.ClassList.Props> = ({ classes, noSchoolDay, getClassById }) => {
     return (
         <div>
             <h4 className="text-md font-semibold mb-2" style={{ color: CALENDAR.CLASS_HEADING }}>Classes</h4>

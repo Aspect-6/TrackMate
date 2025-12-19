@@ -1,9 +1,9 @@
 import React from 'react';
-import { SidePanelAssignmentsProps } from '@/pages/Calendar/types';
+import type { CalendarBody } from '@/pages/Calendar/types';
 import AssignmentItem from './AssignmentItem';
 import { CALENDAR } from '@/app/styles/colors';
 
-const AssignmentList: React.FC<SidePanelAssignmentsProps> = ({ assignments, getClassById, onAssignmentClick }) => {
+const AssignmentList: React.FC<CalendarBody.SidePanel.Body.AssignmentList.Props> = ({ assignments, getClassById, onAssignmentClick }) => {
     return (
         <div>
             <h4 className="text-md font-semibold mb-2" style={{ color: CALENDAR.ASSIGNMENT_HEADING }}>Assignments Due</h4>

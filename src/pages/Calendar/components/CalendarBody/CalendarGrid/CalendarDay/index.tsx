@@ -1,12 +1,12 @@
 import React from 'react';
-import { CalendarDayProps } from '@/pages/Calendar/types';
+import type { CalendarBody } from '@/pages/Calendar/types';
 import CalendarDayContainer from './CalendarDayContainer';
 import CalendarDayNumber from './CalendarDayNumber';
 import CalendarDayMobileDots from './CalendarDayMobileDots';
 import AssignmentList from './AssignmentList';
 import EventList from './EventList';
 
-const CalendarDay: React.FC<CalendarDayProps> = ({
+const CalendarDay: React.FC<CalendarBody.Grid.Day.Props> = ({
     day,
     month,
     year,

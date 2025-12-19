@@ -6,7 +6,7 @@ import { CALENDAR } from '@/app/styles/colors';
 import CalendarHeader, { PrevButton, NextButton, MonthTitle } from './components/CalendarHeader';
 import CalendarBody from './components/CalendarBody';
 import CalendarGrid, { CalendarGridDayHeader, CalendarDay, CalendarGridEmptyDay } from './components/CalendarBody/CalendarGrid';
-import CalendarSidePanel, { DayType, ClassList, AssignmentList, EventList, NoSchoolInfo, DayTypeDisplay, CalendarSidePanelHeader, CalendarSidePanelBody, DateDisplay, CloseButton } from './components/CalendarBody/CalendarSidePanel';
+import CalendarSidePanel, { DayType, ClassList, AssignmentList, EventList, NoSchoolInfo, DayTypeDisplay, CalendarSidePanelHeader, CalendarSidePanelBody, DateDisplay, CloseButton } from './components/CalendarBody/SidePanel';
 
 import './index.css';
 
@@ -70,7 +70,7 @@ const Calendar: React.FC = () => {
                         })}
                     </CalendarGrid>
 
-                    <CalendarSidePanel date={sidePanelData?.date || null} onClose={() => setSelectedDate(null)}>
+                    <CalendarSidePanel date={sidePanelData?.date || null}>
                         <CalendarSidePanelHeader>
                             <DateDisplay>{sidePanelData?.formattedDate}</DateDisplay>
                             <CloseButton onClick={() => setSelectedDate(null)}>

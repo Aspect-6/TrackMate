@@ -1,7 +1,7 @@
 import React from 'react';
-import { CalendarDayMobileDotsProps } from '@/pages/Calendar/types';
+import type { CalendarBody } from '@/pages/Calendar/types';
 
-const CalendarDayMobileDots: React.FC<CalendarDayMobileDotsProps> = ({ dots }) => {
+const CalendarDayMobileDots: React.FC<CalendarBody.Grid.Day.MobileDotsProps> = ({ dots }) => {
     if (!dots || dots.length === 0) return null;
     return (
         <div className="flex flex-wrap gap-1 mb-1 md:hidden">

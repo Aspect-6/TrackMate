@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react';
 import { useApp } from '@/app/context/AppContext';
 import { Assignment, Event, NoSchoolPeriod } from '@/app/types';
 import { todayString, dateToLocalISOString, parseDateLocal } from '@/app/lib/utils';
-import { CalendarCell } from '@/pages/Calendar/types';
+import type { UseCalendar } from '@/pages/Calendar/types';
 
 export const useCalendar = () => {
     const { assignments, events, noSchool, getDayTypeForDate, getClassesForDate } = useApp();
@@ -47,7 +47,7 @@ export const useCalendar = () => {
     }, {}), [noSchool]);
 
     const calendarCells = useMemo(() => {
-        const cells: CalendarCell[] = [];
+        const cells: UseCalendar.CalendarCell[] = [];
         const firstDayOfMonth = new Date(year, month, 1).getDay();
         const daysInMonth = new Date(year, month + 1, 0).getDate();
         const totalCells = firstDayOfMonth + daysInMonth;

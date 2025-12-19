@@ -1,12 +1,8 @@
 import React from 'react';
-import { NoSchoolPeriod } from '@/app/types';
+import type { CalendarBody } from '@/pages/Calendar/types';
 import { CALENDAR } from '@/app/styles/colors';
 
-interface NoSchoolInfoProps {
-    noSchoolDay?: NoSchoolPeriod | null;
-}
-
-const NoSchoolInfo: React.FC<NoSchoolInfoProps> = ({ noSchoolDay }) => {
+const NoSchoolInfo: React.FC<CalendarBody.SidePanel.Body.DayType.NoSchoolInfoProps> = ({ noSchoolDay }) => {
     if (!noSchoolDay) return null;
 
     return (

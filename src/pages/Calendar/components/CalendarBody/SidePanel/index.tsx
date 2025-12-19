@@ -1,10 +1,8 @@
 import React from 'react';
-import { CalendarSidePanelProps } from '@/pages/Calendar/types';
-import Header from './Header';
+import type { CalendarBody } from '@/pages/Calendar/types';
 import { CALENDAR } from '@/app/styles/colors';
 
-
-const CalendarSidePanel: React.FC<CalendarSidePanelProps & { children: React.ReactNode }> = ({ date, children }) => {
+const CalendarSidePanel: React.FC<CalendarBody.SidePanel.Props> = ({ date, children }) => {
     if (!date) return null;
     
     return (
@@ -20,13 +18,13 @@ const CalendarSidePanel: React.FC<CalendarSidePanelProps & { children: React.Rea
 
 export default CalendarSidePanel;
 
-export const CalendarSidePanelHeader = Header;
+export { default as CalendarSidePanelHeader } from './Header';
+export { default as CalendarSidePanelBody } from './Body';
 export { default as DateDisplay } from './Header/DateDisplay';
 export { default as CloseButton } from './Header/CloseButton';
+export { default as NoSchoolInfo } from './Body/DayType/DayTypeNoSchoolInfo';
 export { default as DayType } from './Body/DayType';
+export { default as DayTypeDisplay } from './Body/DayType/DayTypeDisplay';
 export { default as ClassList } from './Body/ClassList';
 export { default as AssignmentList } from './Body/AssignmentList';
 export { default as EventList } from './Body/EventList';
-export { default as NoSchoolInfo } from './Body/DayType/NoSchoolInfo';
-export { default as DayTypeDisplay } from './Body/DayType/DayTypeDisplay';
-export { default as CalendarSidePanelBody } from './Body';

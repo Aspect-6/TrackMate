@@ -1,11 +1,10 @@
 import React from 'react';
+import type { CalendarHeader } from '@/pages/Calendar/types';
 import PrevButton from './PrevButton';
 import NextButton from './NextButton';
 import MonthTitle from './MonthTitle';
 
-type CalendarHeaderProps = { children?: React.ReactNode };
-
-const CalendarHeader: React.FC<CalendarHeaderProps> = ({ children }) => (
+const CalendarHeader: React.FC<CalendarHeader.Props> = ({ children }) => (
     <div className="flex justify-between items-center mb-4 md:mb-6 flex-shrink-0">
         {children}
     </div>

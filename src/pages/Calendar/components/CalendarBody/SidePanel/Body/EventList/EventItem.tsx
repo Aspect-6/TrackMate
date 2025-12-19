@@ -1,14 +1,8 @@
 import React, { useState } from 'react';
-import { Event } from '@/app/types';
-import { CalendarSidePanelEventsProps } from '@/pages/Calendar/types';
+import type { CalendarBody } from '@/pages/Calendar/types';
 import { CALENDAR } from '@/app/styles/colors';
 
-interface EventItemProps {
-    event: Event;
-    onEventClick: CalendarSidePanelEventsProps['onEventClick'];
-}
-
-const EventItem: React.FC<EventItemProps> = ({ event, onEventClick }) => {
+const EventItem: React.FC<CalendarBody.SidePanel.Body.EventList.EventItemProps> = ({ event, onEventClick }) => {
     const [isHovered, setIsHovered] = useState(false);
 
     const formatEventTime = (start: string | null, end: string | null) => {

@@ -1,15 +1,8 @@
 import React, { useState } from 'react';
-import { Assignment } from '@/app/types';
-import { SidePanelAssignmentsProps } from '@/pages/Calendar/types';
+import type { CalendarBody } from '@/pages/Calendar/types';
 import { CALENDAR } from '@/app/styles/colors';
 
-interface AssignmentItemProps {
-    assignment: Assignment;
-    getClassById: SidePanelAssignmentsProps['getClassById'];
-    onAssignmentClick: SidePanelAssignmentsProps['onAssignmentClick'];
-}
-
-const AssignmentItem: React.FC<AssignmentItemProps> = ({ assignment, getClassById, onAssignmentClick }) => {
+const AssignmentItem: React.FC<CalendarBody.SidePanel.Body.AssignmentList.AssignmentItemProps> = ({ assignment, getClassById, onAssignmentClick }) => {
     const [isHovered, setIsHovered] = useState(false);
     const linkedClass = getClassById(assignment.classId);
     const classColor = linkedClass ? linkedClass.color : CALENDAR.DEFAULT_CLASS_COLOR;

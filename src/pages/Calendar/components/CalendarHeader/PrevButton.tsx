@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import type { CalendarHeader } from '@/pages/Calendar/types';
 import { ChevronLeft } from 'lucide-react';
 import { CALENDAR } from '@/app/styles/colors';
-import { CalendarHeaderButtonProps } from '@/pages/Calendar/types';
 
-const PrevButton: React.FC<CalendarHeaderButtonProps> = ({ onClick }) => {
+const PrevButton: React.FC<CalendarHeader.CalendarHeaderButtonProps> = ({ onClick }) => {
     const [hovered, setHovered] = useState(false);
     return (
         <button

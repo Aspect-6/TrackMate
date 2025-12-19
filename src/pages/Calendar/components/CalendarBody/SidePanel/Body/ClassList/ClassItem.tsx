@@ -1,14 +1,8 @@
 import React, { useState } from 'react';
-import { ClassListProps } from '@/pages/Calendar/types';
+import type { CalendarBody } from '@/pages/Calendar/types';
 import { CALENDAR } from '@/app/styles/colors';
 
-interface ClassItemProps {
-    classId: string | null;
-    index: number;
-    getClassById: ClassListProps['getClassById'];
-}
-
-const ClassItem: React.FC<ClassItemProps> = ({ classId, index, getClassById }) => {
+const ClassItem: React.FC<CalendarBody.SidePanel.Body.ClassList.ClassItemProps> = ({ classId, index, getClassById }) => {
     const [isHovered, setIsHovered] = useState(false);
     if (!classId) return null;
     const classInfo = getClassById(classId);

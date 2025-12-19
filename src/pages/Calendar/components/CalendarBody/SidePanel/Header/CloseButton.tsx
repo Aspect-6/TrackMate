@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
+import type { CalendarBody } from '@/pages/Calendar/types';
 import { CALENDAR } from '@/app/styles/colors';
 
-interface CloseButtonProps {
-    onClick: () => void;
-    children: React.ReactNode;
-};
-
-const CloseButton: React.FC<CloseButtonProps> = ({ onClick, children }) => {
+const CloseButton: React.FC<CalendarBody.SidePanel.Header.CloseButtonProps> = ({ onClick, children }) => {
     const [hovered, setHovered] = useState(false);
     return (
         <button

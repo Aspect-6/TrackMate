@@ -1,11 +1,8 @@
 import React from 'react';
+import type { CalendarBody } from '@/pages/Calendar/types';
 import { CALENDAR } from '@/app/styles/colors';
 
-interface DayTypeDisplayProps {
-    dayType?: 'A' | 'B' | null;
-}
-
-const DayTypeDisplay: React.FC<DayTypeDisplayProps> = ({ dayType }) => {
+const DayTypeDisplay: React.FC<CalendarBody.SidePanel.Body.DayType.DisplayProps> = ({ dayType }) => {
     if (!dayType) return null;
 
     return (

@@ -1,8 +1,8 @@
 import React from 'react';
+import type { CalendarBody } from '@/pages/Calendar/types';
 import EventItem from './EventItem';
-import { EventListProps } from '@/pages/Calendar/types';
 
-const EventList: React.FC<EventListProps> = ({ events, onEventClick }) => (
+const EventList: React.FC<CalendarBody.Grid.Day.EventList.Props> = ({ events, onEventClick }) => (
     <>
         {events.map(e => (
             <EventItem key={e.id} event={e} onClick={onEventClick} />

@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
-import { DayTypeProps } from '@/pages/Calendar/types';
+import type { CalendarBody } from '@/pages/Calendar/types';
 import { CALENDAR } from '@/app/styles/colors';
-import NoSchoolInfo from './NoSchoolInfo';
-import DayTypeDisplay from './DayTypeDisplay';
 
-type PropsWithChildren = DayTypeProps & { children?: React.ReactNode };
-
-const DayType: React.FC<PropsWithChildren> = ({ noSchoolDay, dayType, onNoSchoolClick, children }) => {
+const DayType: React.FC<CalendarBody.SidePanel.Body.DayType.Props> = ({ noSchoolDay, dayType, onNoSchoolClick, children }) => {
     const [isHovered, setIsHovered] = useState(false);
     if (!noSchoolDay && !dayType) return null;
 
@@ -21,13 +17,7 @@ const DayType: React.FC<PropsWithChildren> = ({ noSchoolDay, dayType, onNoSchool
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
-            {children ? (
-                children
-            ) : noSchoolDay ? (
-                <NoSchoolInfo noSchoolDay={noSchoolDay} />
-            ) : dayType ? (
-                <DayTypeDisplay dayType={dayType} />
-            ) : null}
+            {children}
         </div>
     );
 };
