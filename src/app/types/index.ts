@@ -207,7 +207,7 @@ export interface AppContextType {
     /** Returns the list of class IDs scheduled for a specific date */
     getClassesForDate: (dateString: string) => (string | null)[];
     /** Retrieves a class object by its ID */
-    getClassById: (id: string) => Class | undefined;
+    getClassById: (id: string) => Class;
 
     // Modal state
     /** The name of the currently active modal, or null if none */

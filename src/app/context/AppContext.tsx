@@ -395,7 +395,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         return dayType === 'A' ? schedule.aDay : schedule.bDay;
     };
 
-    const getClassById = (id: string): Class | undefined => classes.find(c => c.id === id);
+    const getClassById = (id: string): Class => classes.find(c => c.id === id) as Class;
 
     return (
         <AppContext.Provider value={{
