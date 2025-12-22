@@ -50,6 +50,8 @@ export const useCalendar = () => {
         const cells: UseCalendar.CalendarCell[] = []
         const firstDayOfMonth = new Date(year, month, 1).getDay()
         const daysInMonth = new Date(year, month + 1, 0).getDate()
+        const totalCells = firstDayOfMonth + daysInMonth;
+        const remainingCells = 42 - totalCells;
         const todayStr = todayString()
 
         // Empty start days
