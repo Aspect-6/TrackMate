@@ -23,12 +23,15 @@ const cssColorToHex = (value: string): string => {
     const rgbMatch = normalized.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/i);
     if (!rgbMatch) return normalized.toUpperCase();
 
+    const [, r, g, b] = rgbMatch;
+    if (!r || !g || !b) return normalized.toUpperCase();
+
     const toHex = (num: string) => {
         const hex = Number(num).toString(16).padStart(2, '0');
         return hex;
     };
 
-    return `#${toHex(rgbMatch[1])}${toHex(rgbMatch[2])}${toHex(rgbMatch[3])}`.toUpperCase();
+    return `#${toHex(r)}${toHex(g)}${toHex(b)}`.toUpperCase();
 };
 
 const ClassCardDetails: React.FC<ClassCardDetailsProps> = ({ teacherName, roomNumber, color }) => {
@@ -39,8 +42,10 @@ const ClassCardDetails: React.FC<ClassCardDetailsProps> = ({ teacherName, roomNu
         if (!color) return null;
         const variableMatch = color.match(/var\((--[^)]+)\)/);
         if (variableMatch && typeof window !== 'undefined') {
+            const varName = variableMatch[1];
+            if (!varName) return null;
             return getComputedStyle(document.documentElement)
-                .getPropertyValue(variableMatch[1])
+                .getPropertyValue(varName)
                 .trim() || null;
         }
         return color;
