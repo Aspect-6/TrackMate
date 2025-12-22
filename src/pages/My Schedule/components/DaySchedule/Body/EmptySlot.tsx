@@ -1,8 +1,7 @@
 import React from 'react'
-import { EmptySlotProps } from '@/pages/My Schedule/types'
+import type { DaySchedule } from '@/pages/My Schedule/types'
 
-
-const EmptySlot: React.FC<EmptySlotProps> = ({ onClick }) => {
+const EmptySlot: React.FC<DaySchedule.Body.EmptySlotProps> = ({ onClick }) => {
     return (
         <div
             onClick={onClick}

@@ -10,5 +10,5 @@
 | Dashboard         | Done     |
 | My Assignments    | Done     |
 | My Classes        | Done     |
-| My Schedule       | Current  |
-| Settings          | To-Do    |
+| My Schedule       | Done     |
+| Settings          | Current  |

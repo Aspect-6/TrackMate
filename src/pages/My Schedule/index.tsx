@@ -3,9 +3,12 @@ import { useApp } from '@/app/context/AppContext'
 import { DayType } from '@/app/types'
 import { MY_SCHEDULE } from '@/app/styles/colors'
 import DaySchedule from '@/pages/My Schedule/components/DaySchedule'
+import DayScheduleHeader from '@/pages/My Schedule/components/DaySchedule/DayScheduleDayHeader'
+import DayScheduleBody from './components/DaySchedule/Body'
+import ScheduleSlot from '@/pages/My Schedule/components/DaySchedule/Body/ScheduleSlot'
 import './index.css'
 
-const Schedule: React.FC = () => {
+const MySchedule: React.FC = () => {
     const { schedule, getClassById, openModal, updateSchedule } = useApp()
 
     const handleRemove = (dayType: NonNullable<DayType>, index: number) => {
@@ -26,25 +29,41 @@ const Schedule: React.FC = () => {
             }}
         >
             <div className="space-y-6">
-                <DaySchedule
-                    title="A-Day Classes"
-                    dayType="A"
-                    scheduleIds={schedule.aDay}
-                    getClassById={getClassById}
-                    onRemove={handleRemove}
-                    onSelect={handleSelect}
-                />
-                <DaySchedule
-                    title="B-Day Classes"
-                    dayType="B"
-                    scheduleIds={schedule.bDay}
-                    getClassById={getClassById}
-                    onRemove={handleRemove}
-                    onSelect={handleSelect}
-                />
+                <DaySchedule>
+                    <DayScheduleHeader title="A-Day Classes" />
+                    <DayScheduleBody>
+                        {schedule.aDay.map((classId, index) => (
+                            <ScheduleSlot
+                                key={`A-${index}`}
+                                dayType="A"
+                                index={index}
+                                classId={classId}
+                                getClassById={getClassById}
+                                onRemove={handleRemove}
+                                onSelect={handleSelect}
+                            />
+                        ))}
+                    </DayScheduleBody>
+                </DaySchedule>
+                <DaySchedule>
+                    <DayScheduleHeader title="B-Day Classes" />
+                    <DayScheduleBody>
+                        {schedule.bDay.map((classId, index) => (
+                            <ScheduleSlot
+                                key={`B-${index}`}
+                                dayType="B"
+                                index={index}
+                                classId={classId}
+                                getClassById={getClassById}
+                                onRemove={handleRemove}
+                                onSelect={handleSelect}
+                            />
+                        ))}
+                    </DayScheduleBody>
+                </DaySchedule>
             </div>
         </div>
     )
 }
 
-export default Schedule
+export default MySchedule

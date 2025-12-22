@@ -5,7 +5,7 @@ import Dashboard from '@/pages/Dashboard'
 import ModalManager from '@/app/components/ModalManager'
 import MyAssignments from '@/pages/My Assignments'
 import Classes from '@/pages/My Classes'
-import Schedule from '@/pages/My Schedule'
+import MySchedule from '@/pages/My Schedule'
 import Calendar from '@/pages/Calendar'
 import Settings from '@/pages/Settings'
 
@@ -20,7 +20,7 @@ const App: React.FC = () => {
           <Route path="calendar" element={<Calendar />} />
           <Route path="assignments" element={<MyAssignments />} />
           <Route path="classes" element={<Classes />} />
-          <Route path="schedule" element={<Schedule />} />
+          <Route path="schedule" element={<MySchedule />} />
           <Route path="settings" element={<Settings />} />
         </Route>
       </Routes>
