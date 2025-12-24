@@ -33,6 +33,20 @@ export const formatDate = (dateString: string): string => {
 }
 
 /**
+ * Formats a date string into a medium date format (e.g., "Jan 1, 2023").
+ * @param dateString - The date string to format.
+ * @returns The formatted date string.
+ */
+export const formatMediumDate = (dateString: string): string => {
+    try {
+        const date = parseDateLocal(dateString)
+        return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+    } catch {
+        return dateString
+    }
+}
+
+/**
  * Formats a date string into a full date format (e.g., "January 1, 2023").
  * @param dateString - The date string to format.
  * @returns The formatted full date string.

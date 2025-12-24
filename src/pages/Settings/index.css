@@ -21,6 +21,10 @@
     --settings-button-b-hover: #1d4ed8;
     --settings-text-a: hsl(260, 60%, 50%);
     --settings-text-b: hsl(215, 90%, 50%);
+
+    --settings-semester-bg: hsl(215, 15%, 16.5%);
+
+    --settings-empty-border-hover: hsl(215, 11%, 65%);
 }
 
 .settings-button-danger {
@@ -31,6 +35,15 @@
 
 .settings-button-danger:hover {
     background-color: var(--settings-button-danger-hover);
+}
+
+.term-empty-state {
+    border-color: var(--settings-card-border);
+    transition: border-color 0.2s ease;
+}
+
+.term-empty-state:hover {
+    border-color: var(--settings-empty-border-hover);
 }
 
 .danger-card {
@@ -162,6 +175,10 @@
     --settings-button-b-hover: hsl(215, 90%, 45%);
     --settings-text-a: hsl(260, 60%, 50%);
     --settings-text-b: hsl(215, 90%, 50%);
+
+    --settings-semester-bg: hsl(25, 0%, 90%);
+
+    --settings-empty-border-hover: hsl(215, 20%, 70%);
 }
 
 .theme-toggle {

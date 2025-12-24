@@ -138,3 +138,5 @@ export const ClearAllEventsModal: React.FC<ModalProps> = ({ onClose }) => {
         </div>
     )
 }
+
+

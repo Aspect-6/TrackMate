@@ -123,6 +123,27 @@ export interface Schedule {
     referenceType: 'A' | 'B'
 }
 
+/**
+ * Represents a semester within an academic term.
+ */
+export interface Semester {
+    id: string
+    name: 'Fall' | 'Spring'
+    startDate: string
+    endDate: string
+}
+
+/**
+ * Represents an academic year/term.
+ */
+export interface AcademicTerm {
+    id: string
+    name: string
+    startDate: string
+    endDate: string
+    semesters: Semester[]
+}
+
 // Context types
 
 /**
@@ -138,6 +159,8 @@ export interface AppContextType {
     events: Event[]
     /** List of no-school periods */
     noSchool: NoSchoolPeriod[]
+    /** List of academic terms */
+    academicTerms: AcademicTerm[]
     /** Current schedule configuration */
     schedule: Schedule
     /** Currently selected UI theme */
@@ -186,6 +209,11 @@ export interface AppContextType {
     updateNoSchool: (id: string, updates: Partial<NoSchoolPeriod>) => void
     /** Removes a no-school period by ID */
     deleteNoSchool: (id: string) => void
+
+    // Term actions
+    addAcademicTerm: (term: Omit<AcademicTerm, 'id'>) => void
+    updateAcademicTerm: (id: string, updates: Partial<AcademicTerm>) => void
+    deleteAcademicTerm: (id: string) => void
 
     // Schedule actions
     /** Updates a specific period in the A or B day schedule */

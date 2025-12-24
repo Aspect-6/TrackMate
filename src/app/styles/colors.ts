@@ -380,4 +380,6 @@ export const SETTINGS = {
     BUTTON_B_HOVER: 'var(--settings-button-b-hover)',
     TEXT_A: 'var(--settings-text-a)',
     TEXT_B: 'var(--settings-text-b)',
+
+    SEMESTER_BG: 'var(--settings-semester-bg)',
 }

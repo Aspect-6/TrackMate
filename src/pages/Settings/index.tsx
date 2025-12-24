@@ -26,6 +26,11 @@ import ScheduleSettings, {
     CurrentDayCalculation,
     SetDayTypeButton
 } from '@/pages/Settings/components/ScheduleSettings'
+// Term settings imports
+import TermSettings, {
+    TermSettingsContent,
+    TermList
+} from '@/pages/Settings/components/TermSettings'
 // Danger zone settings imports
 import DangerZoneSettings, {
     DangerZoneBadge,
@@ -37,9 +42,9 @@ import DangerZoneSettings, {
 // App info footer import
 import AppInfoFooter from '@/pages/Settings/components/AppInfoFooter'
 // Other imports
-import { Sun, Moon } from 'lucide-react'
+import { Sun, Moon, Plus } from 'lucide-react'
 import { todayString } from '@/app/lib/utils'
-import { SETTINGS } from '@/app/styles/colors'
+import { SETTINGS, GLOBAL } from '@/app/styles/colors'
 import './index.css'
 
 const Settings: React.FC = () => {
@@ -48,7 +53,8 @@ const Settings: React.FC = () => {
         setReferenceDayType,
         getDayTypeForDate,
         theme,
-        setTheme: setThemeMode
+        setTheme: setThemeMode,
+        academicTerms
     } = useApp()
 
     const {
@@ -139,6 +145,35 @@ const Settings: React.FC = () => {
                     </div>
                 </ScheduleSettingsContent>
             </ScheduleSettings>
+
+            <TermSettings>
+                <div className="flex items-center justify-between mb-4">
+                    <BaseModuleHeader title="Academic Terms" />
+                </div>
+                <BaseModuleDescription>
+                    Define your school years and semesters to organize your schedule.
+                </BaseModuleDescription>
+                <TermSettingsContent>
+                    <TermList />
+                    {academicTerms.length > 0 && (
+                        <div className="mt-0 flex sm:justify-end">
+                            <button
+                                onClick={() => openModal('add-term')}
+                                className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-medium text-sm text-white transition-colors"
+                                style={{
+                                    backgroundColor: GLOBAL.ADDITEM_BUTTON_BG,
+                                    '--hover-bg': GLOBAL.ADDITEM_BUTTON_BG_HOVER
+                                } as React.CSSProperties}
+                                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = GLOBAL.ADDITEM_BUTTON_BG_HOVER}
+                                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = GLOBAL.ADDITEM_BUTTON_BG}
+                            >
+                                <Plus className="w-4 h-4" />
+                                Add Term
+                            </button>
+                        </div>
+                    )}
+                </TermSettingsContent>
+            </TermSettings>
 
             <DangerZoneSettings>
                 <div className="flex items-start justify-between mb-3 gap-3 flex-wrap">
