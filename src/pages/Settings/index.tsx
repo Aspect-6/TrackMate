@@ -29,7 +29,17 @@ import ScheduleSettings, {
 // Term settings imports
 import TermSettings, {
     TermSettingsContent,
-    TermList
+    TermList,
+    TermItem,
+    TermItemHeader,
+    TermItemHeaderName,
+    TermItemHeaderDates,
+    TermItemHeaderEditButton,
+    TermItemHeaderDeleteButton,
+    TermItemBody,
+    TermItemBodySemester,
+    AddTermButton,
+    NoTermsYetButton
 } from '@/pages/Settings/components/TermSettings'
 // Danger zone settings imports
 import DangerZoneSettings, {
@@ -42,9 +52,9 @@ import DangerZoneSettings, {
 // App info footer import
 import AppInfoFooter from '@/pages/Settings/components/AppInfoFooter'
 // Other imports
-import { Sun, Moon, Plus } from 'lucide-react'
-import { todayString } from '@/app/lib/utils'
-import { SETTINGS, GLOBAL } from '@/app/styles/colors'
+import { Sun, Moon } from 'lucide-react'
+import { todayString, formatMediumDate } from '@/app/lib/utils'
+import { SETTINGS } from '@/app/styles/colors'
 import './index.css'
 
 const Settings: React.FC = () => {
@@ -154,23 +164,38 @@ const Settings: React.FC = () => {
                     Define your school years and semesters to organize your schedule.
                 </BaseModuleDescription>
                 <TermSettingsContent>
-                    <TermList />
-                    {academicTerms.length > 0 && (
-                        <div className="mt-0 flex sm:justify-end">
-                            <button
-                                onClick={() => openModal('add-term')}
-                                className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-medium text-sm text-white transition-colors"
-                                style={{
-                                    backgroundColor: GLOBAL.ADDITEM_BUTTON_BG,
-                                    '--hover-bg': GLOBAL.ADDITEM_BUTTON_BG_HOVER
-                                } as React.CSSProperties}
-                                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = GLOBAL.ADDITEM_BUTTON_BG_HOVER}
-                                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = GLOBAL.ADDITEM_BUTTON_BG}
-                            >
-                                <Plus className="w-4 h-4" />
-                                Add Term
-                            </button>
-                        </div>
+                    {academicTerms.length === 0 ? (
+                        <NoTermsYetButton>
+                            No academic terms yet. Click to add term.
+                        </NoTermsYetButton>
+                    ) : (
+                        <>
+                            <TermList>
+                                {academicTerms.map((term) => (
+                                    <TermItem key={term.id}>
+                                        <TermItemHeader>
+                                            <div className="flex flex-col gap-1">
+                                                <TermItemHeaderName>{term.name}</TermItemHeaderName>
+                                                <TermItemHeaderDates>{formatMediumDate(term.startDate)} — {formatMediumDate(term.endDate)}</TermItemHeaderDates>
+                                            </div>
+                                            <div className="flex items-center gap-1 -mr-2 -mt-2">
+                                                <TermItemHeaderEditButton term={term} />
+                                                <TermItemHeaderDeleteButton term={term} />
+                                            </div>
+                                        </TermItemHeader>
+
+                                        <TermItemBody>
+                                            {term.semesters.map(sem => (
+                                                <TermItemBodySemester key={sem.id} name={sem.name}>
+                                                    {formatMediumDate(sem.startDate)} — {formatMediumDate(sem.endDate)}
+                                                </TermItemBodySemester>
+                                            ))}
+                                        </TermItemBody>
+                                    </TermItem>
+                                ))}
+                            </TermList>
+                            <AddTermButton>Add Term</AddTermButton>
+                        </>
                     )}
                 </TermSettingsContent>
             </TermSettings>

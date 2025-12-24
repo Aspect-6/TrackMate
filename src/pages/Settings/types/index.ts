@@ -1,4 +1,4 @@
-import { AssignmentType, DayType } from '@/app/types'
+import { AssignmentType, DayType, AcademicTerm } from '@/app/types'
 import { DragEndEvent, SensorDescriptor, SensorOptions } from '@dnd-kit/core'
 import { LucideIcon } from 'lucide-react'
 
@@ -82,6 +82,70 @@ export namespace AssignmentTypeSettings {
                 onClick: () => void
                 children: React.ReactNode
             }
+        }
+    }
+}
+
+// TermSettings namespace
+export namespace TermSettings {
+    export interface Props {
+        children: React.ReactNode
+    }
+    // ======================
+
+    export namespace Content {
+        export interface Props {
+            children: React.ReactNode
+        }
+        // ======================
+
+        export namespace TermList {
+            export interface Props {
+                children: React.ReactNode
+            }
+            // ======================
+            export namespace TermItem {
+                export interface Props {
+                    children: React.ReactNode
+                }
+                // ======================
+                export namespace Header {
+                    export interface Props {
+                        children: React.ReactNode
+                    }
+                    // ======================
+                    export interface NameProps {
+                        children: React.ReactNode
+                    }
+                    export interface DatesProps {
+                        children: React.ReactNode
+                    }
+                    export interface EditButtonProps {
+                        term: AcademicTerm
+                    }
+                    export interface DeleteButtonProps {
+                        term: AcademicTerm
+                    }
+                }
+
+                export namespace Body {
+                    export interface Props {
+                        children: React.ReactNode
+                    }
+                    // ======================
+                    export interface SemesterProps {
+                        name: string
+                        children: React.ReactNode
+                    }
+                }
+            }
+        }
+
+        export interface NoTermsYetButtonProps {
+            children: React.ReactNode
+        }
+        export interface AddTermButtonProps {
+            children: React.ReactNode
         }
     }
 }

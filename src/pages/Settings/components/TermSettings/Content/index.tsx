@@ -1,10 +1,7 @@
 import React from 'react'
+import type { TermSettings } from '@/pages/Settings/types'
 
-interface Props {
-    children: React.ReactNode
-}
-
-const TermSettingsContent: React.FC<Props> = ({ children }) => {
+const TermSettingsContent: React.FC<TermSettings.Content.Props> = ({ children }) => {
     return (
         <div className="flex flex-col gap-4">
             {children}
@@ -13,3 +10,5 @@ const TermSettingsContent: React.FC<Props> = ({ children }) => {
 }
 
 export default TermSettingsContent
+
+export { default as TermItem } from './TermList/TermItem'
