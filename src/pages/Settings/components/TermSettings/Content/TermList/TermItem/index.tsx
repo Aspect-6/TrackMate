@@ -5,7 +5,7 @@ import { SETTINGS } from '@/app/styles/colors'
 const TermItem: React.FC<TermSettings.Content.TermList.TermItem.Props> = ({ children }) => {
     return (
         <div
-            className={['p-5 rounded-xl border transition-all'].join(' ')}
+            className={'p-5 rounded-xl border transition-colors'}
             style={{
                 backgroundColor: SETTINGS.MODAL_BG,
                 borderColor: SETTINGS.CARD_BORDER,

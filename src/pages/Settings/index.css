@@ -77,8 +77,8 @@
     align-items: center;
     padding: 0.9rem 1.1rem;
     border-radius: 0.9rem;
-    border: 1px solid var(--settings-card-border);
-    background-color: var(--settings-card-bg);
+    border: 1px solid var(--settings-module-border);
+    background-color: var(--modal-surface-bg);
     color: var(--settings-body-text);
     transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
@@ -106,8 +106,8 @@
 .settings-select {
     width: 100%;
     border-radius: 0.5rem;
-    background-color: var(--modal-input-bg);
-    border: 1px solid var(--modal-input-border);
+    background-color: var(--modal-surface-bg);
+    border: 1px solid var(--settings-module-border);
     color: var(--settings-body-text);
     padding: 0.5rem 2.25rem 0.5rem 0.75rem;
     appearance: none;
