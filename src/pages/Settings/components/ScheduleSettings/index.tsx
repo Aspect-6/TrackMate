@@ -20,5 +20,6 @@ const ScheduleSettingsComponent: React.FC<ScheduleSettings.Props> = ({ children 
 export default ScheduleSettingsComponent
 export { default as ScheduleSettingsContent } from './Content'
 export { default as ScheduleTypeDropdown } from './Content/ScheduleTypeDropdown'
+export { default as ScheduleTypeDropdownOption } from './Content/ScheduleTypeDropdown/ScheduleTypeDropdownOption'
 export { default as CurrentDayCalculation } from './Content/CurrentDayCalculation'
 export { default as SetDayTypeButton } from './Content/SetDayTypeButton'
