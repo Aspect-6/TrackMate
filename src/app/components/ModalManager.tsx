@@ -15,13 +15,29 @@ const ModalManager: React.FC = () => {
 
     useEffect(() => {
         if (activeModal) {
+            // Prevent background scrolling on all devices including iOS
             document.body.style.overflow = 'hidden'
+            document.body.style.position = 'fixed'
+            document.body.style.top = `-${window.scrollY}px`
         } else {
+            const scrollY = document.body.style.top
             document.body.style.overflow = ''
+            document.body.style.position = ''
+            document.body.style.top = ''
+            // Restore scroll position
+            if (scrollY) {
+                window.scrollTo(0, parseInt(scrollY || '0', 10) * -1)
+            }
         }
 
         return () => {
+            const scrollY = document.body.style.top
             document.body.style.overflow = ''
+            document.body.style.position = ''
+            document.body.style.top = ''
+            if (scrollY) {
+                window.scrollTo(0, parseInt(scrollY || '0', 10) * -1)
+            }
         }
     }, [activeModal])
 
@@ -75,7 +91,14 @@ const ModalManager: React.FC = () => {
     }
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center p-4 z-50" style={{ backgroundColor: GLOBAL.MODAL_BACKDROP }}>
+        <div
+            className="fixed inset-0 flex items-center justify-center p-4 z-50"
+            style={{
+                backgroundColor: GLOBAL.MODAL_BACKDROP,
+                touchAction: 'none'
+            }}
+            onTouchMove={e => e.preventDefault()}
+        >
             {renderModalContent()}
         </div>
     )
