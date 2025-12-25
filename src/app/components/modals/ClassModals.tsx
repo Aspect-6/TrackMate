@@ -13,6 +13,7 @@ interface ClassModalProps extends ModalProps {
 
 export const AddClassModal: React.FC<ModalProps> = ({ onClose }) => {
     const { addClass, academicTerms } = useApp()
+    const [activeTab, setActiveTab] = useState<'details' | 'settings'>('details')
     const [selectedColor, setSelectedColor] = useState<string>(MODALS.CLASS.COLORS[0]!)
     const [selectedTermId, setSelectedTermId] = useState<string>('')
     const [selectedSemesterId, setSelectedSemesterId] = useState<string>('')
@@ -39,94 +40,122 @@ export const AddClassModal: React.FC<ModalProps> = ({ onClose }) => {
         <div className="modal-container" style={{ backgroundColor: MODALS.BASE.BG }}>
             <h2 className="text-xl font-bold mb-4" style={{ color: MODALS.CLASS.HEADING }}>Add New Class</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
-                {/* Row 1: Class Name */}
-                <div>
-                    <label className="modal-label">Class Name</label>
-                    <input
-                        type="text"
-                        name="name"
-                        required
-                        className="modal-input"
-                        style={{ '--focus-color': MODALS.CLASS.PRIMARY_BG } as React.CSSProperties}
-                        placeholder="e.g., AP History"
-                    />
+                <div className="modal-tabs" role="tablist" aria-label="Class form sections">
+                    <button
+                        type="button"
+                        className={`modal-tab ${activeTab === 'details' ? 'active' : ''}`}
+                        onClick={() => setActiveTab('details')}
+                        aria-selected={activeTab === 'details'}
+                    >
+                        Details
+                    </button>
+                    <button
+                        type="button"
+                        className={`modal-tab ${activeTab === 'settings' ? 'active' : ''}`}
+                        onClick={() => setActiveTab('settings')}
+                        aria-selected={activeTab === 'settings'}
+                    >
+                        Settings
+                    </button>
                 </div>
 
-                {/* Row 2: Instructor & Room Number */}
-                <div className="flex space-x-4">
-                    <div className="flex-1">
-                        <label className="modal-label">Instructor Name (Optional)</label>
-                        <input
-                            type="text"
-                            name="teacherName"
-                            className="modal-input"
-                            style={{ '--focus-color': MODALS.CLASS.PRIMARY_BG } as React.CSSProperties}
-                            placeholder="e.g., Ms. Johnson"
-                        />
-                    </div>
-                    <div className="flex-1">
-                        <label className="modal-label">Room Number (Optional)</label>
-                        <input
-                            type="text"
-                            name="roomNumber"
-                            className="modal-input"
-                            style={{ '--focus-color': MODALS.CLASS.PRIMARY_BG } as React.CSSProperties}
-                            placeholder="e.g., B105"
-                        />
-                    </div>
-                </div>
+                {activeTab === 'details' ? (
+                    <div className="modal-tab-panel space-y-4">
+                        {/* Class Name */}
+                        <div>
+                            <label className="modal-label">Class Name</label>
+                            <input
+                                type="text"
+                                name="name"
+                                required
+                                className="modal-input"
+                                style={{ '--focus-color': MODALS.CLASS.PRIMARY_BG } as React.CSSProperties}
+                                placeholder="e.g., AP History"
+                            />
+                        </div>
 
-                {/* Row 3: Term Selection */}
-                <div className="flex space-x-4">
-                    <div className="flex-1">
-                        <label className="modal-label">Academic Term (Optional)</label>
-                        <select
-                            value={selectedTermId}
-                            onChange={e => {
-                                setSelectedTermId(e.target.value)
-                                setSelectedSemesterId('')
-                            }}
-                            className="modal-select"
-                            style={{ '--focus-color': MODALS.CLASS.PRIMARY_BG } as React.CSSProperties}
-                        >
-                            <option value="">No Term Assigned</option>
-                            {academicTerms.map(term => (
-                                <option key={term.id} value={term.id}>{term.name}</option>
-                            ))}
-                        </select>
+                        {/* Instructor & Room Number */}
+                        <div className="flex space-x-4">
+                            <div className="flex-1">
+                                <label className="modal-label">Instructor Name (Optional)</label>
+                                <input
+                                    type="text"
+                                    name="teacherName"
+                                    className="modal-input"
+                                    style={{ '--focus-color': MODALS.CLASS.PRIMARY_BG } as React.CSSProperties}
+                                    placeholder="e.g., Ms. Johnson"
+                                />
+                            </div>
+                            <div className="flex-1">
+                                <label className="modal-label">Room Number (Optional)</label>
+                                <input
+                                    type="text"
+                                    name="roomNumber"
+                                    className="modal-input"
+                                    style={{ '--focus-color': MODALS.CLASS.PRIMARY_BG } as React.CSSProperties}
+                                    placeholder="e.g., B105"
+                                />
+                            </div>
+                        </div>
+
+                        {/* Color Code */}
+                        <div>
+                            <label className="block text-sm font-medium text-gray-400 mb-2">Color Code</label>
+                            <div className="color-tile-grid">
+                                {MODALS.CLASS.COLORS.map(color => (
+                                    <div
+                                        key={color}
+                                        onClick={() => setSelectedColor(color)}
+                                        className={`color-tile ${selectedColor === color ? 'selected' : ''}`}
+                                        style={{ backgroundColor: color }}
+                                    />
+                                ))}
+                            </div>
+                        </div>
                     </div>
-                    {selectedTerm && selectedTerm.semesters.length > 0 && (
-                        <div className="flex-1">
-                            <label className="modal-label">Semester (Optional)</label>
+                ) : (
+                    <div className="modal-tab-panel space-y-4">
+                        {/* Term Selection */}
+                        <div>
+                            <label className="modal-label">Academic Term (Optional)</label>
                             <select
-                                value={selectedSemesterId}
-                                onChange={e => setSelectedSemesterId(e.target.value)}
+                                value={selectedTermId}
+                                onChange={e => {
+                                    setSelectedTermId(e.target.value)
+                                    setSelectedSemesterId('')
+                                }}
                                 className="modal-select"
                                 style={{ '--focus-color': MODALS.CLASS.PRIMARY_BG } as React.CSSProperties}
                             >
-                                <option value="">Year-long (All Semesters)</option>
-                                {selectedTerm.semesters.map(sem => (
-                                    <option key={sem.id} value={sem.id}>{sem.name}</option>
+                                <option value="">No Term Assigned</option>
+                                {academicTerms.map(term => (
+                                    <option key={term.id} value={term.id}>{term.name}</option>
                                 ))}
                             </select>
                         </div>
-                    )}
-                </div>
+                        {selectedTerm && selectedTerm.semesters.length > 0 && (
+                            <div>
+                                <label className="modal-label">Semester (Optional)</label>
+                                <select
+                                    value={selectedSemesterId}
+                                    onChange={e => setSelectedSemesterId(e.target.value)}
+                                    className="modal-select"
+                                    style={{ '--focus-color': MODALS.CLASS.PRIMARY_BG } as React.CSSProperties}
+                                >
+                                    <option value="">Year-long (Both Semesters)</option>
+                                    {selectedTerm.semesters.map(sem => (
+                                        <option key={sem.id} value={sem.id}>{sem.name}</option>
+                                    ))}
+                                </select>
+                            </div>
+                        )}
 
-                {/* Row 4: Color Code */}
-                <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-2">Color Code</label>
-                    <div className="color-tile-grid">
-                        {MODALS.CLASS.COLORS.map(color => (
-                            <div
-                                key={color}
-                                onClick={() => setSelectedColor(color)}
-                                className={`color-tile ${selectedColor === color ? 'selected' : ''}`}
-                                style={{ backgroundColor: color }}
-                            />
-                        ))}
+                        {/* Term Note */}
+                        <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
+                            Classes added to a year-long term will occur every other day, while classes marked for a semester will occur every day for that semester.
+                        </p>
                     </div>
-                </div>
+                )}
 
                 {/* Buttons */}
                 <div className="flex justify-end space-x-3 mt-6">
@@ -163,6 +192,7 @@ export const AddClassModal: React.FC<ModalProps> = ({ onClose }) => {
 export const EditClassModal: React.FC<ClassModalProps> = ({ onClose, classId }) => {
     const { classes, updateClass, openModal, academicTerms } = useApp()
     const [formData, setFormData] = useState<Class | null>(null)
+    const [activeTab, setActiveTab] = useState<'details' | 'settings'>('details')
 
     const selectedTerm = formData?.termId ? academicTerms.find(t => t.id === formData.termId) : undefined
 
@@ -183,93 +213,122 @@ export const EditClassModal: React.FC<ClassModalProps> = ({ onClose, classId }) 
         <div className="modal-container" style={{ backgroundColor: MODALS.BASE.BG }}>
             <h2 className="text-xl font-bold mb-4" style={{ color: MODALS.CLASS.HEADING }}>Edit Class</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
-                {/* Row 1: Class Name */}
-                <div>
-                    <label className="modal-label">Class Name</label>
-                    <input
-                        type="text"
-                        value={formData.name}
-                        onChange={e => setFormData({ ...formData, name: e.target.value })}
-                        required
-                        className="modal-input"
-                        style={{ '--focus-color': MODALS.CLASS.PRIMARY_BG } as React.CSSProperties}
-                    />
+                <div className="modal-tabs" role="tablist" aria-label="Class form sections">
+                    <button
+                        type="button"
+                        className={`modal-tab ${activeTab === 'details' ? 'active' : ''}`}
+                        onClick={() => setActiveTab('details')}
+                        aria-selected={activeTab === 'details'}
+                    >
+                        Details
+                    </button>
+                    <button
+                        type="button"
+                        className={`modal-tab ${activeTab === 'settings' ? 'active' : ''}`}
+                        onClick={() => setActiveTab('settings')}
+                        aria-selected={activeTab === 'settings'}
+                    >
+                        Settings
+                    </button>
                 </div>
 
-                {/* Row 2: Instructor & Room Number */}
-                <div className="flex space-x-4">
-                    <div className="flex-1">
-                        <label className="modal-label">Instructor Name (Optional)</label>
-                        <input
-                            type="text"
-                            value={formData.teacherName}
-                            onChange={e => setFormData({ ...formData, teacherName: e.target.value })}
-                            className="modal-input"
-                            style={{ '--focus-color': MODALS.CLASS.PRIMARY_BG } as React.CSSProperties}
-                            placeholder="e.g., Ms. Johnson"
-                        />
-                    </div>
-                    <div className="flex-1">
-                        <label className="modal-label">Room Number (Optional)</label>
-                        <input
-                            type="text"
-                            value={formData.roomNumber}
-                            onChange={e => setFormData({ ...formData, roomNumber: e.target.value })}
-                            className="modal-input"
-                            style={{ '--focus-color': MODALS.CLASS.PRIMARY_BG } as React.CSSProperties}
-                            placeholder="e.g., B105"
-                        />
-                    </div>
-                </div>
+                {activeTab === 'details' ? (
+                    <div className="modal-tab-panel space-y-4">
+                        {/* Class Name */}
+                        <div>
+                            <label className="modal-label">Class Name</label>
+                            <input
+                                type="text"
+                                value={formData.name}
+                                onChange={e => setFormData({ ...formData, name: e.target.value })}
+                                required
+                                className="modal-input"
+                                style={{ '--focus-color': MODALS.CLASS.PRIMARY_BG } as React.CSSProperties}
+                            />
+                        </div>
 
-                {/* Row 3: Term Selection */}
-                <div className="flex space-x-4">
-                    <div className="flex-1">
-                        <label className="modal-label">Academic Term (Optional)</label>
-                        <select
-                            value={formData.termId || ''}
-                            onChange={e => setFormData({ ...formData, termId: e.target.value || undefined, semesterId: undefined })}
-                            className="modal-select"
-                            style={{ '--focus-color': MODALS.CLASS.PRIMARY_BG } as React.CSSProperties}
-                        >
-                            <option value="">No Term Assigned</option>
-                            {academicTerms.map(term => (
-                                <option key={term.id} value={term.id}>{term.name}</option>
-                            ))}
-                        </select>
+                        {/* Instructor & Room Number */}
+                        <div className="flex space-x-4">
+                            <div className="flex-1">
+                                <label className="modal-label">Instructor Name (Optional)</label>
+                                <input
+                                    type="text"
+                                    value={formData.teacherName}
+                                    onChange={e => setFormData({ ...formData, teacherName: e.target.value })}
+                                    className="modal-input"
+                                    style={{ '--focus-color': MODALS.CLASS.PRIMARY_BG } as React.CSSProperties}
+                                    placeholder="e.g., Ms. Johnson"
+                                />
+                            </div>
+                            <div className="flex-1">
+                                <label className="modal-label">Room Number (Optional)</label>
+                                <input
+                                    type="text"
+                                    value={formData.roomNumber}
+                                    onChange={e => setFormData({ ...formData, roomNumber: e.target.value })}
+                                    className="modal-input"
+                                    style={{ '--focus-color': MODALS.CLASS.PRIMARY_BG } as React.CSSProperties}
+                                    placeholder="e.g., B105"
+                                />
+                            </div>
+                        </div>
+
+                        {/* Color Code */}
+                        <div>
+                            <label className="block text-sm font-medium text-gray-400 mb-2">Color Code</label>
+                            <div className="color-tile-grid">
+                                {MODALS.CLASS.COLORS.map(color => (
+                                    <div
+                                        key={color}
+                                        onClick={() => setFormData({ ...formData, color })}
+                                        className={`color-tile ${formData.color === color ? 'selected' : ''}`}
+                                        style={{ backgroundColor: color }}
+                                    />
+                                ))}
+                            </div>
+                        </div>
                     </div>
-                    {selectedTerm && selectedTerm.semesters.length > 0 && (
-                        <div className="flex-1">
-                            <label className="modal-label">Semester (Optional)</label>
+                ) : (
+                    <div className="modal-tab-panel space-y-4">
+                        {/* Term Selection */}
+                        <div>
+                            <label className="modal-label">Academic Term (Optional)</label>
                             <select
-                                value={formData.semesterId || ''}
-                                onChange={e => setFormData({ ...formData, semesterId: e.target.value || undefined })}
+                                value={formData.termId || ''}
+                                onChange={e => setFormData({ ...formData, termId: e.target.value || undefined, semesterId: undefined })}
                                 className="modal-select"
                                 style={{ '--focus-color': MODALS.CLASS.PRIMARY_BG } as React.CSSProperties}
                             >
-                                <option value="">Year-long (All Semesters)</option>
-                                {selectedTerm.semesters.map(sem => (
-                                    <option key={sem.id} value={sem.id}>{sem.name}</option>
+                                <option value="">No Term Assigned</option>
+                                {academicTerms.map(term => (
+                                    <option key={term.id} value={term.id}>{term.name}</option>
                                 ))}
                             </select>
                         </div>
-                    )}
-                </div>
+                        {selectedTerm && selectedTerm.semesters.length > 0 && (
+                            <div>
+                                <label className="modal-label">Semester (Optional)</label>
+                                <select
+                                    value={formData.semesterId || ''}
+                                    onChange={e => setFormData({ ...formData, semesterId: e.target.value || undefined })}
+                                    className="modal-select"
+                                    style={{ '--focus-color': MODALS.CLASS.PRIMARY_BG } as React.CSSProperties}
+                                >
+                                    <option value="">Year-long (Both Semesters)</option>
+                                    {selectedTerm.semesters.map(sem => (
+                                        <option key={sem.id} value={sem.id}>{sem.name}</option>
+                                    ))}
+                                </select>
+                            </div>
+                        )}
 
-                {/* Row 4: Color Code */}
-                <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-2">Color Code</label>
-                    <div className="color-tile-grid">
-                        {MODALS.CLASS.COLORS.map(color => (
-                            <div
-                                key={color}
-                                onClick={() => setFormData({ ...formData, color })}
-                                className={`color-tile ${formData.color === color ? 'selected' : ''}`}
-                                style={{ backgroundColor: color }}
-                            />
-                        ))}
+                        {/* Term Note */}
+                        <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
+                            Classes added to a year-long term will occur every other day, while classes marked for a semester will occur every day for that semester.
+                        </p>
                     </div>
-                </div>
+                )}
+
                 <div className="flex justify-between mt-6">
                     <button
                         type="button"

@@ -138,7 +138,7 @@
 
 /* Keep modal body height stable when switching tabs */
 .modal-tab-panel {
-    min-height: 360px;
+    min-height: 265px;
 }
 
 .modal-tab:focus-visible {

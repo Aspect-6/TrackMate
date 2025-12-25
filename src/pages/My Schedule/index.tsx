@@ -1,24 +1,49 @@
 import React from 'react'
-import { useApp } from '@/app/contexts/AppContext'
-import { DayType } from '@/app/types'
+// import { useApp } from '@/app/contexts/AppContext'
+// import { DayType } from '@/app/types'
 import { MY_SCHEDULE } from '@/app/styles/colors'
-import DaySchedule from '@/pages/My Schedule/components/DaySchedule'
-import DayScheduleHeader from '@/pages/My Schedule/components/DaySchedule/DayScheduleDayHeader'
-import DayScheduleBody from './components/DaySchedule/Body'
-import ScheduleSlot from '@/pages/My Schedule/components/DaySchedule/Body/ScheduleSlot'
+// import DaySchedule from '@/pages/My Schedule/components/DaySchedule'
+// import DayScheduleHeader from '@/pages/My Schedule/components/DaySchedule/DayScheduleDayHeader'
+// import DayScheduleBody from './components/DaySchedule/Body'
+// import ScheduleSlot from '@/pages/My Schedule/components/DaySchedule/Body/ScheduleSlot'
 import './index.css'
 
 const MySchedule: React.FC = () => {
-    const { schedule, getClassById, openModal, updateSchedule } = useApp()
+    // const { schedule, getClassById, openModal, updateSchedule } = useApp()
 
-    const handleRemove = (dayType: NonNullable<DayType>, index: number) => {
-        updateSchedule(dayType, index, null)
-    }
+    // const handleRemove = (dayType: NonNullable<DayType>, index: number) => {
+    //     updateSchedule(dayType, index, null)
+    // }
 
-    const handleSelect = (dayType: NonNullable<DayType>, index: number) => {
-        openModal('schedule-class-selector', { dayType, index })
-    }
+    // const handleSelect = (dayType: NonNullable<DayType>, index: number) => {
+    //     openModal('schedule-class-selector', { dayType, index })
+    // }
 
+    // ========================================
+    // NEW MY SCHEDULE PAGE - REDESIGN IN PROGRESS
+    // Using data key: trackmateSchedule
+    // ========================================
+    return (
+        <div
+            className="p-6 rounded-xl min-h-[60vh] transition-colors"
+            style={{
+                backgroundColor: MY_SCHEDULE.MODULE_BG,
+                border: `1px solid ${MY_SCHEDULE.MODULE_BORDER}`,
+                boxShadow: MY_SCHEDULE.MODULE_SHADOW,
+            }}
+        >
+            <h2 className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>
+                My Schedule — Redesign in Progress
+            </h2>
+            <p className="mt-2" style={{ color: 'var(--text-secondary)' }}>
+                New schedule page coming soon.
+            </p>
+        </div>
+    )
+
+    /* ========================================
+     * OLD MY SCHEDULE PAGE - COMMENTED OUT
+     * ========================================
     return (
         <div
             className="p-6 rounded-xl min-h-[60vh] transition-colors"
@@ -64,6 +89,8 @@ const MySchedule: React.FC = () => {
             </div>
         </div>
     )
+    */
 }
 
 export default MySchedule
+
