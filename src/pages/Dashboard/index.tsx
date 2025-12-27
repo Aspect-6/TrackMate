@@ -10,7 +10,7 @@ import '@/pages/Dashboard/index.css'
 const MOBILE_BREAKPOINT = '(max-width: 767px)'
 
 const Dashboard: React.FC = () => {
-    const { assignments, events, getClassesForDate, getClassById, openModal, noSchool } = useApp()
+    const { assignments, events, getClassById, openModal, noSchool } = useApp()
 
     const [isMobile, setIsMobile] = useState<boolean>(() => {
         if (typeof window === 'undefined') return false
@@ -70,8 +70,8 @@ const Dashboard: React.FC = () => {
         return 0
     })
 
-    // Get Classes
-    const todaysClasses = getClassesForDate(today)
+    // TODO: Classes now stored per-term - need to determine active term to show today's classes
+    const todaysClasses: (string | null)[] = []
 
     const assignmentsToShow = activeAssignments.slice(0, 3)
 

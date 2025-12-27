@@ -29,7 +29,7 @@
 
     --settings-semester-bg: hsl(215, 15%, 16.5%);
 
-    --settings-empty-border-hover: hsl(215, 11%, 65%);
+    --settings-empty-border-hover: hsl(215, 10%, 45%);
 }
 
 :root.light {

@@ -1,12 +1,7 @@
 import React, { useState } from 'react'
+import type { ScheduleSettings } from '@/pages/Settings/types'
 
-interface ScheduleTypeDropdownProps {
-    className?: string
-    children: React.ReactNode
-    defaultValue: string
-}
-
-const ScheduleTypeDropdown: React.FC<ScheduleTypeDropdownProps> = ({ className, children, defaultValue = 'alternating-ab' }) => {
+const ScheduleTypeDropdown: React.FC<ScheduleSettings.Content.ScheduleTypeDropdown.Props> = ({ className, children, defaultValue = 'alternating-ab' }) => {
     const [value, setValue] = useState(defaultValue)
 
     return (

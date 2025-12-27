@@ -31,6 +31,8 @@ import ScheduleSettings, {
 // Term settings imports
 import TermSettings, {
     TermSettingsContent,
+    TermModeDropdown,
+    TermModeDropdownOption,
     TermList,
     TermItem,
     TermItemHeader,
@@ -66,7 +68,7 @@ const Settings: React.FC = () => {
         getDayTypeForDate,
         theme,
         setTheme: setThemeMode,
-        academicTerms
+        filteredAcademicTerms
     } = useApp()
 
     const {
@@ -170,41 +172,71 @@ const Settings: React.FC = () => {
                 <div className="flex items-center justify-between mb-4">
                     <BaseModuleHeader title="Academic Terms" />
                 </div>
-                <BaseModuleDescription>
+                {/* <BaseModuleDescription className=' mb-7'>
                     Define your school years and semesters to organize your schedule.
-                </BaseModuleDescription>
+                </BaseModuleDescription> */}
+
+                {/* Term Mode Selector */}
+                <div className="mt-4 mb-4">
+                    <BaseModuleDescription>
+                        Select the kind of academic terms your institution uses.
+                    </BaseModuleDescription>
+                    <TermModeDropdown
+                        messages={{
+                            'Semesters Only': 'Fall and Spring semesters',
+                            'Semesters With Quarters': 'Four quarters (Q1-Q4) split into Fall and Spring semesters'
+                        }}
+                    >
+                        <TermModeDropdownOption value="Semesters Only">Semesters Only</TermModeDropdownOption>
+                        <TermModeDropdownOption value="Semesters With Quarters">Semesters With Quarters</TermModeDropdownOption>
+                    </TermModeDropdown>
+                </div>
+
                 <TermSettingsContent>
-                    {academicTerms.length === 0 ? (
+                    {filteredAcademicTerms.length === 0 ? (
                         <NoTermsYetButton>
                             No academic terms yet. Click to add term.
                         </NoTermsYetButton>
                     ) : (
                         <>
-                            <TermList>
-                                {academicTerms.map((term) => (
-                                    <TermItem key={term.id}>
-                                        <TermItemHeader>
-                                            <div className="flex flex-col gap-1">
-                                                <TermItemHeaderName>{term.name}</TermItemHeaderName>
-                                                <TermItemHeaderDates>{formatMediumDate(term.startDate)} — {formatMediumDate(term.endDate)}</TermItemHeaderDates>
-                                            </div>
-                                            <div className="flex items-center gap-1 -mr-2 -mt-2">
-                                                <TermItemHeaderEditButton term={term} />
-                                                <TermItemHeaderDeleteButton term={term} />
-                                            </div>
-                                        </TermItemHeader>
+                        <TermList>
+                            {filteredAcademicTerms.map((term) => (
+                                <TermItem key={term.id}>
+                                    <TermItemHeader>
+                                        <div className="flex flex-col gap-1">
+                                            <TermItemHeaderName>{term.name}</TermItemHeaderName>
+                                            <TermItemHeaderDates>{formatMediumDate(term.startDate)} — {formatMediumDate(term.endDate)}</TermItemHeaderDates>
+                                        </div>
+                                        <div className="flex items-center gap-1 -mr-2 -mt-2">
+                                            <TermItemHeaderEditButton term={term} />
+                                            <TermItemHeaderDeleteButton term={term} />
+                                        </div>
+                                    </TermItemHeader>
 
-                                        <TermItemBody>
-                                            {term.semesters.map(sem => (
-                                                <TermItemBodySemester key={sem.id} name={sem.name}>
-                                                    {formatMediumDate(sem.startDate)} — {formatMediumDate(sem.endDate)}
-                                                </TermItemBodySemester>
-                                            ))}
-                                        </TermItemBody>
-                                    </TermItem>
-                                ))}
-                            </TermList>
-                            <AddTermButton>Add Term</AddTermButton>
+                                    <TermItemBody>
+                                        <TermItemBodySemester
+                                            name="Fall"
+                                            startDate={term.semesters.find(sem => sem.name === 'Fall')!.startDate}
+                                            endDate={term.semesters.find(sem => sem.name === 'Fall')!.endDate}
+                                            quarters={term.termType === 'Semesters With Quarters'
+                                                ? term.semesters.find(sem => sem.name === 'Fall')!.quarters
+                                                : undefined
+                                            }
+                                        />
+                                        <TermItemBodySemester
+                                            name="Spring"
+                                            startDate={term.semesters.find(sem => sem.name === 'Spring')!.startDate}
+                                            endDate={term.semesters.find(sem => sem.name === 'Spring')!.endDate}
+                                            quarters={term.termType === 'Semesters With Quarters'
+                                                ? term.semesters.find(sem => sem.name === 'Spring')!.quarters
+                                                : undefined
+                                            }
+                                        />
+                                    </TermItemBody>
+                                </TermItem>
+                            ))}
+                        </TermList>
+                        <AddTermButton>Add Term</AddTermButton>
                         </>
                     )}
                 </TermSettingsContent>

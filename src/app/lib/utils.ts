@@ -136,3 +136,16 @@ export const parse12HourTime = (input: string): string | null => {
     }
     return `${hourNum.toString().padStart(2, '0')}:${minuteNum.toString().padStart(2, '0')}`
 }
+
+/**
+ * Adds a specified number of days to a date string.
+ * @param dateString - The date string in 'YYYY-MM-DD' format.
+ * @param days - The number of days to add (can be negative).
+ * @returns The new date string in 'YYYY-MM-DD' format.
+ */
+export const addDaysToDateString = (dateString: string, days: number): string => {
+    const date = parseDateLocal(dateString)
+    date.setDate(date.getDate() + days)
+    return dateToLocalISOString(date)
+}
+

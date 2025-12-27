@@ -1,4 +1,4 @@
-import { Class, DayType, Schedule, Semester } from '@/app/types'
+import { Class, DayType, Semester, SemesterScheduleData } from '@/app/types'
 
 // ========================================
 // Shared Type Aliases
@@ -10,8 +10,8 @@ export type SemesterName = Semester['name']
 /** Non-nullable day type for A/B days */
 export type ScheduleDayType = NonNullable<DayType>
 
-/** Schedule data for a single semester (subset of Schedule without rotation info) */
-export type SemesterScheduleData = Pick<Schedule, 'aDay' | 'bDay'>
+// Re-export for convenience
+export type { SemesterScheduleData }
 
 /** Draft schedule containing term ID and both Fall and Spring semesters */
 export interface DraftSchedule {

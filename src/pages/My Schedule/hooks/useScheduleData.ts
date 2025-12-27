@@ -1,21 +1,20 @@
 import { useState, useEffect } from 'react'
 import { useApp } from '@/app/contexts/AppContext'
 import type { SemesterScheduleData, SemesterName, ScheduleDayType } from '@/pages/My Schedule/types'
+import type { TermSchedule } from '@/app/types'
 
-const STORAGE_KEY = 'trackmateSchedules'
+/**
+ * Generates an SVG dropdown arrow with the given color
+ */
+const getArrowSvg = (color: string) => {
+    const encodedColor = encodeURIComponent(color)
+    return `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='${encodedColor}'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`
+}
 
 const EMPTY_SEMESTER: SemesterScheduleData = {
     aDay: [null, null, null, null],
     bDay: [null, null, null, null]
 }
-
-interface TermSchedule {
-    Fall: SemesterScheduleData
-    Spring: SemesterScheduleData
-}
-
-/** Map of termId -> schedule data for that term */
-type ScheduleStore = Record<string, TermSchedule>
 
 const EMPTY_TERM_SCHEDULE: TermSchedule = {
     Fall: { ...EMPTY_SEMESTER },
@@ -23,44 +22,25 @@ const EMPTY_TERM_SCHEDULE: TermSchedule = {
 }
 
 /**
- * Loads all schedules from localStorage.
+ * Gets schedule for a specific term from the store, or empty schedule if not found.
  */
-const loadAllSchedules = (): ScheduleStore => {
-    try {
-        const saved = localStorage.getItem(STORAGE_KEY)
-        if (!saved) return {}
-        return JSON.parse(saved)
-    } catch {
-        return {}
-    }
-}
-
-/**
- * Gets schedule for a specific term, or empty schedule if not found.
- */
-const getScheduleForTerm = (store: ScheduleStore, termId: string | null): TermSchedule => {
+const getScheduleForTerm = (store: Record<string, TermSchedule>, termId: string | null): TermSchedule => {
     if (!termId) return EMPTY_TERM_SCHEDULE
     return store[termId] || EMPTY_TERM_SCHEDULE
 }
 
 /**
- * Generates an SVG dropdown arrow with the given color
- */
-const getArrowSvg = (color: string) => {
-    const encodedColor = encodeURIComponent(color)
-    return `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='${encodedColor}' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E")`
-}
-
-/**
  * Custom hook for managing schedule data.
- * Stores separate schedules for each academic term.
+ * Now uses termSchedules from AppContext instead of its own localStorage.
  */
 export const useScheduleData = () => {
-    const { getClassById, openModal, academicTerms } = useApp()
-
-    // All schedules (persisted)
-    const [allSchedules, setAllSchedules] = useState<ScheduleStore>(loadAllSchedules)
-    const [savedSchedules, setSavedSchedules] = useState<ScheduleStore>(loadAllSchedules)
+    const {
+        getClassById,
+        openModal,
+        filteredAcademicTerms,
+        scheduleStore,
+        updateTermSchedule
+    } = useApp()
 
     // Currently selected term
     const [selectedTermId, setSelectedTermId] = useState<string | null>(null)
@@ -70,7 +50,7 @@ export const useScheduleData = () => {
         if (selectedTermId !== null) return // Don't override if already set
 
         const today = new Date()
-        const currentTerm = academicTerms.find(term => {
+        const currentTerm = filteredAcademicTerms.find(term => {
             const start = new Date(term.startDate)
             const end = new Date(term.endDate)
             return today >= start && today <= end
@@ -79,7 +59,7 @@ export const useScheduleData = () => {
         if (currentTerm) {
             setSelectedTermId(currentTerm.id)
         }
-    }, [academicTerms, selectedTermId])
+    }, [filteredAcademicTerms, selectedTermId])
 
     // Arrow color for dropdown (reads from CSS)
     const [arrowColor, setArrowColor] = useState('')
@@ -102,24 +82,8 @@ export const useScheduleData = () => {
 
     const arrowStyle = { backgroundImage: getArrowSvg(arrowColor) }
 
-    // Current term's schedule data
-    const currentSchedule = getScheduleForTerm(allSchedules, selectedTermId)
-    const savedCurrentSchedule = getScheduleForTerm(savedSchedules, selectedTermId)
-
-    const isDirty = selectedTermId
-        ? JSON.stringify(currentSchedule) !== JSON.stringify(savedCurrentSchedule)
-        : false
-
-    const saveSchedule = () => {
-        if (!selectedTermId) return
-
-        const newStore = {
-            ...allSchedules,
-            [selectedTermId]: currentSchedule
-        }
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(newStore))
-        setSavedSchedules(newStore)
-    }
+    // Current term's schedule data from context
+    const currentSchedule = getScheduleForTerm(scheduleStore.terms, selectedTermId)
 
     const setTermId = (termId: string | null) => {
         setSelectedTermId(termId)
@@ -137,37 +101,32 @@ export const useScheduleData = () => {
     ) => {
         if (!selectedTermId) return
 
-        setAllSchedules(prev => {
-            const termSchedule = prev[selectedTermId] || EMPTY_TERM_SCHEDULE
+        let newSchedule: TermSchedule
 
-            if (isSemesterClass) {
-                // Semester class: fill BOTH A and B days at this period
-                return {
-                    ...prev,
-                    [selectedTermId]: {
-                        ...termSchedule,
-                        [semester]: {
-                            aDay: termSchedule[semester].aDay.map((id, i) => i === periodIndex ? classId : id),
-                            bDay: termSchedule[semester].bDay.map((id, i) => i === periodIndex ? classId : id)
-                        }
-                    }
-                }
-            } else {
-                // Year-long class: only fill the specific slot that was clicked
-                return {
-                    ...prev,
-                    [selectedTermId]: {
-                        ...termSchedule,
-                        [semester]: {
-                            ...termSchedule[semester],
-                            [dayType === 'A' ? 'aDay' : 'bDay']: termSchedule[semester][dayType === 'A' ? 'aDay' : 'bDay'].map(
-                                (id, i) => i === periodIndex ? classId : id
-                            )
-                        }
-                    }
+        if (isSemesterClass) {
+            // Semester class: fill BOTH A and B days at this period
+            newSchedule = {
+                ...currentSchedule,
+                [semester]: {
+                    aDay: currentSchedule[semester].aDay.map((id, i) => i === periodIndex ? classId : id),
+                    bDay: currentSchedule[semester].bDay.map((id, i) => i === periodIndex ? classId : id)
                 }
             }
-        })
+        } else {
+            // Year-long class: only fill the specific slot that was clicked
+            const dayKey = dayType === 'A' ? 'aDay' : 'bDay'
+            newSchedule = {
+                ...currentSchedule,
+                [semester]: {
+                    ...currentSchedule[semester],
+                    [dayKey]: currentSchedule[semester][dayKey].map(
+                        (id, i) => i === periodIndex ? classId : id
+                    )
+                }
+            }
+        }
+
+        updateTermSchedule(selectedTermId, newSchedule)
     }
 
     /**
@@ -191,7 +150,8 @@ export const useScheduleData = () => {
      * Removes a class from a cell (handles semester vs year-long logic)
      */
     const handleRemove = (semester: SemesterName, dayType: ScheduleDayType, periodIndex: number) => {
-        const classId = currentSchedule[semester][dayType === 'A' ? 'aDay' : 'bDay'][periodIndex]
+        const dayKey = dayType === 'A' ? 'aDay' : 'bDay'
+        const classId = currentSchedule[semester][dayKey][periodIndex]
         const classData = classId ? getClassById(classId) : null
         const isSemesterClass = classData?.semesterId ? true : false
 
@@ -206,11 +166,9 @@ export const useScheduleData = () => {
     }
 
     return {
-        isDirty,
-        saveSchedule,
         selectedTermId,
         setTermId,
-        academicTerms,
+        academicTerms: filteredAcademicTerms,
         arrowStyle,
         handleCellClick,
         handleRemove,

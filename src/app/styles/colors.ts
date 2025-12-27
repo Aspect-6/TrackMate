@@ -384,4 +384,7 @@ export const SETTINGS = {
     TEXT_B: GLOBAL.TEXT_B_DAY,
 
     SEMESTER_BG: 'var(--settings-semester-bg)',
+
+    EMPTY_BORDER: 'var(--settings-card-border)',
+    EMPTY_BORDER_HOVER: 'var(--settings-empty-border-hover)',
 }

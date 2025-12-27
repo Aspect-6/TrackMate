@@ -5,7 +5,7 @@ import { todayString, dateToLocalISOString, parseDateLocal } from '@/app/lib/uti
 import type { UseCalendar } from '@/pages/Calendar/types'
 
 export const useCalendar = () => {
-    const { assignments, events, noSchool, getDayTypeForDate, getClassesForDate } = useApp()
+    const { assignments, events, noSchool, getDayTypeForDate } = useApp()
     const [currentDate, setCurrentDate] = useState(new Date())
     const [selectedDate, setSelectedDate] = useState<Date | null>(null)
 
@@ -99,7 +99,8 @@ export const useCalendar = () => {
         const dateString = dateToLocalISOString(selectedDate)
         const noSchoolDay = noSchool.find(ns => dateString >= ns.startDate && dateString <= ns.endDate) || null
         const dayType = getDayTypeForDate ? getDayTypeForDate(dateString) : null
-        const classes = !noSchoolDay && dayType && getClassesForDate ? getClassesForDate(dateString) : []
+        // TODO: Classes now stored per-term - need to determine active term to show classes
+        const classes: (string | null)[] = []
         const dueAssignments = assignments.filter(a => a.dueDate === dateString)
         const dayEvents = events.filter(e => e.date === dateString).sort((a, b) => {
             if (a.startTime && b.startTime) return a.startTime.localeCompare(b.startTime)
@@ -120,7 +121,7 @@ export const useCalendar = () => {
             dueAssignments,
             dayEvents
         }
-    }, [selectedDate, assignments, events, noSchool, getDayTypeForDate, getClassesForDate])
+    }, [selectedDate, assignments, events, noSchool, getDayTypeForDate])
 
     return {
         currentDate,

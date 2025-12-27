@@ -1,11 +1,7 @@
 import React from 'react'
+import type { ScheduleSettings } from '@/pages/Settings/types'
 
-interface ScheduleTypeDropdownOptionProps {
-    value: string
-    children: React.ReactNode
-}
-
-const ScheduleTypeDropdownOption: React.FC<ScheduleTypeDropdownOptionProps> = ({ value, children }) => {
+const ScheduleTypeDropdownOption: React.FC<ScheduleSettings.Content.ScheduleTypeDropdown.OptionProps> = ({ value, children }) => {
     return (
         <option value={value}>{children}</option>
     )

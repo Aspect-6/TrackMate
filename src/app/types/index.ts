@@ -47,8 +47,6 @@ export interface Assignment {
     classId: string
     /** The assignment category/type */
     type: AssignmentType
-    /** Optional subject tag (often redundant with classId but useful for display) */
-    subject?: string
     /** Timestamp of when the assignment was created */
     createdAt: string
     /** Optional detailed description or notes */
@@ -114,17 +112,52 @@ export interface NoSchoolPeriod {
 }
 
 /**
- * Defines the block schedule rotation configuration.
+ * Schedule data for a single semester within a term.
  */
-export interface Schedule {
-    /** Array of class IDs representing the schedule for A-Days (indices correspond to periods) */
+export interface SemesterScheduleData {
+    /** Class IDs for A-Day periods (null = empty slot) */
     aDay: (string | null)[]
-    /** Array of class IDs representing the schedule for B-Days (indices correspond to periods) */
+    /** Class IDs for B-Day periods (null = empty slot) */
     bDay: (string | null)[]
+}
+
+/**
+ * Complete schedule data for an academic term (Fall + Spring).
+ */
+export interface TermSchedule {
+    Fall: SemesterScheduleData
+    Spring: SemesterScheduleData
+}
+
+/**
+ * Complete schedule storage including A/B rotation config and per-term schedules.
+ */
+export interface ScheduleStore {
     /** A reference date used to calculate the A/B rotation for any given date */
     referenceDate: string
     /** The day type ('A' or 'B') of the reference date */
     referenceType: NonNullable<DayType>
+    /** Per-term schedule data (termId -> schedule) */
+    terms: Record<string, TermSchedule>
+}
+
+/**
+ * The term mode determines whether an institution uses semesters only or quarters.
+ */
+export type TermMode = 'Semesters Only' | 'Semesters With Quarters'
+
+/**
+ * Represents a quarter within an academic term (quarters mode only).
+ */
+export interface Quarter {
+    /** Unique identifier for the quarter */
+    id: string
+    /** Quarter name (Q1, Q2, Q3, Q4) */
+    name: 'Q1' | 'Q2' | 'Q3' | 'Q4'
+    /** The start date in ISO format (YYYY-MM-DD) */
+    startDate: string
+    /** The end date in ISO format (YYYY-MM-DD) */
+    endDate: string
 }
 
 /**
@@ -135,6 +168,8 @@ export interface Semester {
     name: 'Fall' | 'Spring'
     startDate: string
     endDate: string
+    /** The quarters within this semester (only present in quarters mode) */
+    quarters?: Quarter[]
 }
 
 /**
@@ -145,6 +180,8 @@ export interface AcademicTerm {
     name: string
     startDate: string
     endDate: string
+    /** The type of term (semesters-only or quarters) */
+    termType: TermMode
     semesters: Semester[]
 }
 
@@ -165,8 +202,8 @@ export interface AppContextType {
     noSchool: NoSchoolPeriod[]
     /** List of academic terms */
     academicTerms: AcademicTerm[]
-    /** Current schedule configuration */
-    schedule: Schedule
+    /** Current schedule configuration (rotation + per-term schedules) */
+    scheduleStore: ScheduleStore
     /** Currently selected UI theme */
     theme: ThemeMode
     /** Updates the active theme */
@@ -215,15 +252,21 @@ export interface AppContextType {
     deleteNoSchool: (id: string) => void
 
     // Term actions
+    /** The currently selected term mode */
+    termMode: TermMode
+    /** Updates the term mode setting */
+    setTermMode: (mode: TermMode) => void
+    /** Academic terms filtered by the current termMode */
+    filteredAcademicTerms: AcademicTerm[]
     addAcademicTerm: (term: Omit<AcademicTerm, 'id'>) => void
     updateAcademicTerm: (id: string, updates: Partial<AcademicTerm>) => void
     deleteAcademicTerm: (id: string) => void
 
     // Schedule actions
-    /** Updates a specific period in the A or B day schedule */
-    updateSchedule: (dayType: 'A' | 'B', index: number, classId: string | null) => void
+    /** Updates the schedule for a specific term */
+    updateTermSchedule: (termId: string, schedule: TermSchedule) => void
     /** Manually sets the day type for the current reference date to correct rotation */
-    setReferenceDayType: (type: 'A' | 'B') => void
+    setReferenceDayType: (type: NonNullable<DayType>) => void
 
     // Utility actions
     /** Clears all application data (Danger Zone) */
@@ -236,8 +279,6 @@ export interface AppContextType {
     // Helper functions
     /** Calculates the day type (A, B, or null) for a specific date */
     getDayTypeForDate: (dateString: string) => DayType
-    /** Returns the list of class IDs scheduled for a specific date */
-    getClassesForDate: (dateString: string) => (string | null)[]
     /** Retrieves a class object by its ID */
     getClassById: (id: string) => Class
 

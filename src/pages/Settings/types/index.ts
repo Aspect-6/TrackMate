@@ -10,6 +10,7 @@ export namespace BaseSettingsModule {
         className?: string
     }
     export interface DescriptionProps {
+        className?: string
         children: React.ReactNode
     }
 }
@@ -135,9 +136,31 @@ export namespace TermSettings {
                     // ======================
                     export interface SemesterProps {
                         name: string
-                        children: React.ReactNode
+                        startDate: string
+                        endDate: string
+                        /** Quarters to display (only shown if provided) */
+                        quarters?: Array<{
+                            id: string
+                            name: string
+                            startDate: string
+                            endDate: string
+                        }>
                     }
                 }
+            }
+        }
+
+        export namespace TermModeDropdown {
+            export interface Props {
+                className?: string
+                children: React.ReactNode
+                /** Map of option values to their description messages */
+                messages: Record<import('@/app/types').TermMode, string>
+            }
+            // ======================
+            export interface OptionProps {
+                value: string
+                children: React.ReactNode
             }
         }
 
@@ -162,6 +185,19 @@ export namespace ScheduleSettings {
             children: React.ReactNode
         }
         // ======================
+
+        export namespace ScheduleTypeDropdown {
+            export interface Props {
+                className?: string
+                children: React.ReactNode
+                defaultValue: string
+            }
+            // ======================
+            export interface OptionProps {
+                value: string
+                children: React.ReactNode
+            }
+        }
 
         export interface CurrentDayCalculationProps {
             currentDayType: string

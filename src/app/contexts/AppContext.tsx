@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react'
-import { generateId, todayString, parseDateLocal } from '@/app/lib/utils'
+import { generateId, todayString, parseDateLocal, addDaysToDateString, dateToLocalISOString } from '@/app/lib/utils'
 import { useToast } from '@/app/contexts/ToastContext'
 import type {
     Assignment,
@@ -8,20 +8,23 @@ import type {
     Event,
     NoSchoolPeriod,
     AcademicTerm,
-    Schedule,
+    ScheduleStore,
+    TermSchedule,
     AppContextType,
     DayType,
-    ThemeMode
+    ThemeMode,
+    TermMode
 } from '../types'
 
 const AppContext = createContext<AppContextType | undefined>(undefined)
 
 const ASSIGNMENTS_KEY = 'studentTrackerAssignments'
 const CLASSES_KEY = 'studentTrackerClasses'
-const SCHEDULE_KEY = 'trackmateSchedule'
+const SCHEDULES_KEY = 'trackmateSchedules'
 const EVENTS_KEY = 'studentTrackerEvents'
 const NO_SCHOOL_KEY = 'studentTrackerNoSchool'
 const TERMS_KEY = 'studentTrackerTerms'
+const TERM_MODE_KEY = 'trackmateTermMode'
 const THEME_KEY = 'trackmateTheme'
 const ASSIGNMENT_TYPES_KEY = 'trackmateAssignmentTypes'
 
@@ -59,6 +62,12 @@ const getStoredTheme = (): ThemeMode => {
     return stored === 'dark' ? 'dark' : 'light'
 }
 
+const getStoredTermMode = (): TermMode => {
+    if (typeof window === 'undefined') return 'Semesters Only'
+    const stored = localStorage.getItem(TERM_MODE_KEY)
+    return stored === 'Semesters With Quarters' ? 'Semesters With Quarters' : 'Semesters Only'
+}
+
 interface AppProviderProps {
     children: ReactNode
 }
@@ -71,13 +80,16 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     const [events, setEvents] = useState<Event[]>([])
     const [noSchool, setNoSchool] = useState<NoSchoolPeriod[]>([])
     const [academicTerms, setAcademicTerms] = useState<AcademicTerm[]>([])
-    const [schedule, setSchedule] = useState<Schedule>({
-        aDay: [],
-        bDay: [],
+    const [scheduleStore, setScheduleStore] = useState<ScheduleStore>({
         referenceDate: '2025-11-26',
-        referenceType: 'A'
+        referenceType: 'A',
+        terms: {}
     })
     const [theme, setThemeState] = useState<ThemeMode>(() => getStoredTheme())
+    const [termMode, setTermModeState] = useState<TermMode>(() => getStoredTermMode())
+
+    // Computed: filter terms by current termMode
+    const filteredAcademicTerms = academicTerms.filter(term => term.termType === termMode)
 
     // Modal State
     const [activeModal, setActiveModal] = useState<string | null>(null)
@@ -136,16 +148,12 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         const storedTypes = loadFromLocalStorage<AssignmentType[]>(ASSIGNMENT_TYPES_KEY, DEFAULT_ASSIGNMENT_TYPES)
         const hydratedTypes = setTypesAndEnsureAssignments(storedTypes)
 
-        const loadedSchedule = loadFromLocalStorage<Schedule>(SCHEDULE_KEY, {
-            aDay: [],
-            bDay: [],
+        const loadedScheduleStore = loadFromLocalStorage<ScheduleStore>(SCHEDULES_KEY, {
             referenceDate: '2025-11-26',
-            referenceType: 'A'
+            referenceType: 'A',
+            terms: {}
         })
-        // Ensure arrays are of correct length
-        while ((loadedSchedule.aDay || []).length < 4) (loadedSchedule.aDay = loadedSchedule.aDay || []).push(null)
-        while ((loadedSchedule.bDay || []).length < 4) (loadedSchedule.bDay = loadedSchedule.bDay || []).push(null)
-        setSchedule(loadedSchedule)
+        setScheduleStore(loadedScheduleStore)
 
         let loadedAssignments = loadFromLocalStorage<any[]>(ASSIGNMENTS_KEY, [])
         loadedAssignments = loadedAssignments.map(a => {
@@ -181,10 +189,43 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         setNoSchool(loadFromLocalStorage<NoSchoolPeriod[]>(NO_SCHOOL_KEY, []))
 
         let loadedTerms = loadFromLocalStorage<AcademicTerm[]>(TERMS_KEY, [])
-        loadedTerms = loadedTerms.map(t => ({
-            ...t,
-            semesters: t.semesters || []
-        }))
+        loadedTerms = loadedTerms.map(t => {
+            // Migrate semesters if missing
+            const semesters = t.semesters || []
+
+            // Migrate quarters for each semester if missing
+            const migratedSemesters = semesters.map(sem => {
+                if (sem.quarters && sem.quarters.length > 0) {
+                    return sem
+                }
+
+                // Calculate midpoint for default quarter boundary
+                const startDate = parseDateLocal(sem.startDate)
+                const endDate = parseDateLocal(sem.endDate)
+                const midpointTime = startDate.getTime() + (endDate.getTime() - startDate.getTime()) / 2
+                const midpointDate = new Date(midpointTime)
+                const midpoint = dateToLocalISOString(midpointDate)
+                const dayAfterMidpoint = addDaysToDateString(midpoint, 1)
+
+                const quarterNames = sem.name === 'Fall'
+                    ? ['Q1', 'Q2'] as const
+                    : ['Q3', 'Q4'] as const
+
+                return {
+                    ...sem,
+                    quarters: [
+                        { id: generateId(), name: quarterNames[0], startDate: sem.startDate, endDate: midpoint },
+                        { id: generateId(), name: quarterNames[1], startDate: dayAfterMidpoint, endDate: sem.endDate }
+                    ]
+                }
+            })
+
+            return {
+                ...t,
+                termType: t.termType || 'semesters',
+                semesters: migratedSemesters
+            }
+        })
         setAcademicTerms(loadedTerms)
 
         // Mark as initialized after all data is loaded
@@ -194,11 +235,14 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     // Save Data Effects - only save after initialization
     useEffect(() => { if (isInitialized) saveToLocalStorage(ASSIGNMENTS_KEY, assignments) }, [assignments, isInitialized])
     useEffect(() => { if (isInitialized) saveToLocalStorage(CLASSES_KEY, classes) }, [classes, isInitialized])
-    useEffect(() => { if (isInitialized) saveToLocalStorage(SCHEDULE_KEY, schedule) }, [schedule, isInitialized])
+    useEffect(() => { if (isInitialized) saveToLocalStorage(SCHEDULES_KEY, scheduleStore) }, [scheduleStore, isInitialized])
     useEffect(() => { if (isInitialized) saveToLocalStorage(EVENTS_KEY, events) }, [events, isInitialized])
     useEffect(() => { if (isInitialized) saveToLocalStorage(NO_SCHOOL_KEY, noSchool) }, [noSchool, isInitialized])
     useEffect(() => { if (isInitialized) saveToLocalStorage(TERMS_KEY, academicTerms) }, [academicTerms, isInitialized])
     useEffect(() => { if (isInitialized) saveToLocalStorage(ASSIGNMENT_TYPES_KEY, assignmentTypes) }, [assignmentTypes, isInitialized])
+    useEffect(() => {
+        localStorage.setItem(TERM_MODE_KEY, termMode)
+    }, [termMode])
     useEffect(() => {
         const root = document.documentElement
         root.classList.remove('light', 'dark')
@@ -317,24 +361,18 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         setAcademicTerms(prev => prev.filter(t => t.id !== id))
     }
 
-    const updateSchedule = (dayType: 'A' | 'B', index: number, classId: string | null): void => {
-        setSchedule(prev => {
-            const newSchedule = { ...prev }
-            if (dayType === 'A') {
-                const newADay = [...prev.aDay]
-                newADay[index] = classId
-                newSchedule.aDay = newADay
-            } else {
-                const newBDay = [...prev.bDay]
-                newBDay[index] = classId
-                newSchedule.bDay = newBDay
+    const updateTermSchedule = (termId: string, newSchedule: TermSchedule): void => {
+        setScheduleStore(prev => ({
+            ...prev,
+            terms: {
+                ...prev.terms,
+                [termId]: newSchedule
             }
-            return newSchedule
-        })
+        }))
     }
 
     const setReferenceDayType = (type: 'A' | 'B'): void => {
-        setSchedule(prev => ({
+        setScheduleStore(prev => ({
             ...prev,
             referenceType: type,
             referenceDate: todayString()
@@ -356,7 +394,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     const clearAllData = (): void => {
         localStorage.removeItem(ASSIGNMENTS_KEY)
         localStorage.removeItem(CLASSES_KEY)
-        localStorage.removeItem(SCHEDULE_KEY)
+        localStorage.removeItem(SCHEDULES_KEY)
         localStorage.removeItem(EVENTS_KEY)
         localStorage.removeItem(NO_SCHOOL_KEY)
         localStorage.removeItem(TERMS_KEY)
@@ -371,7 +409,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     // Helpers
     const getDayTypeForDate = (dateString: string): DayType => {
         const date = parseDateLocal(dateString)
-        const refDate = parseDateLocal(schedule.referenceDate)
+        const refDate = parseDateLocal(scheduleStore.referenceDate)
         const dayOfWeek = date.getDay()
         if (dayOfWeek === 0 || dayOfWeek === 6) return null
 
@@ -416,29 +454,24 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         }
 
         const isEven = count % 2 === 0
-        return isEven ? schedule.referenceType : (schedule.referenceType === 'A' ? 'B' : 'A')
-    }
-
-    const getClassesForDate = (dateString: string): (string | null)[] => {
-        const dayType = getDayTypeForDate(dateString)
-        if (!dayType) return []
-        return dayType === 'A' ? schedule.aDay : schedule.bDay
+        return isEven ? scheduleStore.referenceType : (scheduleStore.referenceType === 'A' ? 'B' : 'A')
     }
 
     const getClassById = (id: string): Class => classes.find(c => c.id === id) as Class
 
     return (
         <AppContext.Provider value={{
-            assignments, classes, events, noSchool, academicTerms, schedule,
+            assignments, classes, events, noSchool, academicTerms, scheduleStore,
             addAssignment, updateAssignment, deleteAssignment,
             assignmentTypes, addAssignmentType, removeAssignmentType, reorderAssignmentTypes,
             addClass, updateClass, deleteClass, reorderClasses,
             addEvent, updateEvent, deleteEvent,
             addNoSchool, updateNoSchool, deleteNoSchool,
+            termMode, setTermMode: setTermModeState, filteredAcademicTerms,
             addAcademicTerm, updateAcademicTerm, deleteAcademicTerm,
-            updateSchedule, setReferenceDayType, clearAllData,
+            updateTermSchedule, setReferenceDayType, clearAllData,
             clearAllAssignments, clearAllEvents,
-            getDayTypeForDate, getClassesForDate, getClassById,
+            getDayTypeForDate, getClassById,
             activeModal, modalData, openModal, closeModal,
             theme, setTheme
         }}>

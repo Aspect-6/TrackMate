@@ -11,8 +11,6 @@ import './index.css'
 
 const MySchedule: React.FC = () => {
     const {
-        isDirty,
-        saveSchedule,
         selectedTermId,
         setTermId,
         academicTerms,
@@ -52,73 +50,60 @@ const MySchedule: React.FC = () => {
     }
 
     return (
-        <div
-            className="p-6 rounded-xl min-h-[60vh] transition-colors"
-            style={{
-                backgroundColor: MY_SCHEDULE.MODULE_BG,
-                border: `1px solid ${MY_SCHEDULE.MODULE_BORDER}`,
-                boxShadow: MY_SCHEDULE.MODULE_SHADOW,
-            }}
-        >
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-4">
-                <h2 className="text-xl font-bold flex flex-wrap items-baseline gap-2" style={{ color: 'var(--text-primary)' }}>
-                    <span>Schedule for</span>
-                    <select
-                        value={selectedTermId || ''}
-                        onChange={(e) => setTermId(e.target.value || null)}
-                        className="schedule-inline-select max-w-full text-ellipsis"
-                        style={arrowStyle}
+        <div className="my-schedule-page flex-1 min-h-0 flex flex-col">
+            <div
+                className="p-6 rounded-xl flex-1 flex flex-col transition-colors overflow-auto"
+                style={{
+                    backgroundColor: MY_SCHEDULE.MODULE_BG,
+                    border: `1px solid ${MY_SCHEDULE.MODULE_BORDER}`,
+                    boxShadow: MY_SCHEDULE.MODULE_SHADOW,
+                }}
+            >
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-4">
+                    <h2 className="text-xl font-bold flex flex-wrap items-baseline gap-2" style={{ color: 'var(--text-primary)' }}>
+                        <span>Schedule for</span>
+                        <select
+                            value={selectedTermId || ''}
+                            onChange={(e) => setTermId(e.target.value || null)}
+                            className="schedule-inline-select max-w-full text-ellipsis"
+                            style={arrowStyle}
+                        >
+                            <option value="">select term</option>
+                            {academicTerms.map(term => (
+                                <option key={term.id} value={term.id}>
+                                    {term.name}
+                                </option>
+                            ))}
+                        </select>
+                    </h2>
+                </div>
+
+                <div
+                    className="-mx-6 mb-6"
+                    style={{ borderBottom: `1px solid ${MY_SCHEDULE.MODULE_BORDER}` }}
+                />
+
+                {selectedTermId ? (
+                    <>
+                        <SemesterSchedule title="Fall Semester">
+                            {renderScheduleTable('Fall')}
+                        </SemesterSchedule>
+
+                        <SemesterSchedule title="Spring Semester">
+                            {renderScheduleTable('Spring')}
+                        </SemesterSchedule>
+
+
+                    </>
+                ) : (
+                    <div
+                        className="text-center py-12"
+                        style={{ color: 'var(--text-tertiary)' }}
                     >
-                        <option value="">select term</option>
-                        {academicTerms.map(term => (
-                            <option key={term.id} value={term.id}>
-                                {term.name}
-                            </option>
-                        ))}
-                    </select>
-                </h2>
-                {selectedTermId && (
-                    <button
-                        onClick={saveSchedule}
-                        disabled={!isDirty}
-                        className="px-4 py-2 rounded-lg font-medium transition-colors"
-                        style={{
-                            backgroundColor: isDirty ? 'var(--sidebar-active-tab-background)' : 'var(--block-module-bg)',
-                            color: isDirty ? '#fff' : 'var(--text-secondary)',
-                            cursor: isDirty ? 'pointer' : 'not-allowed',
-                            border: isDirty ? '1px solid var(--sidebar-active-tab-background)' : '1px solid var(--border-primary)'
-                        }}
-                    >
-                        Save Changes
-                    </button>
+                        <p className="text-lg">Select an academic term to view and edit your schedule.</p>
+                    </div>
                 )}
             </div>
-
-            <div
-                className="-mx-6 mb-6"
-                style={{ borderBottom: `1px solid ${MY_SCHEDULE.MODULE_BORDER}` }}
-            />
-
-            {selectedTermId ? (
-                <>
-                    <SemesterSchedule title="Fall Semester">
-                        {renderScheduleTable('Fall')}
-                    </SemesterSchedule>
-
-                    <SemesterSchedule title="Spring Semester">
-                        {renderScheduleTable('Spring')}
-                    </SemesterSchedule>
-
-
-                </>
-            ) : (
-                <div
-                    className="text-center py-12"
-                    style={{ color: 'var(--text-tertiary)' }}
-                >
-                    <p className="text-lg">Select an academic term to view and edit your schedule.</p>
-                </div>
-            )}
         </div>
     )
 }

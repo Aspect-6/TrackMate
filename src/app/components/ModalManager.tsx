@@ -6,7 +6,6 @@ import { AddEventModal, EditEventModal, DeleteEventModal } from '@/app/component
 import { AddNoSchoolModal, EditNoSchoolModal, DeleteNoSchoolModal } from '@/app/components/modals/NoSchoolModal'
 import { ClearAllDataModal, ClearAllAssignmentsModal, ClearAllEventsModal } from '@/app/components/modals/ClearAllDataModal'
 import { AddTermModal, EditTermModal, DeleteTermModal } from '@/app/components/modals/TermModals'
-import { ScheduleClassSelectorModal } from '@/app/components/modals/ScheduleClassSelectorModal/index'
 import { SemesterClassSelectorModal } from '@/app/components/modals/SemesterClassSelectorModal'
 import { TypeSelectorModal } from '@/app/components/modals/TypeSelectorModal'
 import { GLOBAL } from '@/app/styles/colors'
@@ -68,8 +67,6 @@ const ModalManager: React.FC = () => {
                 return <EditNoSchoolModal onClose={closeModal} noSchoolId={modalData} />
             case 'delete-no-school':
                 return <DeleteNoSchoolModal onClose={closeModal} noSchoolId={modalData} />
-            case 'schedule-class-selector':
-                return <ScheduleClassSelectorModal onClose={closeModal} data={modalData} />
             case 'clear-all-data':
                 return <ClearAllDataModal onClose={closeModal} />
             case 'clear-assignments':
